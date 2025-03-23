@@ -12,12 +12,13 @@ const signUp = async (user: ISignupRequest, session: mongo.ClientSession): Promi
       firstName,
       lastName,
       email,
-      password: password ? await passwordHash(password) : null
+      password: password ? passwordHash(password) : undefined
     },
-    session,
-  )
-}
+    session
+  );
+};
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   signUp
-}
+};

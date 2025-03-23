@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 
@@ -13,15 +13,15 @@ const NavItem = ({
   href: string;
   active: boolean
 }) => {
-  const [textColor, setTextColor] = useState<string>();
+  const [ textColor, setTextColor ] = useState<string>();
 
   useEffect(() => {
     setTextColor(isFixed ? 'dark:text-black': 'dark:text-white');
-  }, [isFixed])
+  }, [ isFixed ]);
   return (
     <Link
       href={href}
-      className={`${active ? "active" : ""} text-black md:text-base text-sm ${textColor}`}
+      className={`${active ? 'active' : ''} text-black md:text-base text-sm ${textColor}`}
     >
       {text}
     </Link>

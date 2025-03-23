@@ -4,98 +4,98 @@ import { IPostModel } from './post.entities';
 const PostSchema = new Schema<IPostModel>({
   title: {
     type: String,
-    required: [true, 'Post title is required'],
-    trim: true,
+    required: [ true, 'Post title is required' ],
+    trim: true
   },
   writer: {
     type: String,
-    required: [true, 'Post writer is required'],
+    required: [ true, 'Post writer is required' ]
   },
   excerpt: {
     type: String,
-    required: [true, 'Post excerpt is required'],
+    required: [ true, 'Post excerpt is required' ]
   },
   shortUrl: {
     type: String,
-    required: [true, 'Post short url is required'],
+    required: [ true, 'Post short url is required' ],
     unique: true
   },
   description: {
     type: String,
-    required: [true, 'Post description is required'],
+    required: [ true, 'Post description is required' ]
   },
   imageUrl: {
     type: String,
-    required: [true, 'Post image is required'],
+    required: [ true, 'Post image is required' ]
   },
   isPublished: {
     type: Boolean,
     required: false,
-    default: false,
+    default: false
   },
   isPinned: {
     type: Boolean,
     required: false,
-    default: false,
+    default: false
   },
   tags: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'Tag',
+      ref: 'Tag'
     }
   ],
   comments: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'Comment',
+      ref: 'Comment'
     }
   ],
   numViews: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'User',
+      ref: 'User'
     }
   ],
   hearts: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'User',
+      ref: 'User'
     }
   ],
   stars: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'User',
+      ref: 'User'
     }
   ],
   saves: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'User',
+      ref: 'User'
     }
   ],
   likes: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'User',
+      ref: 'User'
     }
   ],
   disLikes: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'User',
+      ref: 'User'
     }
   ],
   creator: {
     type: Schema.Types.ObjectId,
     ref: 'User',
-    required: [true, 'Please author is required'],
-  },
+    required: [ true, 'Please author is required' ]
+  }
 }, {
   timestamps: true,
   toJSON: {
-    virtuals: true,
-  },
+    virtuals: true
+  }
 });
 
 /**
@@ -138,6 +138,7 @@ PostSchema.pre(/^find/, async function(next) {
   });
 
   PostSchema.virtual('daysAgo').get(function() {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     const post = this;
     const date: any = new Date(post.createdAt);
     const daysAgo = Math.floor((Date.now() - date) / 86400000);

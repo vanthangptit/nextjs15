@@ -1,5 +1,5 @@
 import { Document, Types } from 'mongoose';
-import { IPostModel } from '@/modules/auth/post/post.entities';
+import { IPostModel } from '@/modules/post/post.entities';
 
 export type Plan = 'free' | 'premium' | 'pro';
 export type Gender = 'female' | 'male' | 'other';

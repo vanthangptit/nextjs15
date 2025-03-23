@@ -14,8 +14,9 @@ const getTokenCtrl = async (refreshToken: string) => {
   } else {
     return logger.appError(response.message, response.status);
   }
-}
+};
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   getTokenCtrl
-}
+};

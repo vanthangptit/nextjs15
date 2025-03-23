@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import React, {
   useState,
@@ -13,10 +13,10 @@ let SCROLL_Y: number = 0;
 const padding: number = 15;
 
 const Header = ({ spacingAside }: { spacingAside?: string }) => {
-  const [positionLayer, setPositionLayer] = useState<string>('');
-  const [firstRun, setFirstRun] = useState<boolean>(false);
-  const [spacing, setSpacing] = useState<string>('');
-  const [zIndexMenu, setZIndexMenu] = useState<string>('');
+  const [ positionLayer, setPositionLayer ] = useState<string>('');
+  const [ firstRun, setFirstRun ] = useState<boolean>(false);
+  const [ spacing, setSpacing ] = useState<string>('');
+  const [ zIndexMenu, setZIndexMenu ] = useState<string>('');
 
   const scrollHandler = useCallback(() => {
     if (SCROLL_Y > window.scrollY) { // Scroll up
@@ -31,7 +31,7 @@ const Header = ({ spacingAside }: { spacingAside?: string }) => {
         if (!IS_FIXED) {
           IS_FIXED = true;
           setPositionLayer(`fixed animate-nav-scroll p-[${padding}px] bg-white dark:bg-[#f1f1f1] shadow-lg`);
-          setZIndexMenu(`z-[9999]`);
+          setZIndexMenu('z-[9999]');
           setSpacing(spacingAside ?? '');
         }
       }
@@ -39,19 +39,21 @@ const Header = ({ spacingAside }: { spacingAside?: string }) => {
 
     setFirstRun(true);
     SCROLL_Y = window.scrollY;
-  }, [spacingAside]);
+  }, [ spacingAside ]);
 
   useEffect(() => {
     window.addEventListener('scroll', scrollHandler);
 
     return () => {
       window.removeEventListener('scroll', scrollHandler);
-    }
-  }, [scrollHandler]);
+    };
+  }, [ scrollHandler ]);
 
   useEffect(() => {
-    if (!firstRun) scrollHandler();
-  }, [firstRun, scrollHandler]);
+    if (!firstRun) {
+      scrollHandler();
+    }
+  },  [ firstRun, scrollHandler ]);
 
   return (
     <header

@@ -3,7 +3,7 @@ import { ResponseData } from '@/utils/types';
 const appError = (message: string, statusCode?: number): ResponseData => {
   return {
     status: statusCode ? statusCode : 500,
-    message,
+    message
   };
 };
 

@@ -3,18 +3,20 @@ import { Token } from './refreshToken.model';
 import { ICreateTokenParams, ITokenModel } from './refreshToken.interface';
 
 const getTokenByUser = (userId: string): Promise<ITokenModel> => {
-  return Token.findOne({ user: userId });
-}
+  const token = Token.findOne({ user: userId });
+  return token;
+};
 
 const getTokenByRefreshToken = (refreshToken: string): Promise<ITokenModel> => {
-  return Token.findOne({ refreshToken });
-}
+  const token = Token.findOne({ refreshToken });
+  return token;
+};
 
 const createRefreshToken = async (
   params: ICreateTokenParams,
   session: mongo.ClientSession
-): Promise<ITokenModel> => {
-  await Token.create([{...params}], { session });
+): Promise<void> => {
+  await Token.create([ { ...params } ], { session });
 };
 
 const deleteRefreshToken = async (
@@ -24,9 +26,10 @@ const deleteRefreshToken = async (
   await Token.deleteMany({ user: userId }).session(session);
 };
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   getTokenByUser,
   createRefreshToken,
   deleteRefreshToken,
-  getTokenByRefreshToken,
-}
+  getTokenByRefreshToken
+};

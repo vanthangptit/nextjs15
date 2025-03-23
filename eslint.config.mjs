@@ -11,8 +11,23 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   ...compat.extends('next/core-web-vitals', 'next/typescript'),
-  ...compat.extends('next/typescript'),
   ...compat.config({
+    env: {
+      'browser': true,
+      'es2021': true
+    },
+    overrides: [
+    ],
+    parser: '@typescript-eslint/parser',
+    parserOptions: {
+      'ecmaVersion': 'latest',
+      'sourceType': 'module'
+    },
+    plugins: [
+      'react',
+      '@typescript-eslint',
+      'react-hooks'
+    ],
     rules: {
       'no-console': [ 2, {
         'allow': ['info', 'warn', 'error'],
@@ -50,7 +65,14 @@ const eslintConfig = [
       'comma-dangle': 'error',
       'comma-spacing': 'error',
       'comma-style': 'error',
-      'indent': ['error', 2],
+      'indent': [
+        'error',
+        2,
+        {
+          SwitchCase: 1,
+          VariableDeclarator: 1,
+          ObjectExpression: 1
+        }],
       'quotes': ['error', 'single'],
       'curly': 'error',
       'semi': ['error', 'always'],
@@ -96,14 +118,16 @@ const eslintConfig = [
         }
       ],
       'import/prefer-default-export': 'off',
-      'import/extensions': [
-        'error',
-        'ignorePackages',
-        {
-          'ts': 'never',
-          'tsx': 'never'
+      'import/extensions': 'off'
+    },
+    settings: {
+      'import/resolver': {
+        'typescript': {},
+        'node': {
+          'paths': ['src'],
+          'extensions': ['.js', '.jsx', '.ts', '.tsx']
         }
-      ]
+      }
     },
   }),
 ];

@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -8,17 +8,17 @@ import NavItem from '@/components/atoms/NavItem';
 import Toggler from '@/components/atoms/Toggler';
 
 const MENU_LIST = [
-  { text: "Create Post", href: "/create-post" },
-  { text: "Login", href: "/login" },
-  { text: "Signup", href: "/signup" },
+  { text: 'Create Post', href: '/create-post' },
+  { text: 'Login', href: '/login' },
+  { text: 'Signup', href: '/signup' }
 ];
 
 const Navbar = ({ isFixed }: { isFixed: boolean }) => {
-  const [activeIdx, setActiveIdx] = useState<number>(-1);
+  const [ activeIdx, setActiveIdx ] = useState<number>(-1);
 
   return (
     <nav className={'flex w-full gap-[20px] flex-nowrap items-center'}>
-      <Link href={"/"}>
+      <Link href={'/'}>
         <Image
           className={'lg:w-[45px] lg:h-[45px] md:w-[35px] md:h-[35px] w-[30px] h-[30px]'}
           src={logoImage}
@@ -33,7 +33,7 @@ const Navbar = ({ isFixed }: { isFixed: boolean }) => {
           <li
             onClick={() => setActiveIdx(idx)}
             key={menu.text}
-            className={`${activeIdx === idx ? "active" : ""}`}
+            className={`${activeIdx === idx ? 'active' : ''}`}
           >
             <NavItem active={activeIdx === idx} {...menu} isFixed={isFixed} />
           </li>

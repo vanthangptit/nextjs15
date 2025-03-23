@@ -9,19 +9,20 @@ export interface IFormFieldSignIn {
 
 const SignIn = () => {
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
+    event.preventDefault();
 
-    const formData = new FormData(event.currentTarget)
-    const email = formData.get('email')
-    const password = formData.get('password')
+    const formData = new FormData(event.currentTarget);
+    const email = formData.get('email');
+    const password = formData.get('password');
 
     const response = await fetch('/api/auth/sign-in', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ email, password })
     });
 
-    console.log({'sign-in': await response.json()})
+    // eslint-disable-next-line no-console
+    console.log({ 'sign-in': await response.json() });
 
     // if (response.ok) {
     //   router.push('/profile')
@@ -30,13 +31,14 @@ const SignIn = () => {
     // }
   }
   async function getTokenApi(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault()
+    e.preventDefault();
 
     const response = await fetch('/api/auth/refresh-token', {
       method: 'GET'
     });
 
-    console.log({'refresh-token': await response.json()})
+    // eslint-disable-next-line no-console
+    console.log({ 'refresh-token': await response.json() });
 
     // if (response.ok) {
     //   router.push('/profile')
@@ -56,7 +58,7 @@ const SignIn = () => {
         <button type="submit">Get Token</button>
       </form>
     </Fragment>
-  )
+  );
 };
 
 export default SignIn;

@@ -9,17 +9,17 @@ export type NameField =
   'passwordConfirm';
   //#region Sign Up Form
 
-  // 'title' |
-  // 'shortUrl' |
-  // 'excerpt' |
-  // 'writer' |
-  // 'newPassword' |
-  // 'address' |
-  // 'job' |
-  // 'newConfirmPassword' |
-  // 'school' |
-  // 'alias' |
-  // 'websiteUrl';
+// 'title' |
+// 'shortUrl' |
+// 'excerpt' |
+// 'writer' |
+// 'newPassword' |
+// 'address' |
+// 'job' |
+// 'newConfirmPassword' |
+// 'school' |
+// 'alias' |
+// 'websiteUrl';
 
 export type TypeField = 'email' | 'password' | 'text';
 
@@ -51,7 +51,7 @@ const Input = ({
   readonly = false,
   onBlur,
   onChange,
-  onInput,
+  onInput
 }: IInput) => {
   const height: string = $height ? `h-[${$height}px]` : 'h-[45px]';
   const width: string = $with ? `w-[${$with}px]` : 'w-full';

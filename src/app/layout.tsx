@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   formatDetection: {
     email: false,
     address: false,
-    telephone: false,
+    telephone: false
   },
   robots: 'max-image-preview:large',
   icons: {
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
       {
         type: 'image/x-icon',
         rel: 'icon',
-        url: '/favicon/favicon.ico',
+        url: '/favicon/favicon.ico'
       },
       {
         rel: 'icon',
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
         type: 'image/png',
         sizes: '512x512',
         url: '/favicon/favicon-512x512.png'
-      },
+      }
     ],
     apple: [
       {
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
         type: 'image/png',
         url: '/favicon/apple-touch-icon.png'
       }
-    ],
+    ]
   },
   openGraph: {
     locale: 'en_US',
@@ -78,22 +78,22 @@ export const metadata: Metadata = {
     url: '/logo/logo.png',
     title: 'My Website',
     description: 'DN – My Stories & Memoirs',
-    siteName: "DN",
+    siteName: 'DN',
     images: [
       {
         url: '/logo/logo.png',
         height: 630,
-        width: 1200,
+        width: 1200
       }
-    ],
+    ]
   },
   twitter: {
     card: 'summary',
     title: 'DN – My Stories & Memoirs',
     description: 'DN – My Stories & Memoirs',
-    site: "https://nguyenthangdev.com/",
-    images: '/logo/logo.png',
-  },
+    site: 'https://nguyenthangdev.com/',
+    images: '/logo/logo.png'
+  }
 };
 
 //Note: Generate default viewport by this way
@@ -102,16 +102,16 @@ export const viewport: Viewport = {
   width: 'device-width',
   themeColor: '#ffffff',
   colorScheme: 'dark light'
-}
+};
 
 //Note: Setting the font
 const roboto = Roboto({
   weight: '400',
-  subsets: ['latin'],
+  subsets: [ 'latin' ]
 });
 
 export default function RootLayout({
-  children,
+  children
 }: Readonly<{
   children: React.ReactNode;
 }>) {

@@ -1,135 +1,135 @@
 import { model, models, Schema } from 'mongoose';
 import { IUserModel } from './user.interface';
-import { Post } from '@/modules/post/post.model';
+// import { Post } from '@/modules/post/post.model';
 
 const UserSchema = new Schema<IUserModel>({
   alias: {
     type: String,
-    required: [true, 'Alias is required'],
+    required: [ true, 'Alias is required' ],
     unique: true
   },
   firstName: {
     type: String,
-    required: [true, 'First Name is required'],
+    required: [ true, 'First Name is required' ]
   },
   lastName: {
     type: String,
-    required: [true, 'Last Name is required'],
+    required: [ true, 'Last Name is required' ]
   },
   email: {
     type: String,
-    required: [true, 'Email is required'],
+    required: [ true, 'Email is required' ],
     unique: true
   },
   password: {
     type: String,
-    required: false,
+    required: false
   },
   isLoginGoogle: {
     type: Boolean,
-    default: false,
+    default: false
   },
   isBlocked: {
     type: Boolean,
-    default: false,
+    default: false
   },
   isAdmin: {
     type: Boolean,
-    default: false,
+    default: false
   },
   bio: {
     type: String,
-    required: false,
+    required: false
   },
   websiteUrl: {
     type: String,
-    required: false,
+    required: false
   },
   address: {
     type: String,
-    required: false,
+    required: false
   },
   job: {
     type: String,
-    required: false,
+    required: false
   },
   school: {
     type: String,
-    required: false,
+    required: false
   },
   emailVerified: {
     type: Boolean,
-    default: false,
+    default: false
   },
   profilePhoto: {
     type: String,
-    required: false,
+    required: false
   },
   gender: {
     type: String,
-    enum: ['female', 'male', 'other'],
-    default: 'other',
+    enum: [ 'female', 'male', 'other' ],
+    default: 'other'
   },
   birthDay: {
     type: String,
-    required: false,
+    required: false
   },
   viewers: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'User',
+      ref: 'User'
     }
   ],
   followers: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'User',
+      ref: 'User'
     }
   ],
   following: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'User',
+      ref: 'User'
     }
   ],
   posts: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'Post',
+      ref: 'Post'
     }
   ],
   comments: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'Comment',
+      ref: 'Comment'
     }
   ],
   blocked: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'User',
+      ref: 'User'
     }
   ],
   plan: {
     type: String,
-    enum: ['free', 'premium', 'pro'],
-    default: 'free',
+    enum: [ 'free', 'premium', 'pro' ],
+    default: 'free'
   },
   userAward: {
     type: String,
-    enum: ['bronze', 'silver', 'gold'],
-    default: 'bronze',
+    enum: [ 'bronze', 'silver', 'gold' ],
+    default: 'bronze'
   },
   roles: {
     type: String,
-    enum: ['normal', 'creator', 'admin'],
-    default: 'normal',
-  },
+    enum: [ 'normal', 'creator', 'admin' ],
+    default: 'normal'
+  }
 }, {
   timestamps: true,
   toJSON: {
-    virtuals: true,
-  },
+    virtuals: true
+  }
 });
 
 /**

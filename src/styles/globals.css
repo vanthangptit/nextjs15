@@ -3,8 +3,8 @@
 @theme {
   --text-xs: 12px;
   --text-xs--line-height: 16px;
-  --text-md: 14px;
-  --text-md--line-height: 20px;
+  --text-sm: 14px;
+  --text-sm--line-height: 20px;
   --text-base: 16px;
   --text-base--line-height: 24px;
   --text-md: 18px;
@@ -22,7 +22,6 @@
   --text-5xl: 60px;
   --text-6xl--line-height: 1;
   --text-size-8: 8px;
-  --text-size-9: 9px;
   --text-size-9: 9px;
   --text-size-10: 10px;
   --text-size-11: 11px;
@@ -63,9 +62,6 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @layer utilities {
-  .text-balance {
-    text-wrap: normal;
-  }
   .rounded-4xl {
     border-radius: 2rem
   }

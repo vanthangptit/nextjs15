@@ -5,7 +5,8 @@ import SignupTemplate from '@/components/Templates/SignupTemplate';
 import TitleForm from '@/components/molecules/TitleForm';
 
 const SignUp = () => {
-  console.log(11111, { config })
+  // eslint-disable-next-line no-console
+  console.log(11111, { config });
   return (
     <SignupTemplate>
       <div

@@ -5,7 +5,7 @@ const LabelField = ({
   text,
   align,
   htmlFor,
-  required,
+  required
 }: {
   text: string
   align?: TextAlign

@@ -1,10 +1,10 @@
-'use client'
+'use client';
 
 import React, { Fragment, useMemo, useCallback } from 'react';
 import { Form } from 'formik';
 import FormControl, { IFormControl } from './FormControl';
 import Button, { IButton } from '@/components/atoms/Button';
-import { cloneDeepData } from "@/utils/helpers";
+import { cloneDeepData } from '@/utils/helpers';
 
 export type ViewOderColumn = 1 | 2;
 export interface IFormSettings extends IFormControl {
@@ -28,10 +28,12 @@ const FormSettings = ({ formSettings, submitButton }: IFormSettingProps) => {
       }
     }
     return 0;
-  }
+  };
 
   const getFormSettings = useCallback((): IFormSettings[] => {
-    if (!formSettings || !formSettings.length) return [];
+    if (!formSettings || !formSettings.length) {
+      return [];
+    }
 
     const fs: IFormSettings[] = cloneDeepData(formSettings || []);
     const fsViewRows = fs.filter((item) => item.viewRow);
@@ -41,8 +43,8 @@ const FormSettings = ({ formSettings, submitButton }: IFormSettingProps) => {
         item.viewRow = viewRowHighest + index + 1;
         return item;
       });
-    return [...fsViewRows, ...fsNotViewRow];
-  }, [formSettings]);
+    return [ ...fsViewRows, ...fsNotViewRow ];
+  }, [ formSettings ]);
 
   const getViewRows = useCallback((): number[] => {
     const returnData: number[] = [];
@@ -55,7 +57,7 @@ const FormSettings = ({ formSettings, submitButton }: IFormSettingProps) => {
     });
 
     return returnData?.sort((a, b) => a - b);
-  }, [getFormSettings]);
+  }, [ getFormSettings ]);
 
   const renderColumnField = useCallback((fs: IFormSettings, viewColumn: ViewOderColumn) => {
     const flexColumn: string = viewColumn === 2 ? 'sm:basis-[50%] sm:max-w-[50%]' : '';
@@ -63,11 +65,11 @@ const FormSettings = ({ formSettings, submitButton }: IFormSettingProps) => {
       <div
         key={fs.name}
         className={
-        'flex flex-col grow-[0] shrink-[0] pl-[15px] pr-[15px] basis-[100%] max-w-[100%] ' + flexColumn}
+          'flex flex-col grow-[0] shrink-[0] pl-[15px] pr-[15px] basis-[100%] max-w-[100%] ' + flexColumn}
       >
         <FormControl {...fs} />
       </div>
-    )
+    );
   }, []);
 
   const renderRowField = useCallback(() => {
@@ -88,7 +90,7 @@ const FormSettings = ({ formSettings, submitButton }: IFormSettingProps) => {
         </div>
       );
     });
-  }, [getFormSettings, getViewRows, renderColumnField]);
+  }, [ getFormSettings, getViewRows, renderColumnField ]);
 
   const renderButtonSubmit = useMemo(() => {
     return submitButton
@@ -105,7 +107,7 @@ const FormSettings = ({ formSettings, submitButton }: IFormSettingProps) => {
       ) : (
         <Fragment/>
       );
-  }, [submitButton]);
+  }, [ submitButton ]);
 
   return useMemo(() => {
     return (
@@ -113,8 +115,8 @@ const FormSettings = ({ formSettings, submitButton }: IFormSettingProps) => {
         {renderRowField()}
         {renderButtonSubmit}
       </Form>
-    )
-  }, [renderRowField, renderButtonSubmit]);
+    );
+  }, [ renderRowField, renderButtonSubmit ]);
 };
 
 export default FormSettings;

@@ -4,9 +4,7 @@ import refreshTokenRepository from '@/modules/auth/refreshToken/refreshToken.rep
 import { logger } from '@/modules/logging';
 import { comparePassword, generateTokens } from '@/utils/helpers';
 import { mongo } from 'mongoose';
-import {
-  RequestCookies
-} from 'next/dist/server/web/spec-extension/cookies';
+import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
 
 const validateRequestSignIn = async (user: ISignInRequest) => {
   try {
@@ -23,15 +21,15 @@ const validateRequestSignIn = async (user: ISignInRequest) => {
     return logger.appSuccessfully('Data is valid!', {
       userFound
     });
-  } catch (error) {
+  } catch (error: any) {
     return logger.appError(error?.message);
   }
-}
+};
 
 const getTokenSignIn = async (
   userId: string,
   session: mongo.ClientSession,
-  cookies: RequestCookies
+  cookies: ReadonlyRequestCookies
 ) => {
   let hasClearCookie: boolean = false;
   try {
@@ -65,14 +63,14 @@ const getTokenSignIn = async (
         hasClearCookie = true;
       }
 
-      userTokenFound.refreshToken = [...newRefreshTokenArray, newRefreshToken];
+      userTokenFound.refreshToken = [ ...newRefreshTokenArray, newRefreshToken ];
       await userTokenFound.save();
     } else {
       await refreshTokenRepository.createRefreshToken({
         user: userId,
         refreshToken: [ newRefreshToken ],
         userAgent: 'user', //@todo: double check again
-        ip: '19', //@todo: double check again
+        ip: '19' //@todo: double check again
       }, session);
     }
 
@@ -81,12 +79,13 @@ const getTokenSignIn = async (
       accessToken,
       hasClearCookie
     });
-  } catch (error) {
+  } catch (error:any) {
     return logger.appError(error?.message);
   }
-}
+};
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   validateRequestSignIn,
-  getTokenSignIn,
-}
+  getTokenSignIn
+};

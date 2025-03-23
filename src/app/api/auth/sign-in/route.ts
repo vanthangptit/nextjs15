@@ -16,13 +16,16 @@ export async function POST(request: Request) {
     data
   } = await signInController.signIn(res, cookieStore);
   const { newRefreshToken, hasClearCookie, ...restData } = data;
+  // eslint-disable-next-line no-console
+  console.log({ newRefreshToken, hasClearCookie });
 
   if (data?.hasClearCookie) {
-    cookieStore.delete(AUTH_COOKIE_NAME, {
-      httpOnly: true,
-      secure: true,
-      sameSite: 'none',
-    });
+    //@todo: Double check
+    // cookieStore.delete(AUTH_COOKIE_NAME, {
+    //   httpOnly: true,
+    //   secure: true,
+    //   sameSite: 'none',
+    // });
   }
 
   if (status === 200) {

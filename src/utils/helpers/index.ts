@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-import { config } from '@/configs'
+import { config } from '@/configs';
 import {
   IFPayloadToken
 } from '@/modules/auth/refreshToken/refreshToken.interface';
@@ -33,7 +33,7 @@ export const generateTokens = (id: string) => {
   return {
     accessToken,
     refreshToken
-  }
+  };
 };
 
 export const verifyToken = async (
@@ -43,8 +43,9 @@ export const verifyToken = async (
   try {
     return jwt.verify(token, tokenSecretKey) as IFPayloadToken;
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.log('Error::Verify token failed - ' + e);
-    return;
+    return undefined;
   }
 };
 
@@ -58,4 +59,4 @@ export const cloneDeepData = (data: any): any => {
   }
 
   return cloneDeep(data);
-}
+};

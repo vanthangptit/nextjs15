@@ -5,7 +5,7 @@ const Row = ({ children, key }: { children: React.ReactNode, key?: string | numb
     <div key={key} className={'flex flex-wrap ml-[-15px] mr-[-15px]'}>
       {children}
     </div>
-  )
+  );
 };
 
 export default Row;

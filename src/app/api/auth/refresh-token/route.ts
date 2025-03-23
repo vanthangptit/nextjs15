@@ -8,14 +8,15 @@ export async function GET() {
   const cookieStore = await cookies();
   const refreshToken =
     cookieStore.has('authToken')
-      ? cookieStore.get('authToken').value
+      ? cookieStore.get('authToken')?.value
       : null;
 
-  cookieStore.delete(AUTH_COOKIE_NAME, {
-    httpOnly: true,
-    secure: true,
-    sameSite: 'none',
-  });
+  //@todo: Double check
+  // cookieStore.delete(AUTH_COOKIE_NAME, {
+  //   httpOnly: true,
+  //   secure: true,
+  //   sameSite: 'none',
+  // });
 
   if (!refreshToken) {
     return NextResponse.json({
@@ -44,7 +45,7 @@ export async function GET() {
       message,
       data: {
         accessToken: data.accessToken,
-        user: data.user,
+        user: data.user
       }
     });
   }

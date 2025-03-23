@@ -9,7 +9,7 @@ const devConfig = {
     },
     name: 'NTD',
     color: '#bc2e1d',
-    clickTrackingValue: "",
+    clickTrackingValue: '',
     url: 'http://localhost:3000',
     urlLogin: 'http://localhost:3000/login',
     mailVerificationUrl: 'http://localhost:9200/auth/verify',
@@ -29,7 +29,7 @@ const stagingConfig = {
     },
     name: 'NTD',
     color: '#bc2e1d',
-    clickTrackingValue: "",
+    clickTrackingValue: '',
     url: 'https://nguyenthangdev.com',
     urlLogin: 'https://nguyenthangdev.com/login',
     mailVerificationUrl: 'https://account.nguyenthangdev.com/auth/verify',
@@ -49,7 +49,7 @@ const prodConfig = {
     },
     name: 'NTD',
     color: '#bc2e1d',
-    clickTrackingValue: "",
+    clickTrackingValue: '',
     url: 'https://nguyenthangdev.com',
     urlLogin: 'https://nguyenthangdev.com/login',
     mailVerificationUrl: 'https://account.nguyenthangdev.com/auth/verify',
@@ -73,4 +73,4 @@ export const config = {
   PORT: process.env.PORT,
   ACCESS_TOKEN_SECRET_KEY: process.env.ACCESS_TOKEN_SECRET_KEY,
   REFRESH_TOKEN_PRIVATE_KEY: process.env.REFRESH_TOKEN_PRIVATE_KEY
-}
+};

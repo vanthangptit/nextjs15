@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import React, { useState } from 'react';
 import { FormikErrors, FormikTouched } from 'formik';
@@ -43,11 +43,11 @@ const FormControl = (props: IFormControl) => {
           />
           {props?.type === 'password' && (
             <span
-              className={`absolute top-[50%] right-[20px] translate-y-[-50%] cursor-pointer`}
+              className={'absolute top-[50%] right-[20px] translate-y-[-50%] cursor-pointer'}
               onClick={handleHiddenPassword}
             >
-            {isHiddenPassword ? <BsEyeSlash size={16} /> : <BsEye size={16} />}
-          </span>
+              {isHiddenPassword ? <BsEyeSlash size={16} /> : <BsEye size={16} />}
+            </span>
           )}
         </span>
       </div>

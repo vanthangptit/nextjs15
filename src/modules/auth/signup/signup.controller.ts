@@ -33,4 +33,4 @@ const signUp = async (user: ISignupRequest) => {
 
 export const signUpController = {
   signUp
-}
+};

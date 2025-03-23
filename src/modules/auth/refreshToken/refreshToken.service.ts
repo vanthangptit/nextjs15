@@ -8,16 +8,15 @@ import { ITokenModel } from '@/modules/auth/refreshToken/refreshToken.interface'
 const handleTokenValid = async (userToken: ITokenModel, refreshToken: string) => {
   const decodedUser: IFPayloadToken | undefined = await verifyToken(
     refreshToken,
-    config.REFRESH_TOKEN_PRIVATE_KEY
+    config.REFRESH_TOKEN_PRIVATE_KEY ?? ''
   );
 
   const newRefreshTokenArray = userToken.refreshToken.filter(rt => rt !== refreshToken);
 
   // If expired token or invalid token
   if (!decodedUser || decodedUser.id.toString() !== userToken.user.toString()) {
-    userToken.refreshToken = [...newRefreshTokenArray];
-    const result = await userToken.save();
-
+    userToken.refreshToken = [ ...newRefreshTokenArray ];
+    await userToken.save();
     return logger.appError('Access Denied. Invalid token.', 401);
   }
 
@@ -27,7 +26,7 @@ const handleTokenValid = async (userToken: ITokenModel, refreshToken: string) =>
   } = generateTokens(userToken.user.toString());
 
   // Saving refreshToken with current user
-  userToken.refreshToken = [...newRefreshTokenArray, newRefreshToken];
+  userToken.refreshToken = [ ...newRefreshTokenArray, newRefreshToken ];
   await userToken.save();
 
   return logger.appSuccessfully(
@@ -37,11 +36,11 @@ const handleTokenValid = async (userToken: ITokenModel, refreshToken: string) =>
       refreshToken: newRefreshToken
     }
   );
-}
+};
 
 const handleTokenInvalid = async (refreshToken: string) => {
   const decoded: IFPayloadToken | undefined
-    = await verifyToken(refreshToken, config.REFRESH_TOKEN_PRIVATE_KEY);
+    = await verifyToken(refreshToken, config.REFRESH_TOKEN_PRIVATE_KEY ?? '');
   if (!decoded) {
     return logger.appError('403 Forbidden', 403);
   }
@@ -56,7 +55,7 @@ const handleTokenInvalid = async (refreshToken: string) => {
   }
 
   return logger.appError('Unauthorized. Please login again!', 401);
-}
+};
 
 const handleGetToken = async (refreshToken: string) => {
   const userTokenFound: ITokenModel =
@@ -67,8 +66,9 @@ const handleGetToken = async (refreshToken: string) => {
   }
 
   return await handleTokenValid(userTokenFound, refreshToken);
-}
+};
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   handleGetToken
-}
+};
