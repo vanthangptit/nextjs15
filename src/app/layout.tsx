@@ -2,7 +2,6 @@ import '../styles/globals.css';
 
 import React from 'react';
 import { Metadata, Viewport } from 'next';
-import { Roboto } from 'next/font/google';
 import Providers from '@/app/providers';
 import Layout from '@/components/Layout';
 
@@ -104,12 +103,6 @@ export const viewport: Viewport = {
   colorScheme: 'dark light'
 };
 
-//Note: Setting the font
-const roboto = Roboto({
-  weight: '400',
-  subsets: [ 'latin' ]
-});
-
 export default function RootLayout({
   children
 }: Readonly<{
@@ -119,7 +112,7 @@ export default function RootLayout({
     <html
       lang='en'
       suppressHydrationWarning
-      className={`scroll-smooth ${roboto.className}}`}
+      className={'scroll-smooth}'}
     >
       <body>
         <Providers>
