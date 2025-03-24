@@ -1,5 +1,5 @@
 #Blog Application
-Build a blog website using nextjs 15, tailwindcss
+Build a blog website using Next.js 15, tailwindcss
 
 ## Environment
 * NodeJS: v22.10.0
@@ -123,13 +123,10 @@ Build a blog website using nextjs 15, tailwindcss
 First, run the development server:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+1. npm install
+
+2. npm run dev
+
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.

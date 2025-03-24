@@ -44,6 +44,8 @@ const FormSignUpSchema = Yup.object().shape({
 
 const FormSignUp = () => {
   const handleSubmit = (values: IFormFieldSignUp, { setSubmitting }: any) => {
+    // eslint-disable-next-line no-console
+    console.log({ values });
     setTimeout(() => setSubmitting(false), 5000);
   };
 

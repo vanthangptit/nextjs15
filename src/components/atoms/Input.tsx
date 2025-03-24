@@ -34,9 +34,9 @@ export interface IInput {
   disabled?: boolean
   required?: boolean
   readonly?: boolean
-  onBlur?: (e: FocusEvent<HTMLInputElement>) => void
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => void
-  onInput?: (e: ChangeEvent<HTMLInputElement>) => void
+  onBlur?: (_e: FocusEvent<HTMLInputElement>) => void
+  onChange?: (_e: ChangeEvent<HTMLInputElement>) => void
+  onInput?: (_e: ChangeEvent<HTMLInputElement>) => void
 }
 
 const Input = ({

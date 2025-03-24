@@ -29,7 +29,7 @@ const eslintConfig = [
       'react-hooks'
     ],
     rules: {
-      'no-console': [ 2, {
+      'no-console': [2, {
         'allow': ['info', 'warn', 'error'],
       }],
       'no-debugger': 'off',
@@ -39,8 +39,17 @@ const eslintConfig = [
         'functions': true,
         'variables': false
       }],
-      // 'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z]' }],
-      'no-unused-vars': 'off',
+      'no-unused-vars': [
+        'error',
+        {
+          vars: 'all',
+          varsIgnorePattern: '[iI]gnored',
+          args: 'all',
+          argsIgnorePattern: '^_',
+          caughtErrors: 'all',
+          ignoreRestSiblings: false
+        }
+      ],
       '@typescript-eslint/no-unused-vars': [
         'error',
         {

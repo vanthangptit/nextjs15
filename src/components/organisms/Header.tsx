@@ -57,7 +57,7 @@ const Header = ({ spacingAside }: { spacingAside?: string }) => {
 
   return (
     <header
-      className={`pt-[${padding}px] pb-[${padding}px] h-[60px] md:h-[70px] lg:h-[85px] border-b`}
+      className={`pt-[${padding}px] pb-[${padding}px] h-[60px] md:h-[70px] lg:h-[85px] border-b border-b-solid border-b-gray-400`}
     >
       <Container>
         <div className={`${positionLayer} ${zIndexMenu} top-[0px] left-[0px] w-full flex item-center md:h-[70px] h-[60px] lg:h-[85px]`}>
