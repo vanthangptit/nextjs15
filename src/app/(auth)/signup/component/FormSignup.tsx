@@ -43,10 +43,19 @@ const FormSignUpSchema = Yup.object().shape({
 });
 
 const FormSignUp = () => {
-  const handleSubmit = (values: IFormFieldSignUp, { setSubmitting }: any) => {
+  const handleSubmit = async (values: IFormFieldSignUp, { setSubmitting }: any) => {
     // eslint-disable-next-line no-console
     console.log({ values });
-    setTimeout(() => setSubmitting(false), 5000);
+
+    const response = await fetch('/api/auth/sign-up', {
+      method: 'POST',
+      body: JSON.stringify(values)
+    });
+    setTimeout(() => {
+      // eslint-disable-next-line no-console
+      console.log({ response });
+      setSubmitting(false);
+    }, 5000);
   };
 
   // const handleChange = (e: React.ChangeEvent<never>) => {
@@ -142,7 +151,7 @@ const FormSignUp = () => {
             typeHTML: 'submit',
             type: 'contained',
             size: 'md',
-            disabled: !isValid || isSubmitting
+            disabled: isSubmitting
           }}
         />
       )}
