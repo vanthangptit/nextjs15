@@ -4,6 +4,7 @@ import React from 'react';
 import { Metadata, Viewport } from 'next';
 import Providers from '@/app/providers';
 import Layout from '@/components/Layout';
+import Toast from '@/components/organisms/toast';
 
 //Note: Generate default metadata by this way
 export const metadata: Metadata = {
@@ -119,6 +120,7 @@ export default function RootLayout({
           <Layout>
             {children}
           </Layout>
+          <Toast />
         </Providers>
       </body>
     </html>

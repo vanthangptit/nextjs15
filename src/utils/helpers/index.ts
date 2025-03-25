@@ -60,3 +60,9 @@ export const cloneDeepData = (data: any): any => {
 
   return cloneDeep(data);
 };
+
+export const sleeper = () => {
+  return function(x: any) {
+    return new Promise(resolve => setTimeout(() => resolve(x), 1000));
+  };
+};

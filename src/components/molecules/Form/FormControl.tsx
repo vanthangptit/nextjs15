@@ -51,7 +51,7 @@ const FormControl = (props: IFormControl) => {
           )}
         </span>
       </div>
-      {props?.touched[props.name] && props?.errors[props.name] && (
+      {props.value && props?.errors[props.name] && (
         <MessageError message={props?.errors?.[props.name] || 'The value is invalid'} />
       )}
     </div>
