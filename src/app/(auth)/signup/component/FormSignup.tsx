@@ -1,14 +1,14 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import { toast } from 'react-toastify';
 import FormSettings from '@/components/molecules/Form/FormSettings';
 import requester from '@/api-client/requester';
 import { API_URLs, STATUS_CODE } from '@/utils/constants';
 import { useToast } from '@/hooks/useToast';
 import { FormikHelpers } from 'formik/dist/types';
+import { delay } from '@/utils/helpers';
 
 export interface IFormFieldSignUp {
   firstName: string;
@@ -16,7 +16,6 @@ export interface IFormFieldSignUp {
   email: string;
   password: string;
   passwordConfirm: string;
-  isSubmitting: boolean
 }
 
 const FormSignUpSchema = Yup.object().shape({
@@ -48,37 +47,36 @@ const FormSignUpSchema = Yup.object().shape({
   passwordConfirm: Yup.string().required('Confirm Password is required')
 });
 
+const initDataForm: IFormFieldSignUp = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  password: '',
+  passwordConfirm: ''
+};
+
 const FormSignUp = () => {
   const { toastSuccess, toastError } = useToast();
 
-  const handleSubmit = async (values: IFormFieldSignUp, { setSubmitting }: FormikHelpers<IFormFieldSignUp>) => {
-    requester.post(API_URLs.AUTH.SIGN_UP_URL, values)
-      .then((rs) => {
-        if (rs.status === STATUS_CODE.SUCCESS) {
-          toastSuccess(rs.message);
-        } else {
-          toastError(rs.message);
-        }
-        setSubmitting(false);
-      });
+  const handleSubmit = async (values: IFormFieldSignUp, { setSubmitting, resetForm }: FormikHelpers<IFormFieldSignUp>) => {
+    const res = await requester.post(API_URLs.AUTH.SIGN_UP_URL, values);
+    await delay();
+    if (res.status === STATUS_CODE.SUCCESS) {
+      resetForm({ values: initDataForm });
+      toastSuccess(res.message);
+    } else {
+      toastError(res.message);
+    }
+    setSubmitting(false);
   };
 
   return (
     <Formik
-      initialValues={{
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: '',
-        passwordConfirm: '',
-        isSubmitting: false
-      }}
+      initialValues={initDataForm}
       validationSchema={FormSignUpSchema}
       onSubmit={handleSubmit}
     >
       {({ errors, touched, handleChange, isValid, isSubmitting, dirty, values }) => {
-        // eslint-disable-next-line no-console
-        console.log();
         return (
           <FormSettings
             formSettings={[

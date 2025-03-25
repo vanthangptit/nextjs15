@@ -62,6 +62,7 @@ const Button = ({
         ${pointerEvents + ' ' + buttonSize + ' ' + buttonType}
         transition-all
         duration-[0.3s]
+        disabled:pointer-events-none
      `}
     >
       {text}
