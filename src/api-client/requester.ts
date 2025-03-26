@@ -1,6 +1,7 @@
 import axios, { AxiosResponse, AxiosError, AxiosRequestConfig } from 'axios';
 import { API_URLs, STATUS_CODE } from '@/utils/constants';
 import { IFParamRetryCallApi, Method, ResponseData } from '@/utils/types';
+import { sleeper } from '@/utils/helpers';
 
 const setConf = ({ isCredentials= false, token }: { isCredentials?: boolean; token?: string }): AxiosRequestConfig => {
   return {
@@ -62,7 +63,7 @@ const requester = {
         url,
         params,
         setConf({ token, isCredentials: verifyCredentials(url, 'get') })
-      );
+      ).then(sleeper()).then((rs) => rs as AxiosResponse);
       return responseBody(response, { method: 'get', url, params, retry, token });
     } catch (e: any) {
       return errorBody(e, { method: 'get', url, params, retry, token });
@@ -74,7 +75,7 @@ const requester = {
         url,
         data, 
         setConf({ token, isCredentials: verifyCredentials(url, 'post') })
-      );
+      ).then(sleeper()).then((rs) => rs as AxiosResponse);
       return responseBody(response, { method: 'post', url, params: data, retry, token });
     } catch (e: any) {
       return errorBody(e, { method: 'post', url, params: data, retry, token });
@@ -86,7 +87,7 @@ const requester = {
         url,
         data,
         setConf({ token, isCredentials: verifyCredentials(url, 'put') })
-      );
+      ).then(sleeper()).then((rs) => rs as AxiosResponse);
       return responseBody(response, { method: 'put', url, params: data, retry, token });
     } catch (e: any) {
       return errorBody(e, { method: 'put', url, params: data, retry, token });
@@ -97,8 +98,8 @@ const requester = {
       const response = await patch( 
         url, 
         data, 
-        setConf({ token, isCredentials: verifyCredentials(url, 'patch') }) 
-      );
+        setConf({ token, isCredentials: verifyCredentials(url, 'patch') })
+      ).then(sleeper()).then((rs) => rs as AxiosResponse);
       return responseBody(response, { method: 'patch', url, params: data, retry, token });
     } catch (e: any) {
       return errorBody(e, { method: 'patch', url, params: data, retry, token });
@@ -110,7 +111,7 @@ const requester = {
         url,
         params,
         setConf({ token, isCredentials: verifyCredentials(url, 'delete') })
-      );
+      ).then(sleeper()).then((rs) => rs as AxiosResponse);
       return responseBody(response, { method: 'delete', url, params, retry, token });
     } catch (e: any) {
       return errorBody(e, { method: 'delete', url, params, retry, token });

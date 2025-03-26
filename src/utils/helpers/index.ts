@@ -62,4 +62,8 @@ export const cloneDeepData = (data: any): any => {
   return cloneDeep(data);
 };
 
-export const delay = () => new Promise(resolve => setTimeout(resolve, DELAY_TIMEOUT_API));
+export const sleeper = () => {
+  return function(x: any) {
+    return new Promise(resolve => setTimeout(() => resolve(x), DELAY_TIMEOUT_API));
+  };
+};

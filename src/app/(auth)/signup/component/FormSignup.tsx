@@ -8,7 +8,6 @@ import requester from '@/api-client/requester';
 import { API_URLs, STATUS_CODE } from '@/utils/constants';
 import { useToast } from '@/hooks/useToast';
 import { FormikHelpers } from 'formik/dist/types';
-import { delay } from '@/utils/helpers';
 
 export interface IFormFieldSignUp {
   firstName: string;
@@ -60,7 +59,6 @@ const FormSignUp = () => {
 
   const handleSubmit = async (values: IFormFieldSignUp, { setSubmitting, resetForm }: FormikHelpers<IFormFieldSignUp>) => {
     const res = await requester.post(API_URLs.AUTH.SIGN_UP_URL, values);
-    await delay();
     if (res.status === STATUS_CODE.SUCCESS) {
       resetForm({ values: initDataForm });
       toastSuccess(res.message);
@@ -154,7 +152,7 @@ const FormSignUp = () => {
               typeHTML: 'submit',
               type: 'contained',
               size: 'md',
-              disabled: !isValid || isSubmitting || !dirty //@todo: Chua disabled khi submitting
+              disabled: !isValid || isSubmitting || !dirty
             }}
           />
         );
