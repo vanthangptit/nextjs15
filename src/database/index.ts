@@ -4,7 +4,7 @@ import { config } from '@/configs';
 export const connectDB = async () => {
   try {
     await mongoose.connect(
-      `mongodb+srv://${config.DB_USER}:${config.DB_PASSWORD}@cluster0.pnejq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
+      `mongodb+srv://${config.DB_USER}:${config.DB_PASSWORD}@cluster0.aicje.mongodb.net`
     );
     // eslint-disable-next-line no-console
     console.log('MongoDB connected!');

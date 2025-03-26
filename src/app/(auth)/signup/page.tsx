@@ -1,12 +1,9 @@
 import React from 'react';
-import { config } from '@/configs';
 import FormSignUp from '@/app/(auth)/signup/component/FormSignup';
 import SignupTemplate from '@/components/Templates/SignupTemplate';
 import TitleForm from '@/components/molecules/TitleForm';
 
 const SignUp = () => {
-  // eslint-disable-next-line no-console
-  console.log(11111, { config });
   return (
     <SignupTemplate>
       <div

@@ -20,6 +20,11 @@ const signUp = async (user: ISignupRequest) => {
 
     await authService.signUp(user, session);
 
+    /** @todo: Add send mail
+     *  @todo google cloud (Oauth2 - blog-website)
+     *  https://console.cloud.google.com/apis/credentials?project=blog-website-404616&supportedpurview=project
+     **/
+
     await session.commitTransaction();
     await session.endSession();
 
