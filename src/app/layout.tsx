@@ -2,9 +2,9 @@ import '../styles/globals.css';
 
 import React from 'react';
 import { Metadata, Viewport } from 'next';
-import { Roboto } from 'next/font/google';
 import Providers from '@/app/providers';
 import Layout from '@/components/Layout';
+import Toast from '@/components/organisms/toast';
 
 //Note: Generate default metadata by this way
 export const metadata: Metadata = {
@@ -104,12 +104,6 @@ export const viewport: Viewport = {
   colorScheme: 'dark light'
 };
 
-//Note: Setting the font
-const roboto = Roboto({
-  weight: '400',
-  subsets: [ 'latin' ]
-});
-
 export default function RootLayout({
   children
 }: Readonly<{
@@ -119,13 +113,14 @@ export default function RootLayout({
     <html
       lang='en'
       suppressHydrationWarning
-      className={`scroll-smooth ${roboto.className}}`}
+      className={'scroll-smooth}'}
     >
       <body>
         <Providers>
           <Layout>
             {children}
           </Layout>
+          <Toast />
         </Providers>
       </body>
     </html>

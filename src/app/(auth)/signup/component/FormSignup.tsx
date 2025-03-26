@@ -4,6 +4,11 @@ import React from 'react';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import FormSettings from '@/components/molecules/Form/FormSettings';
+import requester from '@/api-client/requester';
+import { API_URLs, STATUS_CODE } from '@/utils/constants';
+import { useToast } from '@/hooks/useToast';
+import { FormikHelpers } from 'formik/dist/types';
+import { delay } from '@/utils/helpers';
 
 export interface IFormFieldSignUp {
   firstName: string;
@@ -42,119 +47,118 @@ const FormSignUpSchema = Yup.object().shape({
   passwordConfirm: Yup.string().required('Confirm Password is required')
 });
 
+const initDataForm: IFormFieldSignUp = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  password: '',
+  passwordConfirm: ''
+};
+
 const FormSignUp = () => {
-  const handleSubmit = async (values: IFormFieldSignUp, { setSubmitting }: any) => {
-    // eslint-disable-next-line no-console
-    console.log({ values });
+  const { toastSuccess, toastError } = useToast();
 
-    const response = await fetch('/api/auth/sign-up', {
-      method: 'POST',
-      body: JSON.stringify(values)
-    });
-    setTimeout(() => {
-      // eslint-disable-next-line no-console
-      console.log({ response });
-      setSubmitting(false);
-    }, 5000);
+  const handleSubmit = async (values: IFormFieldSignUp, { setSubmitting, resetForm }: FormikHelpers<IFormFieldSignUp>) => {
+    const res = await requester.post(API_URLs.AUTH.SIGN_UP_URL, values);
+    await delay();
+    if (res.status === STATUS_CODE.SUCCESS) {
+      resetForm({ values: initDataForm });
+      toastSuccess(res.message);
+    } else {
+      toastError(res.message);
+    }
+    setSubmitting(false);
   };
-
-  // const handleChange = (e: React.ChangeEvent<never>) => {
-  //   console.log({e})
-  // }
 
   return (
     <Formik
-      initialValues={{
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: '',
-        passwordConfirm: ''
-      }}
+      initialValues={initDataForm}
       validationSchema={FormSignUpSchema}
       onSubmit={handleSubmit}
     >
-      {({ errors, touched, handleChange, isValid, isSubmitting, values }) => (
-        <FormSettings
-          formSettings={[
-            {
-              type: 'text',
-              label: 'First Name',
-              name: 'firstName',
-              value: values.firstName,
-              errors,
-              touched,
-              onChange: handleChange,
-              $height: 42,
-              autoFocus: true,
-              isVertical: true,
-              required: true,
-              viewOrder: 1,
-              viewRow: 1
-            },
-            {
-              type: 'text',
-              label: 'Last Name',
-              name: 'lastName',
-              value: values.lastName,
-              errors,
-              touched,
-              onChange: handleChange,
-              $height: 42,
-              isVertical: true,
-              required: true,
-              viewOrder: 2,
-              viewRow: 1
-            },
-            {
-              type: 'email',
-              label: 'Email',
-              name: 'email',
-              value: values.email,
-              errors,
-              touched,
-              onChange: handleChange,
-              $height: 42,
-              required: true,
-              isVertical: true,
-              viewRow: 2
-            },
-            {
-              type: 'password',
-              label: 'Password',
-              name: 'password',
-              value: values.password,
-              errors,
-              touched,
-              onChange: handleChange,
-              $height: 42,
-              required: true,
-              isVertical: true,
-              viewRow: 3
-            },
-            {
-              type: 'password',
-              label: 'Password Confirm',
-              name: 'passwordConfirm',
-              value: values.passwordConfirm,
-              errors,
-              touched,
-              onChange: handleChange,
-              $height: 42,
-              required: true,
-              isVertical: true,
-              viewRow: 4
-            }
-          ]}
-          submitButton={{
-            text: 'Submit',
-            typeHTML: 'submit',
-            type: 'contained',
-            size: 'md',
-            disabled: isSubmitting
-          }}
-        />
-      )}
+      {({ errors, touched, handleChange, isValid, isSubmitting, dirty, values }) => {
+        return (
+          <FormSettings
+            formSettings={[
+              {
+                type: 'text',
+                label: 'First Name',
+                name: 'firstName',
+                value: values.firstName,
+                errors,
+                touched,
+                onChange: handleChange,
+                $height: 42,
+                autoFocus: true,
+                isVertical: true,
+                required: true,
+                viewOrder: 1,
+                viewRow: 1
+              },
+              {
+                type: 'text',
+                label: 'Last Name',
+                name: 'lastName',
+                value: values.lastName,
+                errors,
+                touched,
+                onChange: handleChange,
+                $height: 42,
+                isVertical: true,
+                required: true,
+                viewOrder: 2,
+                viewRow: 1
+              },
+              {
+                type: 'email',
+                label: 'Email',
+                name: 'email',
+                value: values.email,
+                errors,
+                touched,
+                onChange: handleChange,
+                $height: 42,
+                required: true,
+                isVertical: true,
+                viewRow: 2
+              },
+              {
+                type: 'password',
+                label: 'Password',
+                name: 'password',
+                value: values.password,
+                errors,
+                touched,
+                onChange: handleChange,
+                $height: 42,
+                required: true,
+                isVertical: true,
+                viewRow: 3
+              },
+              {
+                type: 'password',
+                label: 'Password Confirm',
+                name: 'passwordConfirm',
+                value: values.passwordConfirm,
+                errors,
+                touched,
+                onChange: handleChange,
+                $height: 42,
+                required: true,
+                isVertical: true,
+                viewRow: 4
+              }
+            ]}
+            submitButton={{
+              text: 'Submit',
+              typeHTML: 'submit',
+              type: 'contained',
+              size: 'md',
+              disabled: !isValid || isSubmitting || !dirty //@todo: Chua disabled khi submitting
+            }}
+          />
+        );
+      }}
     </Formik>
   );
 };

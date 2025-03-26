@@ -5,6 +5,7 @@ import {
   IFPayloadToken
 } from '@/modules/auth/refreshToken/refreshToken.interface';
 import cloneDeep from 'clone-deep';
+import { DELAY_TIMEOUT_API } from '@/utils/constants';
 
 export const passwordHash = (password: string) => {
   const saltRounds = parseInt(config.LENGTH_HASH_SALT || '');
@@ -60,3 +61,5 @@ export const cloneDeepData = (data: any): any => {
 
   return cloneDeep(data);
 };
+
+export const delay = () => new Promise(resolve => setTimeout(resolve, DELAY_TIMEOUT_API));

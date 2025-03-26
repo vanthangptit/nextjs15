@@ -1,0 +1,1 @@
+export const DELAY_TIMEOUT_API = 1200;
