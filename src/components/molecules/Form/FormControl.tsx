@@ -6,22 +6,22 @@ import LabelField from '@/components/atoms/LabelField';
 import Input, { IInput } from '@/components/atoms/Input';
 import { BsEye, BsEyeSlash } from 'react-icons/bs';
 import { IFormFieldSignUp } from '@/app/(auth)/signup/component/FormSignup';
-import { IFormFieldSignIn } from '@/app/(auth)/signin/page';
 import MessageError from '@/components/atoms/MessageError';
+import { IFormFieldSignIn } from '@/app/(auth)/signin/component/FormSignIn';
 
 interface IFormFieldAll extends IFormFieldSignUp, IFormFieldSignIn {}
 
 export interface IFormControl extends IInput {
   label?: string
-  errors: FormikErrors<IFormFieldAll>
-  touched: FormikTouched<IFormFieldAll>
+  errors?: FormikErrors<IFormFieldAll>
+  touched?: FormikTouched<IFormFieldAll>
   isVertical?: boolean // If true label and input are 2 rows, else the label and input are the same row
 }
 
 const FormControl = (props: IFormControl) => {
   const [ isHiddenPassword, setHiddenPassword ] = useState<boolean>(true);
   const handleHiddenPassword = () => setHiddenPassword(!isHiddenPassword);
-  const marginBottom: string = !!props.errors[props.name] ? 'mb-[15px]' : 'mb-[25px]';
+  const marginBottom: string = !!props?.errors?.[props.name] ? 'mb-[15px]' : 'mb-[25px]';
   const flexDirection: string = props?.isVertical ? 'flex-col' : 'flex-row';
 
   return (
@@ -51,7 +51,7 @@ const FormControl = (props: IFormControl) => {
           )}
         </span>
       </div>
-      {props.value && props?.errors[props.name] && (
+      {props.value && props?.errors?.[props.name] && (
         <MessageError message={props?.errors?.[props.name] || 'The value is invalid'} />
       )}
     </div>

@@ -37,7 +37,8 @@ const FormSettings = ({ formSettings, submitButton }: IFormSettingProps) => {
 
     const fs: IFormSettings[] = cloneDeepData(formSettings || []);
     const fsViewRows = fs.filter((item) => item.viewRow);
-    const viewRowHighest: number = Math.max(...fsViewRows.map(o => o.viewRow || 0));
+    const viewRowHighest: number =
+      fsViewRows?.length ? Math.max(...fsViewRows.map(o => o.viewRow || 0)) : 0;
     const fsNotViewRow = fs.filter((item) => !item.viewRow)
       ?.map((item, index) => {
         item.viewRow = viewRowHighest + index + 1;

@@ -8,11 +8,9 @@ interface ILayoutProps {
 }
 
 const SignupTemplate: React.FC<ILayoutProps> = ({ children }) => {
-  const spacingAside: string = 'pl-[20px] pr-[20px]';
-
   return (
     <Fragment>
-      <Header spacingAside={spacingAside} />
+      <Header />
       <main>
         <Container>
           {children}
