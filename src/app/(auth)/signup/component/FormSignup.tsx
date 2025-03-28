@@ -1,13 +1,14 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import FormSettings from '@/components/molecules/Form/FormSettings';
-import requester from '@/api-client/requester';
-import { API_URLs, STATUS_CODE } from '@/utils/constants';
 import { useToast } from '@/hooks/useToast';
 import { FormikHelpers } from 'formik/dist/types';
+import { signUp } from '@/app/(auth)/actions';
+import { STATUS_CODE } from '@/utils/constants';
+import { redirect } from 'next/navigation';
 
 export interface IFormFieldSignUp {
   firstName: string;
@@ -55,18 +56,28 @@ const initDataForm: IFormFieldSignUp = {
 };
 
 const FormSignUp = () => {
-  const { toastSuccess, toastError } = useToast();
+  const { toastError } = useToast();
+  const [ isSuccess, setSuccess ] = useState<boolean>(false);
 
-  const handleSubmit = async (values: IFormFieldSignUp, { setSubmitting, resetForm }: FormikHelpers<IFormFieldSignUp>) => {
-    const res = await requester.post(API_URLs.AUTH.SIGN_UP_URL, values);
-    if (res.status === STATUS_CODE.SUCCESS) {
-      resetForm({ values: initDataForm });
-      toastSuccess(res.message);
-    } else {
-      toastError(res.message);
+  const handleSubmit = async (values: IFormFieldSignUp, { setSubmitting }: FormikHelpers<IFormFieldSignUp>) => {
+    try {
+      const res = await signUp(values);
+      if (res.status === STATUS_CODE.SUCCESS) {
+        setSuccess(true);
+      } else {
+        toastError(res.message);
+      }
+    } catch (e: any) {
+      toastError(e.message);
     }
     setSubmitting(false);
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      redirect('/signin');
+    }
+  },  [ isSuccess ]);
 
   return (
     <Formik
