@@ -6,7 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const compat = new FlatCompat({
-  baseDirectory: __dirname,
+  baseDirectory: __dirname
 });
 
 const eslintConfig = [
@@ -30,10 +30,10 @@ const eslintConfig = [
     ],
     rules: {
       'no-console': [2, {
-        'allow': ['info', 'warn', 'error'],
+        'allow': ['info', 'warn', 'error']
       }],
       'no-debugger': 'off',
-      "react/display-name": "off",
+      'react/display-name': 'off',
       // ** Variables
       'no-use-before-define': ['error', {
         'functions': true,
@@ -95,7 +95,7 @@ const eslintConfig = [
       ],
       'array-bracket-spacing': [
         'error',
-        'always'
+        'never'
       ],
       'key-spacing': 'error',
       'template-tag-spacing': [
@@ -137,8 +137,8 @@ const eslintConfig = [
           'extensions': ['.js', '.jsx', '.ts', '.tsx']
         }
       }
-    },
-  }),
+    }
+  })
 ];
 
 export default eslintConfig;

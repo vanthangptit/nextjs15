@@ -12,9 +12,9 @@ let SCROLL_Y: number = 0;
 const padding: number = 15;
 
 const Header = () => {
-  const [ positionLayer, setPositionLayer ] = useState<string>('');
-  const [ firstRun, setFirstRun ] = useState<boolean>(false);
-  const [ zIndexMenu, setZIndexMenu ] = useState<string>('');
+  const [positionLayer, setPositionLayer] = useState<string>('');
+  const [firstRun, setFirstRun] = useState<boolean>(false);
+  const [zIndexMenu, setZIndexMenu] = useState<string>('');
 
   const scrollHandler = useCallback(() => {
     if (SCROLL_Y > window.scrollY) { // Scroll up
@@ -43,21 +43,22 @@ const Header = () => {
     return () => {
       window.removeEventListener('scroll', scrollHandler);
     };
-  }, [ scrollHandler ]);
+  }, [scrollHandler]);
 
   useEffect(() => {
     if (!firstRun) {
       scrollHandler();
     }
-  },  [ firstRun, scrollHandler ]);
+  }, [firstRun, scrollHandler]);
 
   return (
     <header
       className={`pt-[${padding}px] pb-[${padding}px] h-[60px] md:h-[70px] lg:h-[85px] border-b border-b-solid border-b-gray-400`}
     >
-      <div className={`${positionLayer} ${zIndexMenu} top-[0px] left-[0px] w-full flex item-center md:h-[70px] h-[60px] lg:h-[85px]`}>
+      <div
+        className={`${positionLayer} ${zIndexMenu} top-[0px] left-[0px] w-full flex item-center md:h-[70px] h-[60px] lg:h-[85px]`}>
         <div className={'max-w-screen-lg m-auto w-full pl-[15px] pr-[15px]'}>
-          <Navbar isFixed={IS_FIXED} />
+          <Navbar isFixed={IS_FIXED}/>
         </div>
       </div>
     </header>

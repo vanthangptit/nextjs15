@@ -4,29 +4,29 @@ import { IPostModel } from './post.entities';
 const PostSchema = new Schema<IPostModel>({
   title: {
     type: String,
-    required: [ true, 'Post title is required' ],
+    required: [true, 'Post title is required'],
     trim: true
   },
   writer: {
     type: String,
-    required: [ true, 'Post writer is required' ]
+    required: [true, 'Post writer is required']
   },
   excerpt: {
     type: String,
-    required: [ true, 'Post excerpt is required' ]
+    required: [true, 'Post excerpt is required']
   },
   shortUrl: {
     type: String,
-    required: [ true, 'Post short url is required' ],
+    required: [true, 'Post short url is required'],
     unique: true
   },
   description: {
     type: String,
-    required: [ true, 'Post description is required' ]
+    required: [true, 'Post description is required']
   },
   imageUrl: {
     type: String,
-    required: [ true, 'Post image is required' ]
+    required: [true, 'Post image is required']
   },
   isPublished: {
     type: Boolean,
@@ -89,7 +89,7 @@ const PostSchema = new Schema<IPostModel>({
   creator: {
     type: Schema.Types.ObjectId,
     ref: 'User',
-    required: [ true, 'Please author is required' ]
+    required: [true, 'Please author is required']
   }
 }, {
   timestamps: true,
@@ -101,43 +101,43 @@ const PostSchema = new Schema<IPostModel>({
 /**
  * Hooks
  */
-PostSchema.pre(/^find/, async function(next) {
+PostSchema.pre(/^find/, async function (next) {
   // Get viewsCount
-  PostSchema.virtual('viewsCount').get(function() {
+  PostSchema.virtual('viewsCount').get(function () {
     return this?.numViews?.length || 0;
   });
 
   // Get likesCount
-  PostSchema.virtual('likesCount').get(function() {
+  PostSchema.virtual('likesCount').get(function () {
     return this?.likes?.length || 0;
   });
 
   // Get disLikesCount
-  PostSchema.virtual('disLikesCount').get(function() {
+  PostSchema.virtual('disLikesCount').get(function () {
     return this?.disLikes?.length || 0;
   });
 
   // Get commentsCount
-  PostSchema.virtual('heartsCount').get(function() {
+  PostSchema.virtual('heartsCount').get(function () {
     return this?.hearts?.length || 0;
   });
 
   // Get likesCount
-  PostSchema.virtual('starsCount').get(function() {
+  PostSchema.virtual('starsCount').get(function () {
     return this?.stars?.length || 0;
   });
 
   // Get disLikesCount
-  PostSchema.virtual('savesCount').get(function() {
+  PostSchema.virtual('savesCount').get(function () {
     return this?.saves?.length || 0;
   });
 
   // Get commentsCount
-  PostSchema.virtual('commentsCount').get(function() {
+  PostSchema.virtual('commentsCount').get(function () {
     return this?.comments?.length || 0;
   });
 
-  PostSchema.virtual('daysAgo').get(function() {
+  PostSchema.virtual('daysAgo').get(function () {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const post = this;
     const date: any = new Date(post.createdAt);

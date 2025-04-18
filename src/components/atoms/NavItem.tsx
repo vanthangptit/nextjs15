@@ -13,11 +13,11 @@ const NavItem = ({
   href: string;
   active: boolean
 }) => {
-  const [ textColor, setTextColor ] = useState<string>();
+  const [textColor, setTextColor] = useState<string>();
 
   useEffect(() => {
-    setTextColor(isFixed ? 'dark:text-black': 'dark:text-white');
-  }, [ isFixed ]);
+    setTextColor(isFixed ? 'dark:text-black' : 'dark:text-white');
+  }, [isFixed]);
   return (
     <Link
       href={href}

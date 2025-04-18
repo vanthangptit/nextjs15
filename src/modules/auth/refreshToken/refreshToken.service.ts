@@ -15,7 +15,7 @@ const handleTokenValid = async (userToken: ITokenModel, refreshToken: string) =>
 
   // If expired token or invalid token
   if (!decodedUser || decodedUser.id.toString() !== userToken.user.toString()) {
-    userToken.refreshToken = [ ...newRefreshTokenArray ];
+    userToken.refreshToken = [...newRefreshTokenArray];
     await userToken.save();
     return logger.appError('Access Denied. Invalid token.', 401);
   }
@@ -26,7 +26,7 @@ const handleTokenValid = async (userToken: ITokenModel, refreshToken: string) =>
   } = generateTokens(userToken.user.toString());
 
   // Saving refreshToken with current user
-  userToken.refreshToken = [ ...newRefreshTokenArray, newRefreshToken ];
+  userToken.refreshToken = [...newRefreshTokenArray, newRefreshToken];
   await userToken.save();
 
   return logger.appSuccessfully(

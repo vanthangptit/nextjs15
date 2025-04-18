@@ -16,7 +16,7 @@ const createRefreshToken = async (
   params: ICreateTokenParams,
   session: mongo.ClientSession
 ): Promise<void> => {
-  await Token.create([ { ...params } ], { session });
+  await Token.create([{ ...params }], { session });
 };
 
 const deleteRefreshToken = async (

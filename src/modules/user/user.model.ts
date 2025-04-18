@@ -5,20 +5,20 @@ import { IUserModel } from './user.interface';
 const UserSchema = new Schema<IUserModel>({
   alias: {
     type: String,
-    required: [ true, 'Alias is required' ],
+    required: [true, 'Alias is required'],
     unique: true
   },
   firstName: {
     type: String,
-    required: [ true, 'First Name is required' ]
+    required: [true, 'First Name is required']
   },
   lastName: {
     type: String,
-    required: [ true, 'Last Name is required' ]
+    required: [true, 'Last Name is required']
   },
   email: {
     type: String,
-    required: [ true, 'Email is required' ],
+    required: [true, 'Email is required'],
     unique: true
   },
   password: {
@@ -67,7 +67,7 @@ const UserSchema = new Schema<IUserModel>({
   },
   gender: {
     type: String,
-    enum: [ 'female', 'male', 'other' ],
+    enum: ['female', 'male', 'other'],
     default: 'other'
   },
   birthDay: {
@@ -112,17 +112,17 @@ const UserSchema = new Schema<IUserModel>({
   ],
   plan: {
     type: String,
-    enum: [ 'free', 'premium', 'pro' ],
+    enum: ['free', 'premium', 'pro'],
     default: 'free'
   },
   userAward: {
     type: String,
-    enum: [ 'bronze', 'silver', 'gold' ],
+    enum: ['bronze', 'silver', 'gold'],
     default: 'bronze'
   },
   roles: {
     type: String,
-    enum: [ 'normal', 'creator', 'admin' ],
+    enum: ['normal', 'creator', 'admin'],
     default: 'normal'
   }
 }, {
@@ -200,7 +200,7 @@ const UserSchema = new Schema<IUserModel>({
  * Virtuals are typically used for computed properties on documents.
  */
 // Get fullName
-UserSchema.virtual('fullName').get(function() {
+UserSchema.virtual('fullName').get(function () {
   if (!this?.firstName || !this?.lastName) {
     return;
   }
@@ -208,7 +208,7 @@ UserSchema.virtual('fullName').get(function() {
 });
 
 // Get viewers count
-UserSchema.virtual('viewerCounts').get(function() {
+UserSchema.virtual('viewerCounts').get(function () {
   if (!this?.viewers) {
     return;
   }
@@ -216,7 +216,7 @@ UserSchema.virtual('viewerCounts').get(function() {
 });
 
 // Get followers count
-UserSchema.virtual('followerCounts').get(function() {
+UserSchema.virtual('followerCounts').get(function () {
   if (!this?.followers) {
     return;
   }
@@ -224,7 +224,7 @@ UserSchema.virtual('followerCounts').get(function() {
 });
 
 // Get following count
-UserSchema.virtual('followingCounts').get(function() {
+UserSchema.virtual('followingCounts').get(function () {
   if (!this?.following) {
     return;
   }
@@ -232,7 +232,7 @@ UserSchema.virtual('followingCounts').get(function() {
 });
 
 // Get post count
-UserSchema.virtual('postCounts').get(function() {
+UserSchema.virtual('postCounts').get(function () {
   if (!this?.posts) {
     return;
   }
@@ -240,7 +240,7 @@ UserSchema.virtual('postCounts').get(function() {
 });
 
 // Get blocked count
-UserSchema.virtual('blockedCounts').get(function() {
+UserSchema.virtual('blockedCounts').get(function () {
   if (!this?.blocked) {
     return;
   }

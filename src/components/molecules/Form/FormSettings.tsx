@@ -7,6 +7,7 @@ import Button, { IButton } from '@/components/atoms/Button';
 import { cloneDeepData } from '@/utils/helpers';
 
 export type ViewOderColumn = 1 | 2;
+
 export interface IFormSettings extends IFormControl {
   viewOrder?: ViewOderColumn
   viewRow?: number
@@ -44,8 +45,8 @@ const FormSettings = ({ formSettings, submitButton }: IFormSettingProps) => {
         item.viewRow = viewRowHighest + index + 1;
         return item;
       });
-    return [ ...fsViewRows, ...fsNotViewRow ];
-  }, [ formSettings ]);
+    return [...fsViewRows, ...fsNotViewRow];
+  }, [formSettings]);
 
   const getViewRows = useCallback((): number[] => {
     const returnData: number[] = [];
@@ -58,7 +59,7 @@ const FormSettings = ({ formSettings, submitButton }: IFormSettingProps) => {
     });
 
     return returnData?.sort((a, b) => a - b);
-  }, [ getFormSettings ]);
+  }, [getFormSettings]);
 
   const renderColumnField = useCallback((fs: IFormSettings, viewColumn: ViewOderColumn) => {
     const flexColumn: string = viewColumn === 2 ? 'sm:basis-[50%] sm:max-w-[50%]' : '';
@@ -91,7 +92,7 @@ const FormSettings = ({ formSettings, submitButton }: IFormSettingProps) => {
         </div>
       );
     });
-  }, [ getFormSettings, getViewRows, renderColumnField ]);
+  }, [getFormSettings, getViewRows, renderColumnField]);
 
   const renderButtonSubmit = useMemo(() => {
     return submitButton
@@ -108,7 +109,7 @@ const FormSettings = ({ formSettings, submitButton }: IFormSettingProps) => {
       ) : (
         <Fragment/>
       );
-  }, [ submitButton ]);
+  }, [submitButton]);
 
   return useMemo(() => {
     return (
@@ -117,7 +118,7 @@ const FormSettings = ({ formSettings, submitButton }: IFormSettingProps) => {
         {renderButtonSubmit}
       </Form>
     );
-  }, [ renderRowField, renderButtonSubmit ]);
+  }, [renderRowField, renderButtonSubmit]);
 };
 
 export default FormSettings;

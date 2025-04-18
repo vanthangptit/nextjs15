@@ -5,7 +5,11 @@ import {
   IFPayloadToken
 } from '@/modules/auth/refreshToken/refreshToken.interface';
 import cloneDeep from 'clone-deep';
-import { DELAY_TIMEOUT_API } from '@/utils/constants';
+import { AUTH_SESS_ID_NAME, DELAY_TIMEOUT_API } from '@/utils/constants';
+import { ObjectSchema } from 'yup';
+import { NextRequest } from 'next/server';
+import { serialize } from 'cookie';
+import { IFResponseValidate } from '@/utils/types';
 
 export const passwordHash = (password: string) => {
   const saltRounds = parseInt(config.LENGTH_HASH_SALT || '');
@@ -66,4 +70,38 @@ export const sleeper = () => {
   return function(x: any) {
     return new Promise(resolve => setTimeout(() => resolve(x), DELAY_TIMEOUT_API));
   };
+};
+
+export const validation = async (
+  scheme: ObjectSchema<any>,
+  dataRequest: any
+): Promise<IFResponseValidate> => {
+  try {
+    await scheme.validate(dataRequest, { abortEarly: false });
+    return { isValid: true, errors: null };
+  } catch (error: any) {
+    return {
+      isValid: false,
+      errors: {
+        message: error.errors[0]
+      }
+    };
+  }
+};
+
+export const getTokenFromHeader = (req: NextRequest) => {
+  const token = req.headers.get('authorization')?.toString().split(' ')[1];
+  if (!token) {
+    return null;
+  }
+  return token;
+};
+
+export const setCookie = (token: string): string => {
+  return serialize(AUTH_SESS_ID_NAME, token, {
+    httpOnly: true,
+    secure: true,
+    maxAge: 60 * 60 * 24 * 7, // One week
+    path: '/'
+  });
 };
