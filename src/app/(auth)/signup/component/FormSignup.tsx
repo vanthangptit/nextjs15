@@ -1,53 +1,17 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import * as Yup from 'yup';
 import { Formik } from 'formik';
 import FormSettings from '@/components/molecules/Form/FormSettings';
 import { useToast } from '@/hooks/useToast';
 import { FormikHelpers } from 'formik/dist/types';
-import { signUp } from '@/app/(auth)/actions';
 import { STATUS_CODE } from '@/utils/constants';
-import { redirect } from 'next/navigation';
+import { redirect, RedirectType } from 'next/navigation';
+import { IFSignUp } from '@/utils/types';
+import { SignUpSchema } from '@/app/api/v1/auth/sign-up/schema';
+import { useAuth } from '@/hooks/useAuth';
 
-export interface IFormFieldSignUp {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  passwordConfirm: string;
-}
-
-const FormSignUpSchema = Yup.object().shape({
-  firstName: Yup.string()
-    .required('First name is required')
-    .min(3, 'First name must between 3 - 25 characters')
-    .max(25, 'First name must between 3 - 25 characters')
-    .matches(
-      /^[a-zA-Z\-\s]+$/,
-      'Please enter only letter characters by alphabetical'
-    ),
-  lastName: Yup.string()
-    .required('Last name is required')
-    .min(3, 'Last name must between 3 - 25 characters')
-    .max(25, 'Last name must between 3 - 25 characters')
-    .matches(
-      /^[a-zA-Z\-\s]+$/,
-      'Please enter only letter characters by alphabetical'
-    ),
-  email: Yup.string()
-    .required('Email is required')
-    .email('Email is invalid'),
-  password: Yup.string()
-    .required('Password is required')
-    .matches(
-      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/,
-      'Password must contain at least one number, lower case, upper case and enter 8 or more characters'
-    ),
-  passwordConfirm: Yup.string().required('Confirm Password is required')
-});
-
-const initDataForm: IFormFieldSignUp = {
+const initDataForm: IFSignUp = {
   firstName: '',
   lastName: '',
   email: '',
@@ -57,11 +21,12 @@ const initDataForm: IFormFieldSignUp = {
 
 const FormSignUp = () => {
   const { toastError } = useToast();
-  const [ isSuccess, setSuccess ] = useState<boolean>(false);
+  const { signUpApi } = useAuth();
+  const [isSuccess, setSuccess] = useState<boolean>(false);
 
-  const handleSubmit = async (values: IFormFieldSignUp, { setSubmitting }: FormikHelpers<IFormFieldSignUp>) => {
+  const handleSubmit = async (values: IFSignUp, { setSubmitting }: FormikHelpers<IFSignUp>) => {
     try {
-      const res = await signUp(values);
+      const res = await signUpApi(values);
       if (res.status === STATUS_CODE.SUCCESS) {
         setSuccess(true);
       } else {
@@ -75,14 +40,14 @@ const FormSignUp = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      redirect('/signin');
+      redirect('/signin', RedirectType.push);
     }
-  },  [ isSuccess ]);
+  }, [isSuccess]);
 
   return (
     <Formik
       initialValues={initDataForm}
-      validationSchema={FormSignUpSchema}
+      validationSchema={SignUpSchema}
       onSubmit={handleSubmit}
     >
       {({ errors, touched, handleChange, isValid, isSubmitting, dirty, values }) => {
