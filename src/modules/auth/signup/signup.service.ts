@@ -1,4 +1,4 @@
-import userRepository from '@/modules/user/user.repository';
+import { userRepository } from '@/modules/user/user.repository';
 import { IUserModel } from '@/modules/user/user.interface';
 import { mongo } from 'mongoose';
 import { passwordHash } from '@/utils/helpers';

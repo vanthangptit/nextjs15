@@ -1,4 +1,4 @@
-import refreshTokenRepository from '@/modules/auth/refreshToken/refreshToken.repository';
+import { refreshTokenRepository } from '@/modules/auth/refreshToken/refreshToken.repository';
 import { IFPayloadToken } from '@/utils/types';
 import { config } from '@/configs';
 import { generateTokens, verifyToken } from '@/utils/helpers';

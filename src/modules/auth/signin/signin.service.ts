@@ -1,6 +1,6 @@
 import { ISignInRequest } from './signup.interface';
-import userRepository from '@/modules/user/user.repository';
-import refreshTokenRepository from '@/modules/auth/refreshToken/refreshToken.repository';
+import { userRepository } from '@/modules/user/user.repository';
+import { refreshTokenRepository } from '@/modules/auth/refreshToken/refreshToken.repository';
 import { logger } from '@/modules/logging';
 import { comparePassword, generateTokens } from '@/utils/helpers';
 import { mongo } from 'mongoose';

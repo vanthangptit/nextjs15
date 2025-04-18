@@ -1,5 +1,5 @@
 import { IFSignIn, IFSignUp, SessionKeys } from '@/utils/types';
-import { API_URLs } from '@/utils/constants';
+import { ACCESS_TOKEN_NAME, API_URLs } from '@/utils/constants';
 import requester from '@/api-client/requester';
 
 export const useAuth = () => {
@@ -12,14 +12,15 @@ export const useAuth = () => {
   };
 
   const signOutApi = async () => {
-    return requester.delete(API_URLs.AUTH.SIGN_OUT_URL);
+    const token = sessionStorage.getItem(ACCESS_TOKEN_NAME) ?? undefined;
+    return requester.delete(API_URLs.AUTH.SIGN_OUT_URL, {}, true, token);
   };
 
   const setAuth = (key: SessionKeys, value: any) => {
     sessionStorage.setItem(key, value);
   };
 
-  const getAuth = (key: SessionKeys) => {
+  const getAuth = (key: string) => {
     return sessionStorage.getItem(key) ?? undefined;
   };
 

@@ -1,8 +1,8 @@
 import { ResponseData } from '@/utils/types';
 
-const appError = (message: string, statusCode?: number): ResponseData => {
+const appError = (message: string, status?: number): ResponseData => {
   return {
-    status: statusCode ? statusCode : 500,
+    status: status ? status : 500,
     message
   };
 };

@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { AUTH_COOKIE_NAME } from '@/utils/constants';
+import { AUTH_SESS_ID_NAME } from '@/utils/constants';
 import { ResponseData } from '@/utils/types';
 import tokenRefreshController from '@/modules/auth/refreshToken/refreshToken.controller';
 
@@ -33,7 +33,7 @@ export async function GET() {
     await tokenRefreshController.getTokenCtrl(refreshToken);
 
   if (status === 200) {
-    cookieStore.set(AUTH_COOKIE_NAME, data?.refreshToken, {
+    cookieStore.set(AUTH_SESS_ID_NAME, data?.refreshToken, {
       httpOnly: true,
       secure: true,
       sameSite: 'none',
