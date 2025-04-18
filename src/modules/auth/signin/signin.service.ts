@@ -4,7 +4,8 @@ import refreshTokenRepository from '@/modules/auth/refreshToken/refreshToken.rep
 import { logger } from '@/modules/logging';
 import { comparePassword, generateTokens } from '@/utils/helpers';
 import { mongo } from 'mongoose';
-import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
+import { cookies, headers } from 'next/headers';
+import { AUTH_SESS_ID_NAME } from '@/constants/auth';
 
 const validateRequestSignIn = async (user: ISignInRequest) => {
   try {
@@ -28,10 +29,10 @@ const validateRequestSignIn = async (user: ISignInRequest) => {
 
 const getTokenSignIn = async (
   userId: string,
-  session: mongo.ClientSession,
-  cookies: ReadonlyRequestCookies
+  session: mongo.ClientSession
 ) => {
-  let hasClearCookie: boolean = false;
+  const cookieStore = await cookies();
+  const headerStore = await headers();
   try {
     const {
       accessToken,
@@ -41,51 +42,49 @@ const getTokenSignIn = async (
     const userTokenFound =
       await refreshTokenRepository.getTokenByUser(userId);
 
+    // User was login so user have session ID
     if (userTokenFound) {
-      const authToken = cookies.get('authToken');
-      let newRefreshTokenArray = !authToken?.value
+      const refreshToken = cookieStore.get(AUTH_SESS_ID_NAME)?.value;
+
+      //Filtering the old token, add the new token
+      let newRefreshTokenArray = !refreshToken
         ? userTokenFound.refreshToken
-        : userTokenFound.refreshToken.filter(rt => rt !== authToken?.value);
-      if (authToken?.value) {
+        : userTokenFound.refreshToken.filter(rt => rt !== refreshToken);
+      if (refreshToken) {
         /*
           Scenario added here:
-            1) User logs in but never uses RT and does not logout
+            1) User logs in but never uses RT and does not log out
             2) RT is stolen
             3) If 1 & 2, reuse detection is needed to clear all RTs when user logs in
         */
-        const refreshToken = authToken?.value;
         const foundToken = await refreshTokenRepository.getTokenByRefreshToken(refreshToken);
         // Detected refresh token reuse!
         if (!foundToken) {
           newRefreshTokenArray = []; // clear out ALL previous refresh tokens
         }
-
-        hasClearCookie = true;
+        cookieStore.delete(AUTH_SESS_ID_NAME);
       }
-
-      userTokenFound.refreshToken = [ ...newRefreshTokenArray, newRefreshToken ];
+      userTokenFound.refreshToken = [...newRefreshTokenArray, newRefreshToken];
       await userTokenFound.save();
     } else {
       await refreshTokenRepository.createRefreshToken({
         user: userId,
-        refreshToken: [ newRefreshToken ],
-        userAgent: 'user', //@todo: double check again
-        ip: '19' //@todo: double check again
+        refreshToken: [newRefreshToken],
+        userAgent: headerStore.get('user-agent') || '',
+        ip: headerStore.get('x-forwarded-for') || ''
       }, session);
     }
 
     return logger.appSuccessfully('Get token successfully!', {
       newRefreshToken,
-      accessToken,
-      hasClearCookie
+      accessToken
     });
   } catch (error:any) {
     return logger.appError(error?.message);
   }
 };
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default {
+export const signInService = {
   validateRequestSignIn,
   getTokenSignIn
 };

@@ -1,11 +1,10 @@
 import axios, { AxiosResponse, AxiosError, AxiosRequestConfig } from 'axios';
-import { API_URLs, STATUS_CODE } from '@/utils/constants';
-import { IFParamRetryCallApi, Method, ResponseData } from '@/utils/types';
-import { sleeper } from '@/utils/helpers';
+import { ACCESS_TOKEN_NAME, API_URLs, STATUS_CODE } from '@/utils/constants';
+import { IFParamRetryCallApi, ResponseData } from '@/utils/types';
+import { cloneDeepData, sleeper } from '@/utils/helpers';
 
-const setConf = ({ isCredentials= false, token }: { isCredentials?: boolean; token?: string }): AxiosRequestConfig => {
+const setConf = ({ token }: { token?: string }): AxiosRequestConfig => {
   return {
-    withCredentials: isCredentials, // Only true when get token or login
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
@@ -14,20 +13,11 @@ const setConf = ({ isCredentials= false, token }: { isCredentials?: boolean; tok
   };
 };
 
-const verifyCredentials = (url: string, _method?: Method) => {
-  switch (url) {
-    case API_URLs.AUTH.REFRESH_TOKEN_URL:
-      return true;
-    default:
-      return false;
-  }
-};
-
 export const responseBody = (response: AxiosResponse, props?: IFParamRetryCallApi) => {
   if (props && props?.retry && response.status === STATUS_CODE.UNAUTHORIZED) {
     return getToken({ method: 'get', url: props.url, params: props.params });
   }
-  return response.data;
+  return response?.data || response;
 };
 
 export const errorBody = async (error: AxiosError, props?: IFParamRetryCallApi): Promise<ResponseData> => {
@@ -41,16 +31,22 @@ export const getToken = async (props: IFParamRetryCallApi): Promise<ResponseData
   try {
     const rs = await axios.get(
       API_URLs.AUTH.REFRESH_TOKEN_URL,
-      setConf({ isCredentials: true })
+      setConf({})
     );
-    sessionStorage.setItem('accessToken', rs.data.accessToken);
+    sessionStorage.setItem(ACCESS_TOKEN_NAME, rs.data.accessToken);
     return requester[props.method](props.url, props.params, false, rs.data.accessToken);
   } catch (error: any) {
     return errorBody(error);
   }
 };
 
-const get = (url: string, params = {}, config: AxiosRequestConfig) => axios.get(url, { params, ...config });
+const get = (url: string, params = {}, config: AxiosRequestConfig) => {
+  const newParams = cloneDeepData(params) || {};
+  for (const property in newParams) {
+    newParams[property] = encodeURIComponent(newParams[property]);
+  }
+  return axios.get(url, { params, ...config });
+};
 const post = (url: string, data = {}, config: AxiosRequestConfig) => axios.post(url, data, { ...config });
 const put = (url: string, data = {}, config: AxiosRequestConfig) => axios.put(url, data, { ...config });
 const patch = (url: string, data = {}, config: AxiosRequestConfig) => axios.patch(url, data, { ...config });
@@ -62,7 +58,7 @@ const requester = {
       const response = await get(
         url,
         params,
-        setConf({ token, isCredentials: verifyCredentials(url, 'get') })
+        setConf({ token })
       ).then(sleeper()).then((rs) => rs as AxiosResponse);
       return responseBody(response, { method: 'get', url, params, retry, token });
     } catch (e: any) {
@@ -74,7 +70,7 @@ const requester = {
       const response = await post(
         url,
         data, 
-        setConf({ token, isCredentials: verifyCredentials(url, 'post') })
+        setConf({ token })
       ).then(sleeper()).then((rs) => rs as AxiosResponse);
       return responseBody(response, { method: 'post', url, params: data, retry, token });
     } catch (e: any) {
@@ -86,7 +82,7 @@ const requester = {
       const response = await put(
         url,
         data,
-        setConf({ token, isCredentials: verifyCredentials(url, 'put') })
+        setConf({ token })
       ).then(sleeper()).then((rs) => rs as AxiosResponse);
       return responseBody(response, { method: 'put', url, params: data, retry, token });
     } catch (e: any) {
@@ -98,7 +94,7 @@ const requester = {
       const response = await patch( 
         url, 
         data, 
-        setConf({ token, isCredentials: verifyCredentials(url, 'patch') })
+        setConf({ token })
       ).then(sleeper()).then((rs) => rs as AxiosResponse);
       return responseBody(response, { method: 'patch', url, params: data, retry, token });
     } catch (e: any) {
@@ -110,7 +106,7 @@ const requester = {
       const response = await del(
         url,
         params,
-        setConf({ token, isCredentials: verifyCredentials(url, 'delete') })
+        setConf({ token })
       ).then(sleeper()).then((rs) => rs as AxiosResponse);
       return responseBody(response, { method: 'delete', url, params, retry, token });
     } catch (e: any) {

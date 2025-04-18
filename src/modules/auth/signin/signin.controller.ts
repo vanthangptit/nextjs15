@@ -1,18 +1,17 @@
 import { startSession } from 'mongoose';
 import { ISignInRequest } from './signup.interface';
 import { logger } from '@/modules/logging';
-import signInService from './signin.service';
-import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
+import { signInService } from './signin.service';
+import { STATUS_CODE } from '@/utils/constants';
 
-
-export const signIn = async (user: ISignInRequest, cookies: ReadonlyRequestCookies) => {
+const signIn = async (user: ISignInRequest) => {
   const session = await startSession();
   session.startTransaction();
 
   try {
     const { status, message, data } =
       await signInService.validateRequestSignIn(user);
-    if (status !== 200) {
+    if (status !== STATUS_CODE.SUCCESS) {
       return logger.appError(message, status);
     }
 
@@ -21,8 +20,8 @@ export const signIn = async (user: ISignInRequest, cookies: ReadonlyRequestCooki
       message: messageToken,
       data: dataToken
     } =
-      await signInService.getTokenSignIn(data.userFound.id, session, cookies);
-    if (statusToken !== 200) {
+      await signInService.getTokenSignIn(data.userFound.id, session);
+    if (statusToken !== STATUS_CODE.SUCCESS) {
       return logger.appError(messageToken, statusToken);
     }
 
