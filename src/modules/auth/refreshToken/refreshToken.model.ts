@@ -3,7 +3,7 @@ import { ITokenModel } from './refreshToken.interface';
 
 const TokenSchema = new Schema<ITokenModel>({
   refreshToken: {
-    type: [ String ],
+    type: [String],
     trim: true
   },
   /**
@@ -20,7 +20,7 @@ const TokenSchema = new Schema<ITokenModel>({
   user: {
     type: Schema.Types.ObjectId,
     ref: 'User',
-    required: [ true, 'Please userToken is required' ]
+    required: [true, 'Please userToken is required']
   }
 }, {
   timestamps: true

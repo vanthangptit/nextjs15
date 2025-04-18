@@ -5,7 +5,7 @@ import { useTheme } from 'next-themes';
 const Toggler = () => {
   const { systemTheme, theme, setTheme } = useTheme();
   const currentTheme = theme === 'system' ? systemTheme : theme;
-  const [ translated, setTranslated ] = useState<string>('translate-x-[14px]');
+  const [translated, setTranslated] = useState<string>('translate-x-[14px]');
 
   useEffect(() => {
     if (currentTheme === 'light') {
@@ -13,11 +13,11 @@ const Toggler = () => {
     } else {
       setTranslated('translate-x-[0px]');
     }
-  }, [ currentTheme ]);
+  }, [currentTheme]);
 
   return (
     <button
-      onClick={() => theme === 'dark' ? setTheme('light'): setTheme('dark')}
+      onClick={() => theme === 'dark' ? setTheme('light') : setTheme('dark')}
       className={`
         relative w-40px h-23px bg-black dark:bg-white rounded-5xl border-0 m-auto cursor-pointer
       `}

@@ -13,7 +13,7 @@ const getUserByAlias = (alias: string): Promise<IUserModel | undefined> => {
 };
 
 const createUser = async (user: IUser, session: mongo.ClientSession): Promise<IUserModel> => {
-  const userCreated = await User.create([ user ], { session });
+  const userCreated = await User.create([user], { session });
   return userCreated[0];
 };
 

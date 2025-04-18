@@ -14,7 +14,7 @@ const MENU_LIST = [
 ];
 
 const Navbar = ({ isFixed }: { isFixed: boolean }) => {
-  const [ activeIdx, setActiveIdx ] = useState<number>(-1);
+  const [activeIdx, setActiveIdx] = useState<number>(-1);
 
   return (
     <nav className={'flex w-full gap-[20px] flex-nowrap items-center'}>
@@ -35,12 +35,12 @@ const Navbar = ({ isFixed }: { isFixed: boolean }) => {
             key={menu.text}
             className={`${activeIdx === idx ? 'active' : ''}`}
           >
-            <NavItem active={activeIdx === idx} {...menu} isFixed={isFixed} />
+            <NavItem active={activeIdx === idx} {...menu} isFixed={isFixed}/>
           </li>
         ))}
       </ul>
       <div className={'flex items-center'}>
-        <Toggler />
+        <Toggler/>
       </div>
     </nav>
   );

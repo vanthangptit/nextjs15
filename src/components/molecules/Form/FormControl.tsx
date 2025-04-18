@@ -19,7 +19,7 @@ export interface IFormControl extends IInput {
 }
 
 const FormControl = (props: IFormControl) => {
-  const [ isHiddenPassword, setHiddenPassword ] = useState<boolean>(true);
+  const [isHiddenPassword, setHiddenPassword] = useState<boolean>(true);
   const handleHiddenPassword = () => setHiddenPassword(!isHiddenPassword);
   const marginBottom: string = !!props?.errors?.[props.name] ? 'mb-[15px]' : 'mb-[25px]';
   const flexDirection: string = props?.isVertical ? 'flex-col' : 'flex-row';
@@ -46,13 +46,13 @@ const FormControl = (props: IFormControl) => {
               className={'absolute top-[50%] right-[20px] translate-y-[-50%] cursor-pointer'}
               onClick={handleHiddenPassword}
             >
-              {isHiddenPassword ? <BsEyeSlash size={16} /> : <BsEye size={16} />}
+              {isHiddenPassword ? <BsEyeSlash size={16}/> : <BsEye size={16}/>}
             </span>
           )}
         </span>
       </div>
       {props.value && props?.errors?.[props.name] && (
-        <MessageError message={props?.errors?.[props.name] || 'The value is invalid'} />
+        <MessageError message={props?.errors?.[props.name] || 'The value is invalid'}/>
       )}
     </div>
   );
