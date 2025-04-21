@@ -3,7 +3,6 @@ import { logger } from '@/modules/logging';
 import { IFContextSignOut } from '@/utils/types';
 import { cookies } from 'next/headers';
 import { AUTH_SESS_ID_NAME } from '@/constants/auth';
-import { Token } from '@/modules/auth/refreshToken/refreshToken.model';
 import { signOutService } from '@/modules/auth/signout/signout.service';
 
 const signOut = async (context: IFContextSignOut) => {
@@ -12,10 +11,12 @@ const signOut = async (context: IFContextSignOut) => {
   session.startTransaction();
 
   const { userAuth } = context;
-  const refreshToken = cookieStore.get(AUTH_SESS_ID_NAME)?.value;
-
   try {
-    const userTokenFound = await Token.findOne({ refreshToken, user: userAuth.id });
+    const refreshToken = cookieStore.get(AUTH_SESS_ID_NAME)?.value;
+    if (!refreshToken) {
+      return logger.appError('User not found', 404);
+    }
+    const userTokenFound = await signOutService.getUserToken(userAuth.id, refreshToken);
     if (!userTokenFound) {
       return logger.appError('User not found', 404);
     }

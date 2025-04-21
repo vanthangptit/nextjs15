@@ -50,8 +50,8 @@ import { userRepository } from '@/modules/user/user.repository';
 
 export function withAuth(handler: HandlerType): HandlerType {
   return async (req, context) => {
-    const body = await req.json();
     const token = getTokenFromHeader(req);
+
     if (!token) {
       return logger.appResponse({
         message: '401 Unauthorized.', //Access Denied. No token provided.
@@ -76,7 +76,6 @@ export function withAuth(handler: HandlerType): HandlerType {
     }
 
     context.userAuth = decodedUser;
-    context.body = body;
     return handler(req, context);
   };
 }
