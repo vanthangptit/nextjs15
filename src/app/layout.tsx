@@ -43,7 +43,7 @@ export const metadata: Metadata = {
         rel: 'icon',
         type: 'image/png',
         sizes: '16x16',
-        url: '/favicon/icon-16x16.png'
+        url: '/favicon/favicon-16x16.png'
       },
       {
         rel: 'icon',
@@ -55,13 +55,13 @@ export const metadata: Metadata = {
         rel: 'icon',
         type: 'image/png',
         sizes: '192x192',
-        url: '/favicon/favicon-192x192.png'
+        url: '/favicon/android-chrome-192x192.png'
       },
       {
         rel: 'icon',
         type: 'image/png',
         sizes: '512x512',
-        url: '/favicon/favicon-512x512.png'
+        url: '/favicon/android-chrome-512x512.png'
       }
     ],
     apple: [
