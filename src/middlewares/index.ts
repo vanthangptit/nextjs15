@@ -1,6 +1,8 @@
-import { getTokenFromHeader } from '@/utils/helpers';
+import { getTokenFromHeader, verifyToken } from '@/utils/helpers';
 import { logger } from '@/modules/logging';
-import { HandlerType } from '@/utils/types';
+import { HandlerType, IFPayloadToken } from '@/utils/types';
+import { config } from '@/configs';
+import { userRepository } from '@/modules/user/user.repository';
 
 // import { NextFunction, Request, Response } from 'express';
 // import { rateLimit } from 'express-rate-limit';
@@ -48,38 +50,32 @@ import { HandlerType } from '@/utils/types';
 
 export function withAuth(handler: HandlerType): HandlerType {
   return async (req, context) => {
-    // eslint-disable-next-line no-console
-    console.log({ header: req.headers });
     const token = getTokenFromHeader(req);
-    // eslint-disable-next-line no-console
-    console.log({ token });
+
     if (!token) {
       return logger.appResponse({
         message: '401 Unauthorized.', //Access Denied. No token provided.
-        statusCode: 401
+        status: 401
       });
     }
 
-    // const decodedUser: IFPayloadToken | undefined = await verifyToken(token, accessTokenKey);
-    // if (!decodedUser) {
-    //   return logger.appResponse({
-    //     message: '401 Unauthorized.', //Access Denied. The token is invalid.
-    //     statusCode: 401
-    //   });
-    // }
+    const decodedUser: IFPayloadToken | undefined = await verifyToken(token,  config.ACCESS_TOKEN_SECRET_KEY || '');
+    if (!decodedUser) {
+      return logger.appResponse({
+        message: '401 Unauthorized.', //Access Denied. The token is invalid.
+        status: 401
+      });
+    }
 
-    // const user = await getUserById(decodedUser.id);
-    // if (!user) {
-    //   return logger.appResponse({
-    //     message: '403 Forbidden', //'User not found'
-    //     statusCode: 403
-    //   });
-    // }
+    const user = await userRepository.getUserById(decodedUser.id);
+    if (!user) {
+      return logger.appResponse({
+        message: '403 Forbidden', //User not found
+        status: 403
+      });
+    }
 
-    // eslint-disable-next-line no-console
-    console.log({ req });
-
-    // return handler(req, { userId: decodedUser.id });
+    context.userAuth = decodedUser;
     return handler(req, context);
   };
 }

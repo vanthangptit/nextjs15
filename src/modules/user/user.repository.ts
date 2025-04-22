@@ -2,6 +2,11 @@ import { IUser, IUserModel } from '@/modules/user/user.interface';
 import { User } from '@/modules/user/user.model';
 import { mongo } from 'mongoose';
 
+export const getUserById = async (id: string): Promise<IUserModel | undefined> => {
+  const user = await User.findById(id);
+  return user ?? undefined;
+};
+
 const getUserByEmail = (email: string): Promise<IUserModel | undefined> => {
   const user = User.findOne({ email });
   return user;
@@ -17,8 +22,8 @@ const createUser = async (user: IUser, session: mongo.ClientSession): Promise<IU
   return userCreated[0];
 };
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default {
+export const userRepository =  {
+  getUserById,
   getUserByEmail,
   getUserByAlias,
   createUser

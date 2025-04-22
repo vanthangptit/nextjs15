@@ -2,6 +2,11 @@ import { mongo } from 'mongoose';
 import { Token } from './refreshToken.model';
 import { ICreateTokenParams, ITokenModel } from './refreshToken.interface';
 
+const getTokenByUserAndRefreshToken = (refreshToken: string, userId: string): Promise<ITokenModel> => {
+  const token = Token.findOne({ refreshToken, user: userId });
+  return token;
+};
+
 const getTokenByUser = (userId: string): Promise<ITokenModel> => {
   const token = Token.findOne({ user: userId });
   return token;
@@ -26,10 +31,10 @@ const deleteRefreshToken = async (
   await Token.deleteMany({ user: userId }).session(session);
 };
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default {
+export const refreshTokenRepository = {
   getTokenByUser,
   createRefreshToken,
   deleteRefreshToken,
-  getTokenByRefreshToken
+  getTokenByRefreshToken,
+  getTokenByUserAndRefreshToken
 };

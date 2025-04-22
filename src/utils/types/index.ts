@@ -1,4 +1,5 @@
 export * from './IFAuthToken';
+export * from './IFContextAPI';
 export * from './IFMiddleware';
 export * from './IFNextHeader';
 export * from './IFRequester';

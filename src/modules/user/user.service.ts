@@ -1,4 +1,4 @@
-import userRepository from '@/modules/user/user.repository';
+import { userRepository } from '@/modules/user/user.repository';
 
 const checkUserExists = async (emailOrAlias: string): Promise<boolean> => {
   const userAliasFound = await userRepository.getUserByAlias(emailOrAlias);
