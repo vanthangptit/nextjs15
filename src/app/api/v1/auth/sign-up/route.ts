@@ -1,5 +1,5 @@
 import { signUpController } from '@/modules/auth/signup/signup.controller';
-import { connectDB } from '@/database';
+import { connectDB } from '@/libs/database';
 import { ResponseData } from '@/utils/types';
 import { logger } from '@/modules/logging';
 import { validation } from '@/utils/helpers';

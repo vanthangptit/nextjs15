@@ -1,6 +1,6 @@
 import { IFSignIn, IFSignUp, SessionKeys } from '@/utils/types';
 import { ACCESS_TOKEN_NAME, API_URLs, STATUS_CODE, USER_NAME } from '@/utils/constants';
-import requester from '@/api-client/requester';
+import requester from '@/libs/requester';
 import { useToast } from '@/hooks/useToast';
 
 export const useAuth = () => {
