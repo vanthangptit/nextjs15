@@ -1,6 +1,6 @@
 import { NextRequest } from 'next/server';
 import { signInController } from '@/modules/auth/signin/signin.controller';
-import { connectDB } from '@/database';
+import { connectDB } from '@/libs/database';
 import { ResponseData } from '@/utils/types';
 import { setCookie, validation } from '@/utils/helpers';
 import { SignInSchema } from '@/app/api/v1/auth/sign-in/schema';

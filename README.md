@@ -27,15 +27,18 @@ Build a blog website using Next.js 15, tailwindcss
   and we can build them using the reusable UI components from `Atom`, `Molecules` and `Organisms`.
 
 * This folder will be organizational by atomic design:
-    * `Atom`s of our interfaces serve as the foundational building blocks that comprise all our user interfaces.
+    * `Atom`s are the smallest building blocks of your UI, representing basic HTML elements.
       These atoms include basic HTML elements like form labels, inputs, buttons, and others that can’t be broken down
       any further without ceasing to be functional.
 
-    * `Molecules` are relatively simple groups of UI elements functioning together as a unit. For example, a form label,
+    * `Molecules` are combinations of atoms that form more complex UI components. For example, a form label,
       search input, and button can join together to create a search form molecule.
 
     * `Organisms` are relatively complex UI components composed of groups of molecules and/or atoms and/or other
       organisms. These organisms form distinct sections of an interface.
+
+    * `Templates` define the overall layout or structure of your pages using organisms. 
+      Create templates by arranging organisms to form page layouts.
 
 * Note: Atoms and Molecules shouldn't have any business logic. Maybe the molecules can have some event handlers for
   there buttons, but they shouldn't. Organisms can have logic, if needed. But if you really want to implement that
@@ -63,20 +66,18 @@ Build a blog website using Next.js 15, tailwindcss
       have the "use client" directive will also cause an error in Server Components.
     * Instead, you can create your own Client Component that wraps the third-party provider
 
-### 6. Database folder
-* Within the `database` folder, only connect to database.
-
-### 7. `hooks` folder
+### 6. `hooks` folder
 * Hooks provide access to states for functional components while creating a React application. It allows you to use
   state and other React features without writing a class. Placing them in a dedicated directory allows for easy access
   and reuse across components throughout your application.
 
-### 8. `middlewares` folder
-* This folder contains of a configuration file where we store environment variables in config.js. We will use this file
-  to set up multiple environment configurations in your application. Ex- Environment Configuration, WebPack Configuration,
-  Babel Configuration, etc.
+### 7. `libs` folder
+* The `lib` directory is for more complex functionality that often:
+    * API client configurations
+    * Authentication helpers
+    * Database connections
 
-### 9. `modules` folder
+### 8. `modules` folder
 * This folder contains server code. Within the `modules` folder, module is organized by the structure Modular Monolith.
     * `[name_module].controller.ts`
         * The controller controls the requests of the user and then generates an appropriate response to the front-end.
@@ -102,20 +103,24 @@ Build a blog website using Next.js 15, tailwindcss
     * https://petarivanov.me/blog/how-to-better-structure-your-next-nodejs-project-the-modular-approach
     * https://startup-house.com/glossary/repository-vs-service-pattern
 
-### 10. `styles` folder
+### 9. `styles` folder
 * The `styles` folder contains global styles and custom CSS files, allowing consistent styling across components and pages.
 
-### 11. `utils` folder
-* `enum`
-    * Enum members are typically used to store constants. Members can have string constants, numerical constants
+### 10. `utils` folder
+* `constants`: constants to maintaining and organizing constant values used across the application. 
+      It contributes to code readability, maintainability, and prevents the repetition of magic strings or numbers.
+* `enum`: Enum members are typically used to store constants. Members can have string constants, numerical constants
       or mix of both. Homogeneity of member values determines whether the enum is a string enum or a numerical enum.
-* `types`
-    * Ensure you incorporate Typescript definitions within project `types` folder.
+* `types`: Ensure you incorporate Typescript definitions within project `types` folder.
       This practice will boost type safety, deliver comprehensive code documentation, and foster better development practices.
-* `utils`
-    * Storing utility functions in a separate `utils` folder can help improve code organization and maintainability.
+* `utils`: Storing utility functions in a separate `utils` folder can help improve code organization and maintainability.
       By grouping common functionalities together, you can enhance code reusability and make it easier to and reference specific
       functions when needed.
+
+### 11. `middleware` file
+* This folder contains of a configuration file where we store environment variables in config.js. We will use this file
+  to set up multiple environment configurations in your application. Ex- Environment Configuration, WebPack Configuration,
+  Babel Configuration, etc.
 
 
 ## Getting Started
