@@ -51,13 +51,6 @@ import { userRepository } from '@/modules/user/user.repository';
 export function withAuth(handler: HandlerType): HandlerType {
   return async (req, context) => {
     const token = getTokenFromHeader(req);
-    let body: any;
-    try {
-      body = await req.json();
-    } catch (error: any) {
-      console.warn('Error processing JSON:', error);
-      body = undefined;
-    }
 
     if (!token) {
       return logger.appResponse({
@@ -83,9 +76,6 @@ export function withAuth(handler: HandlerType): HandlerType {
     }
 
     context.userAuth = decodedUser;
-    if (body) {
-      context.body = body;
-    }
     return handler(req, context);
   };
 }

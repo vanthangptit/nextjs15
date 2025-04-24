@@ -39,36 +39,43 @@ const handleTokenValid = async (userToken: ITokenModel, refreshToken: string) =>
 };
 
 const handleTokenInvalid = async (refreshToken: string) => {
-  const decoded: IFPayloadToken | undefined
-    = await verifyToken(refreshToken, config.REFRESH_TOKEN_PRIVATE_KEY ?? '');
-  if (!decoded) {
-    return logger.appError('403 Forbidden', 403);
+  try {
+    const decoded: IFPayloadToken | undefined
+      = await verifyToken(refreshToken, config.REFRESH_TOKEN_PRIVATE_KEY ?? '');
+    if (!decoded) {
+      return logger.appError('403 Forbidden', 403);
+    }
+
+    // Delete refresh tokens of hacked user
+    const foundToken =
+      await refreshTokenRepository.getTokenByUser(decoded.id.toString());
+
+    if (foundToken) {
+      foundToken.refreshToken = [];
+      await foundToken.save();
+    }
+
+    return logger.appError('Unauthorized. Please login again!', 401);
+  } catch (e: any) {
+    return logger.appError(e?.message);
   }
-
-  // Delete refresh tokens of hacked user
-  const foundToken =
-    await refreshTokenRepository.getTokenByUser(decoded.id.toString());
-
-  if (foundToken) {
-    foundToken.refreshToken = [];
-    await foundToken.save();
-  }
-
-  return logger.appError('Unauthorized. Please login again!', 401);
 };
 
 const handleGetToken = async (refreshToken: string) => {
-  const userTokenFound: ITokenModel =
-    await refreshTokenRepository.getTokenByRefreshToken(refreshToken);
+  try {
+    const userTokenFound: ITokenModel =
+      await refreshTokenRepository.getTokenByRefreshToken(refreshToken);
 
-  if (!userTokenFound) {
-    return await handleTokenInvalid(refreshToken);
+    if (!userTokenFound) {
+      return await handleTokenInvalid(refreshToken);
+    }
+
+    return await handleTokenValid(userTokenFound, refreshToken);
+  } catch (e: any) {
+    return logger.appError(e?.message);
   }
-
-  return await handleTokenValid(userTokenFound, refreshToken);
 };
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default {
+export const refreshTokenService = {
   handleGetToken
 };

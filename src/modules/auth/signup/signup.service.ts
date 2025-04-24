@@ -18,7 +18,6 @@ const signUp = async (user: ISignupRequest, session: mongo.ClientSession): Promi
   );
 };
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default {
+export const signUpService = {
   signUp
 };

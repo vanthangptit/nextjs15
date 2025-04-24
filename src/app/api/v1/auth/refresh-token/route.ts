@@ -1,23 +1,19 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { AUTH_SESS_ID_NAME } from '@/utils/constants';
+import { AUTH_SESS_ID_NAME, STATUS_CODE } from '@/utils/constants';
 import { ResponseData } from '@/utils/types';
-import tokenRefreshController from '@/modules/auth/refreshToken/refreshToken.controller';
+import { getTokenController } from '@/modules/auth/refreshToken/refreshToken.controller';
+import { setCookie } from '@/utils/helpers';
+import { logger } from '@/modules/logging';
 
-export async function GET() {
+export async function getRefreshToken() {
   const cookieStore = await cookies();
   const refreshToken =
-    cookieStore.has('authToken')
-      ? cookieStore.get('authToken')?.value
+    cookieStore.has(AUTH_SESS_ID_NAME)
+      ? cookieStore.get(AUTH_SESS_ID_NAME)?.value
       : null;
 
-  //@todo: Double check
-  // cookieStore.delete(AUTH_COOKIE_NAME, {
-  //   httpOnly: true,
-  //   secure: true,
-  //   sameSite: 'none',
-  // });
-
+  cookieStore.delete(AUTH_SESS_ID_NAME);
   if (!refreshToken) {
     return NextResponse.json({
       status: 401,
@@ -30,25 +26,20 @@ export async function GET() {
     message,
     data
   }: ResponseData =
-    await tokenRefreshController.getTokenCtrl(refreshToken);
+    await getTokenController.getTokenCtrl(refreshToken);
 
-  if (status === 200) {
-    cookieStore.set(AUTH_SESS_ID_NAME, data?.refreshToken, {
-      httpOnly: true,
-      secure: true,
-      sameSite: 'none',
-      maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
-    });
-
-    return NextResponse.json({
-      status,
-      message,
-      data: {
-        accessToken: data.accessToken,
-        user: data.user
-      }
-    });
+  if (status !== STATUS_CODE.SUCCESS) {
+    return logger.appResponse({ message, status });
   }
 
-  return NextResponse.json({ status, message });
+  const cookie = setCookie(data.refreshToken);
+  return logger.appResponse({
+    data: data.accessToken,
+    status,
+    message
+  }, {
+    'Set-Cookie': cookie
+  });
 }
+
+export const GET = getRefreshToken;
