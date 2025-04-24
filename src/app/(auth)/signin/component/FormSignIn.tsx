@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { FormikHelpers } from 'formik/dist/types';
 import FormSettings from '@/components/molecules/Form/FormSettings';
 import { Formik } from 'formik';
-import { ACCESS_TOKEN_NAME, STATUS_CODE, USER_NAME } from '@/utils/constants';
+import { ACCESS_TOKEN_NAME, STATUS_CODE } from '@/utils/constants';
 import { redirect, RedirectType } from 'next/navigation';
 import { useToast } from '@/hooks/useToast';
 import { SignInSchema } from '@/app/api/v1/auth/sign-in/schema';
@@ -21,8 +21,6 @@ export const FormSignIn = () => {
       const res = await signInApi(values);
       if (res?.status === STATUS_CODE.SUCCESS) {
         setAuth(ACCESS_TOKEN_NAME, res.data.accessToken);
-        setAuth(USER_NAME, JSON.stringify(res.data.user));
-
         setSuccess(true);
       } else {
         toastError(res.message);
