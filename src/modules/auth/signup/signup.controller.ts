@@ -2,7 +2,7 @@ import { startSession } from 'mongoose';
 import userService from '@/modules/user/user.service';
 import { logger } from '@/modules/logging';
 import { ISignupRequest } from './signup.interface';
-import authService from './signup.service';
+import { signUpService } from './signup.service';
 
 const signUp = async (user: ISignupRequest) => {
   const session = await startSession();
@@ -18,7 +18,7 @@ const signUp = async (user: ISignupRequest) => {
       return logger.appError('Email already exists', 400);
     }
 
-    await authService.signUp(user, session);
+    await signUpService.signUp(user, session);
 
     /** @todo: Add send mail
      *  @todo google cloud (Oauth2 - blog-website)

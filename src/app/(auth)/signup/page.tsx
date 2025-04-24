@@ -27,8 +27,8 @@ const SignUp = () => {
       <div
         className={'mt-[40px] md:mt-[70px] max-w-[640px] mr-auto ml-auto border border-solid border-gray-300 p-[20px] rounded-[5px]'}
       >
-        <TitleForm title={'Sign up'}/>
-        <FormSignUp/>
+        <TitleForm title={'Sign up'} />
+        <FormSignUp />
         <div className={'text-center mb-2 mt-3'}>
           <Link href={APP_ROUTES.SIGN_IN} className={'text-sm'}>Already have an account? Sign in</Link>
         </div>

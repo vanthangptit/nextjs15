@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { config as configs } from '@/configs';
-import { APP_ROUTES, AUTH_SESS_ID_NAME, pathRoutes } from '@/utils/constants';
+import { APP_ROUTES, AUTH_SESS_ID_NAME, authRoutes, pathRoutes } from '@/utils/constants';
 import { cookies } from 'next/headers';
 
 const allowedOrigins: string[] = configs.accessDomain;
@@ -20,6 +20,10 @@ export default async function middleware(request: NextRequest) {
   // 4. Redirect to /login if the user is not authenticated
   if (isProtectedRoute && !refreshToken) {
     return NextResponse.redirect(new URL(APP_ROUTES.SIGN_IN, request.nextUrl));
+  }
+  // 5. Redirect to / if the user is authenticated and access the sign in/sign up route
+  if (refreshToken && authRoutes.includes(path)) {
+    return NextResponse.redirect(new URL(APP_ROUTES.HOME, request.nextUrl));
   }
 
   // Check the origin from the request

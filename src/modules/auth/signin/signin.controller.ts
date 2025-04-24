@@ -29,11 +29,7 @@ const signIn = async (user: ISignInRequest) => {
     await session.endSession();
 
     return logger.appSuccessfully('Sign in successfully!', {
-      ...dataToken,
-      user: {
-        roles: data.userFound.roles,
-        fullName: data.userFound.fullName
-      }
+      ...dataToken
     });
   } catch (e: any) {
     await session.abortTransaction();
