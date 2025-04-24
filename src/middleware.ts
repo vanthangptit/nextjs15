@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { config as configs } from '@/configs';
+import { APP_ROUTES, AUTH_SESS_ID_NAME, pathRoutes } from '@/utils/constants';
+import { cookies } from 'next/headers';
 
 const allowedOrigins: string[] = configs.accessDomain;
 
@@ -9,7 +11,17 @@ const corsOptions = {
   'Access-Control-Allow-Headers': 'Content-Type, Authorization, x-csrf-token, Accept'
 };
 
-export function middleware(request: NextRequest) {
+export default async function middleware(request: NextRequest) {
+  // 2. Check if the current route is protected or public
+  const path = request.nextUrl.pathname;
+  const isProtectedRoute = pathRoutes.protectedRoutes.includes(path);
+  // 3. Decrypt the session from the cookie
+  const refreshToken = (await cookies()).get(AUTH_SESS_ID_NAME)?.value;
+  // 4. Redirect to /login if the user is not authenticated
+  if (isProtectedRoute && !refreshToken) {
+    return NextResponse.redirect(new URL(APP_ROUTES.SIGN_IN, request.nextUrl));
+  }
+
   // Check the origin from the request
   const origin = request.headers.get('origin') ?? '';
   const isAllowedOrigin = allowedOrigins.includes(origin);

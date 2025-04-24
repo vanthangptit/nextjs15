@@ -9,7 +9,7 @@ import { AUTH_SESS_ID_NAME, DELAY_TIMEOUT_API } from '@/utils/constants';
 import { ObjectSchema } from 'yup';
 import { NextRequest } from 'next/server';
 import { serialize } from 'cookie';
-import { IFResponseValidate } from '@/utils/types';
+import { IFResponseValidate, SessionKeys } from '@/utils/types';
 
 export const passwordHash = (password: string) => {
   const saltRounds = parseInt(config.LENGTH_HASH_SALT || '');
@@ -104,4 +104,20 @@ export const setCookie = (token: string): string => {
     maxAge: 60 * 60 * 24 * 7, // One week
     path: '/'
   });
+};
+
+export const getSessionStorage = (sessionKey: SessionKeys) => {
+  return sessionStorage.getItem(sessionKey);
+};
+
+export const setSessionStorage = (sessionKey: SessionKeys, value: any) => {
+  return sessionStorage.setItem(sessionKey, value);
+};
+
+export const removeSessionStorage = (sessionKey: SessionKeys) => {
+  return sessionStorage.removeItem(sessionKey);
+};
+
+export const clearSessionStorage = () => {
+  return sessionStorage.clear();
 };
