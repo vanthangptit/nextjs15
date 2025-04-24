@@ -15,14 +15,14 @@ const setConf = ({ token }: { token?: string }): AxiosRequestConfig => {
 
 export const responseBody = (response: AxiosResponse, props?: IFParamRetryCallApi) => {
   if (props && props?.retry && response.status === STATUS_CODE.UNAUTHORIZED) {
-    return getToken({ method: 'get', url: props.url, params: props.params });
+    return getToken({ method: props.method, url: props.url, params: props.params });
   }
   return response?.data || response;
 };
 
 export const errorBody = async (error: AxiosError, props?: IFParamRetryCallApi): Promise<ResponseData> => {
   if (props && props?.retry && error?.response?.status === STATUS_CODE.UNAUTHORIZED) {
-    return getToken({ method: 'get', url: props.url, params: props.params });
+    return getToken({ method: props.method, url: props.url, params: props.params });
   }
   return (error.response?.data ? error.response.data : error.response) as ResponseData;
 };
@@ -33,8 +33,12 @@ export const getToken = async (props: IFParamRetryCallApi): Promise<ResponseData
       API_URLs.AUTH.REFRESH_TOKEN_URL,
       setConf({})
     );
-    sessionStorage.setItem(ACCESS_TOKEN_NAME, rs.data.accessToken);
-    return requester[props.method](props.url, props.params, false, rs.data.accessToken);
+    if (rs.status !== STATUS_CODE.SUCCESS) {
+      return responseBody(rs);
+    }
+
+    sessionStorage.setItem(ACCESS_TOKEN_NAME, rs.data.data);
+    return requester[props.method](props.url, props.params, false, rs.data.data);
   } catch (error: any) {
     return errorBody(error);
   }
