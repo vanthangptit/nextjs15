@@ -53,6 +53,7 @@ const Header = () => {
 
   return (
     <header
+      role={'header'}
       className={`pt-[${padding}px] pb-[${padding}px] h-[60px] md:h-[70px] lg:h-[85px] border-b border-b-solid border-b-gray-400`}
     >
       <div

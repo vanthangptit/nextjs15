@@ -5,11 +5,10 @@ import { FormikErrors, FormikTouched } from 'formik';
 import LabelField from '@/components/atoms/LabelField';
 import Input, { IInput } from '@/components/atoms/Input';
 import { BsEye, BsEyeSlash } from 'react-icons/bs';
-import { IFormFieldSignUp } from '@/app/(auth)/signup/component/FormSignup';
 import MessageError from '@/components/atoms/MessageError';
-import { IFormFieldSignIn } from '@/app/(auth)/signin/component/FormSignIn';
+import { IFSignIn, IFSignUp } from '@/utils/types';
 
-interface IFormFieldAll extends IFormFieldSignUp, IFormFieldSignIn {}
+interface IFormFieldAll extends IFSignUp, IFSignIn {}
 
 export interface IFormControl extends IInput {
   label?: string

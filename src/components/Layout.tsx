@@ -1,4 +1,6 @@
 import * as React from 'react';
+import Header from '@/components/organisms/Header';
+import Footer from '@/components/organisms/Footer';
 
 interface ILayoutProps {
   children: React.ReactNode
@@ -8,7 +10,11 @@ interface ILayoutProps {
 const Layout: React.FC<ILayoutProps> = ({ children }) => {
   return (
     <div className="bg-gray-100 min-h-screen bg-white dark:bg-black h-[10000px]">
-      {children}
+      <Header />
+      <main role={'main'}>
+        {children}
+      </main>
+      <Footer />
     </div>
   );
 };
