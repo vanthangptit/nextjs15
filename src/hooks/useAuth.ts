@@ -1,12 +1,10 @@
 import { IFSignIn, IFSignUp, SessionKeys } from '@/utils/types';
 import { ACCESS_TOKEN_NAME, API_URLs, STATUS_CODE } from '@/utils/constants';
 import requester from '@/libs/requester';
-import { useToast } from '@/hooks/useToast';
 import { getSessionStorage, removeSessionStorage, setSessionStorage } from '@/utils/helpers';
+import { redirect, RedirectType } from 'next/navigation';
 
 export const useAuth = () => {
-  const { toastError } = useToast();
-
   const setAuth = (key: SessionKeys, value: any) => {
     setSessionStorage(key, value);
   };
@@ -29,11 +27,11 @@ export const useAuth = () => {
 
   const signOutApi = async (): Promise<void> => {
     const token = getSessionStorage(ACCESS_TOKEN_NAME) ?? undefined;
-    const res = await requester.delete(API_URLs.AUTH.SIGN_OUT_URL, {}, false, token);
+    const res = await requester.delete(API_URLs.AUTH.SIGN_OUT_URL, {}, true, token);
     if (res.status === STATUS_CODE.SUCCESS) {
       clearAllAuth();
     } else {
-      toastError(res.message);
+      redirect('/signin', RedirectType.push);
     }
   };
 
