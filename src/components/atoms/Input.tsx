@@ -73,6 +73,7 @@ const Input = ({
       onChange={onChange}
       onInput={onInput}
       readOnly={readonly}
+      autoComplete="on"
     />
   );
 };

@@ -3,7 +3,7 @@ import Container from '@/components/organisms/grid/Container';
 
 const Footer = () => {
   return (
-    <footer>
+    <footer role={'footer'}>
       <Container>
         <h1>Footer</h1>
       </Container>

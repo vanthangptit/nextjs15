@@ -2,14 +2,14 @@
 
 import React from 'react';
 import { useAuth } from '@/hooks/useAuth';
+import Container from '@/components/organisms/grid/Container';
 
 const Home = () => {
   const { signOutApi } = useAuth();
   return (
-    <main>
-      Home
+    <Container>
       <button onClick={() => signOutApi()}>Logout</button>
-    </main>
+    </Container>
   );
 };
 

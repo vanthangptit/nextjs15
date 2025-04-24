@@ -17,7 +17,7 @@ const Navbar = ({ isFixed }: { isFixed: boolean }) => {
   const [activeIdx, setActiveIdx] = useState<number>(-1);
 
   return (
-    <nav className={'flex w-full gap-[20px] flex-nowrap items-center'}>
+    <nav className={'flex w-full gap-[20px] flex-nowrap items-center'} role={'navigation'}>
       <Link href={'/'}>
         <Image
           className={'lg:w-[45px] lg:h-[45px] md:w-[35px] md:h-[35px] w-[30px] h-[30px]'}
