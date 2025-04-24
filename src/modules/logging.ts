@@ -16,11 +16,22 @@ const appSuccessfully = (message: string, data?: any): ResponseData => {
 };
 
 const appResponse = (data: ResponseData, header?: HeadersInit) => {
-  const status = data?.status ? data.status : 500;
+  let status = data?.status ? data.status : 500;
   let message: string = data.message;
+  const isEnvProduction = process.env.APP_ENV === 'production';
 
-  if (status === 500) {
-    message = 'Internal Server Error';
+  switch (status) {
+    case 500: {
+      message = 'Internal Server Error';
+      break;
+    }
+    case 401:
+    case 403:
+    case 404: {
+      status = isEnvProduction ? 400 : status;
+      message = isEnvProduction ? '400 Not bad.' : message;
+      break;
+    }
   }
 
   const retData: ResponseData = {

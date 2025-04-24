@@ -54,7 +54,7 @@ export function withAuth(handler: HandlerType): HandlerType {
 
     if (!token) {
       return logger.appResponse({
-        message: '401 Unauthorized.', //Access Denied. No token provided.
+        message: 'Access Denied. No token provided.',
         status: 401
       });
     }
@@ -62,7 +62,7 @@ export function withAuth(handler: HandlerType): HandlerType {
     const decodedUser: IFPayloadToken | undefined = await verifyToken(token,  config.ACCESS_TOKEN_SECRET_KEY || '');
     if (!decodedUser) {
       return logger.appResponse({
-        message: '401 Unauthorized.', //Access Denied. The token is invalid.
+        message: 'Access Denied. The token is invalid.',
         status: 401
       });
     }
@@ -70,8 +70,8 @@ export function withAuth(handler: HandlerType): HandlerType {
     const user = await userRepository.getUserById(decodedUser.id);
     if (!user) {
       return logger.appResponse({
-        message: '403 Forbidden', //User not found
-        status: 403
+        message: 'User is exists',
+        status: 400
       });
     }
 
