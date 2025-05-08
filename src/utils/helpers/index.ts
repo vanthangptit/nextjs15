@@ -1,15 +1,12 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import { config } from '@/configs';
-import {
-  IFPayloadToken
-} from '@/modules/auth/refreshToken/refreshToken.interface';
 import cloneDeep from 'clone-deep';
 import { AUTH_SESS_ID_NAME, DELAY_TIMEOUT_API } from '@/utils/constants';
 import { ObjectSchema } from 'yup';
 import { NextRequest } from 'next/server';
 import { serialize } from 'cookie';
-import { IFResponseValidate, SessionKeys } from '@/utils/types';
+import { IFPayloadToken, IFResponseValidate, SessionKeys } from '@/utils/types';
 
 export const passwordHash = (password: string) => {
   const saltRounds = parseInt(config.LENGTH_HASH_SALT || '');

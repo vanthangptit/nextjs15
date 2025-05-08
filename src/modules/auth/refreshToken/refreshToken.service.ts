@@ -3,7 +3,7 @@ import { IFPayloadToken } from '@/utils/types';
 import { config } from '@/configs';
 import { generateTokens, verifyToken } from '@/utils/helpers';
 import { logger } from '@/modules/logging';
-import { ITokenModel } from '@/modules/auth/refreshToken/refreshToken.interface';
+import { ITokenModel } from '@/modules/auth/refreshToken/refreshToken.interface-typescript';
 
 const handleTokenValid = async (userToken: ITokenModel, refreshToken: string) => {
   const decodedUser: IFPayloadToken | undefined = await verifyToken(

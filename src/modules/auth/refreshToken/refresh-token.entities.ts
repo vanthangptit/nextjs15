@@ -1,18 +1,13 @@
 import { Document, Schema } from 'mongoose';
-import { JwtPayload } from 'jsonwebtoken';
 
-export interface IFPayloadToken extends JwtPayload {
-  id: string
-}
-
-export interface ICreateTokenParams {
+export interface IRefreshTokenParams {
   user: string,
   refreshToken: string[],
   userAgent: string,
   ip: string,
 }
 
-export interface ITokenModel extends Document {
+export interface IRefreshToken extends Document {
   refreshToken: string[]
   ip: string
   userAgent: string

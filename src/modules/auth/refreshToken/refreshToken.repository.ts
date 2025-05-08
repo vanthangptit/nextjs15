@@ -1,6 +1,6 @@
 import { mongo } from 'mongoose';
 import { Token } from './refreshToken.model';
-import { ICreateTokenParams, ITokenModel } from './refreshToken.interface';
+import { ICreateTokenParams, ITokenModel } from './refreshToken.interface-typescript';
 
 const getTokenByUserAndRefreshToken = (refreshToken: string, userId: string): Promise<ITokenModel> => {
   const token = Token.findOne({ refreshToken, user: userId });
@@ -26,7 +26,7 @@ const createRefreshToken = async (
 
 const deleteRefreshToken = async (
   userId: string,
-  session: any
+  session: mongo.ClientSession
 ): Promise<void> => {
   await Token.deleteMany({ user: userId }).session(session);
 };
