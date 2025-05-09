@@ -1,11 +1,12 @@
 import { NextRequest } from 'next/server';
-import { signInController } from '@/modules/auth/signin/signin.controller';
-import { connectDB } from '@/libs/database';
+import { SignInController } from '@/modules/auth/signin/sign-in.controller';
 import { ResponseData } from '@/utils/types';
 import { setCookie, validation } from '@/utils/helpers';
 import { SignInSchema } from '@/app/api/v1/auth/sign-in/schema';
 import { logger } from '@/modules/logging';
 import { STATUS_CODE } from '@/utils/constants';
+
+const signInController = new SignInController();
 
 async function signIn(req: NextRequest) {
   const dataRequest = await req.json();
@@ -14,7 +15,6 @@ async function signIn(req: NextRequest) {
     return logger.appResponse({ message: errors.message, status: 400 });
   }
 
-  await connectDB();
   const {
     status,
     message,

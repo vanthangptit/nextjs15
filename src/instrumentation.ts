@@ -1,4 +1,6 @@
-import database from '@/libs/database';
+import index from '@/libs/database';
 export async function register() {
-  await database.connect();
+  if (process.env.NEXT_RUNTIME === 'nodejs') {
+    await index.connect();
+  }
 }

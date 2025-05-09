@@ -6,7 +6,7 @@ export type Gender = 'female' | 'male' | 'other';
 export type UserAward = 'bronze' | 'silver' | 'gold';
 export type Roles = 'normal' | 'creator' | 'admin';
 
-export interface IUser {
+export interface IUserParams {
   alias: string
   firstName: string
   lastName: string
@@ -35,4 +35,4 @@ export interface IUser {
   roles?: Roles
 }
 
-export interface IUserModel extends IUser, Document {}
+export interface IUser extends IUserParams, Document {}

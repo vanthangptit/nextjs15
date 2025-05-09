@@ -4,7 +4,7 @@ import {
   IRefreshTokenParams
 } from '@/modules/auth/refreshToken/refresh-token.entities';
 
-export interface RefreshTokenRepositoryInterface {
+export interface IRefreshTokenRepository {
   getToken(_refreshToken: string): Promise<IRefreshToken | null>;
   getTokenByUserId(_userId: string): Promise<IRefreshToken | null>;
   getTokenByUserAndRefreshToken(_refreshToken: string, _userId: string): Promise<IRefreshToken | null>;

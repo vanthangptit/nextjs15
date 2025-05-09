@@ -45,7 +45,7 @@ Build a blog website using Next.js 15, tailwindcss
   pattern, then the container should handle all the logic (pages/templates) so called HOCs, higher order components.
 
 ### 4. `configs` folder
-* The config folder to actual configuration of the project in itself and not database related stuff
+* The config folder to actual configuration of the project in itself and not index related stuff
     * App settings
     * i18n
     * caching
@@ -72,7 +72,7 @@ Build a blog website using Next.js 15, tailwindcss
   and reuse across components throughout your application.
 
 ### 7. `libs` folder
-* The `lib` directory is for more complex functionality that often:
+* The `libs` directory is for more complex functionality that often:
     * API client configurations
     * Authentication helpers
     * Database connections
@@ -96,12 +96,13 @@ Build a blog website using Next.js 15, tailwindcss
           concerns and streamlining data interactions.
 
     * `[name_module].service.ts`
-        * Handling all business logic that the `controller` brings it. Returns database to controllers.
+        * Handling all business logic that the `controller` brings it. Returns index to controllers.
 
 * Reference link:
     * https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
     * https://petarivanov.me/blog/how-to-better-structure-your-next-nodejs-project-the-modular-approach
     * https://startup-house.com/glossary/repository-vs-service-pattern
+    * https://www.youtube.com/watch?v=mSFIoq1L8uk
 
 ### 9. `styles` folder
 * The `styles` folder contains global styles and custom CSS files, allowing consistent styling across components and pages.

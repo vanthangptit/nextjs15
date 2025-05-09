@@ -1,10 +1,14 @@
-import { IRefreshToken } from '@/modules/auth/refreshToken/refresh-token.entities';
-import { RefreshTokenRepositoryInterface } from '@/modules/auth/refreshToken/refresh-token.repository-interface';
-import { BaseRepository } from '@/modules/repository';
-import { ICreateTokenParams } from '@/modules/auth/refreshToken/refreshToken.interface-typescript';
 import { mongo } from 'mongoose';
+import {
+  IRefreshToken,
+  IRefreshTokenParams
+} from '@/modules/auth/refreshToken/refresh-token.entities';
+import {
+  IRefreshTokenRepository
+} from '@/modules/auth/refreshToken/refresh-token.repository-interface';
+import { BaseRepository } from '@/modules/repository';
 
-export class RefreshTokenRepository extends BaseRepository<IRefreshToken> implements RefreshTokenRepositoryInterface {
+export class RefreshTokenRepository extends BaseRepository<IRefreshToken> implements IRefreshTokenRepository {
   async find(item: IRefreshToken): Promise<IRefreshToken[]> {
     return this.database.find({ filter: { ...item } });
   }
@@ -21,9 +25,11 @@ export class RefreshTokenRepository extends BaseRepository<IRefreshToken> implem
     return this.database.findOne({ refreshToken, user });
   }
 
-  async createToken(params: ICreateTokenParams, session: mongo.ClientSession) {
+  async createToken(params: IRefreshTokenParams, session: mongo.ClientSession) {
     return this.database.create([{ ...params }], { session });
   }
 
-  async deleteToken() {}
+  async deleteToken(userId: string, session: mongo.ClientSession) {
+    this.database.deleteMany({ user: userId }).session(session);
+  }
 }

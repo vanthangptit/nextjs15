@@ -1,9 +1,9 @@
-import { Model, mongo } from 'mongoose';
+import { Model } from 'mongoose';
 
 export abstract class BaseRepository<T> {
   // Creating a property to use your code in all instances
   // that extends your base repository and reuse on methods of class
-  public readonly database: Model<T>;
+  protected readonly database: Model<T>;
 
   // We created constructor with arguments to manipulate mongodb operations
   constructor(database: Model<T>) {

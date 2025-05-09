@@ -1,20 +1,6 @@
 import mongoose, { Mongoose } from 'mongoose';
 import { config } from '@/configs';
 
-export const connectDB = async () => {
-  try {
-    await mongoose.connect(
-      `mongodb+srv://${config.DB_USER}:${config.DB_PASSWORD}@cluster0.aicje.mongodb.net`
-    );
-    // eslint-disable-next-line no-console
-    console.log('MongoDB connected!');
-  } catch (err: any) {
-    // eslint-disable-next-line no-console
-    console.log('Error::connectDatabaseFailure ' + err.message);
-    process.exit(1);
-  }
-};
-
 class DatabaseConnector {
   // eslint-disable-next-line no-use-before-define
   private static instance: DatabaseConnector;
@@ -46,9 +32,7 @@ class DatabaseConnector {
       console.log('MongoDB connected!');
       return this.connection;
     } catch (error: any) {
-      // eslint-disable-next-line no-console
-      console.log('Error connecting from MongoDB:' + error.message);
-      process.exit(1);
+      throw new Error(String(error));
     }
   }
 
@@ -62,5 +46,5 @@ class DatabaseConnector {
   }
 }
 
-const database = DatabaseConnector.getInstance();
-export default database;
+const index = DatabaseConnector.getInstance();
+export default index;

@@ -24,7 +24,7 @@ export const generateTokens = (id: string) => {
   const accessToken = jwt.sign(
     payload,
     config.ACCESS_TOKEN_SECRET_KEY || '',
-    { expiresIn: '5m' }
+    { expiresIn: '1m' }
   );
   const refreshToken = jwt.sign(
     payload,

@@ -2,7 +2,7 @@ import { getTokenFromHeader, verifyToken } from '@/utils/helpers';
 import { logger } from '@/modules/logging';
 import { HandlerType, IFPayloadToken } from '@/utils/types';
 import { config } from '@/configs';
-import { userRepository } from '@/modules/user/user.repository';
+import { User } from '@/modules/user/user.model';
 
 // import { NextFunction, Request, Response } from 'express';
 // import { rateLimit } from 'express-rate-limit';
@@ -67,7 +67,7 @@ export function withAuth(handler: HandlerType): HandlerType {
       });
     }
 
-    const user = await userRepository.getUserById(decodedUser.id);
+    const user = await User.findById(decodedUser.id);
     if (!user) {
       return logger.appResponse({
         message: 'User is exists',

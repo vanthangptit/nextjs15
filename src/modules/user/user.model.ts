@@ -1,8 +1,8 @@
 import { model, models, Schema } from 'mongoose';
-import { IUserModel } from './user.interface';
+import { IUser } from '@/modules/user/user.entities';
 // import { Post } from '@/modules/post/post.model';
 
-const UserSchema = new Schema<IUserModel>({
+const UserSchema = new Schema<IUser>({
   alias: {
     type: String,
     required: [true, 'Alias is required'],
@@ -248,4 +248,4 @@ UserSchema.virtual('blockedCounts').get(function () {
 });
 
 // Compile the user model
-export const User = models.User || model<IUserModel>('User', UserSchema);
+export const User = models.User || model<IUser>('User', UserSchema);

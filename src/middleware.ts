@@ -17,7 +17,7 @@ export default async function middleware(request: NextRequest) {
   const isProtectedRoute = pathRoutes.protectedRoutes.includes(path);
   // 3. Decrypt the session from the cookie
   const refreshToken = (await cookies()).get(AUTH_SESS_ID_NAME)?.value;
-  // 4. Redirect to /login if the user is not authenticated
+  // 4. Redirect to /signin if the user is not authenticated
   if (isProtectedRoute && !refreshToken) {
     return NextResponse.redirect(new URL(APP_ROUTES.SIGN_IN, request.nextUrl));
   }

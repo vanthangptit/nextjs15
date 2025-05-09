@@ -9,8 +9,8 @@ import Toggler from '@/components/atoms/Toggler';
 
 const MENU_LIST = [
   { text: 'Create Post', href: '/create-post' },
-  { text: 'Login', href: '/login' },
-  { text: 'Signup', href: '/signup' }
+  { text: 'Sign In', href: '/signin' },
+  { text: 'Sign Up', href: '/signup' }
 ];
 
 const Navbar = ({ isFixed }: { isFixed: boolean }) => {
