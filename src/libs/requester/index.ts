@@ -38,7 +38,7 @@ export const getToken = async (props: IFParamRetryCallApi): Promise<ResponseData
     }
 
     sessionStorage.setItem(ACCESS_TOKEN_NAME, rs.data.data);
-    return requester[props.method](props.url, props.params, false, rs.data.data);
+    return index[props.method](props.url, props.params, false, rs.data.data);
   } catch (error: any) {
     return errorBody(error);
   }
@@ -56,7 +56,7 @@ const put = (url: string, data = {}, config: AxiosRequestConfig) => axios.put(ur
 const patch = (url: string, data = {}, config: AxiosRequestConfig) => axios.patch(url, data, { ...config });
 const del = (url: string, params = {}, config: AxiosRequestConfig) => axios.delete(url, { params, ...config });
 
-const requester = {
+const index = {
   get: async (url: string, params = {}, retry?: boolean, token?: string): Promise<ResponseData> => {
     try {
       const response = await get(
@@ -119,4 +119,4 @@ const requester = {
   }
 };
 
-export default requester;
+export default index;

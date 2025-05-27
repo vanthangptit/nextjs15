@@ -1,30 +1,21 @@
-import { IUser, IUserModel } from '@/modules/user/user.interface';
-import { User } from '@/modules/user/user.model';
 import { mongo } from 'mongoose';
+import { IUserRepository } from '@/modules/user/user.repository-interface';
+import { IUser, IUserParams } from '@/modules/user/user.entities';
+import { BaseRepository } from '@/modules/repository';
 
-export const getUserById = async (id: string): Promise<IUserModel | undefined> => {
-  const user = await User.findById(id);
-  return user ?? undefined;
-};
+export class UserRepository extends BaseRepository<IUser> implements IUserRepository {
+  async getUser(params: any): Promise<IUser | null> {
+    return this.database.findOne({ ...params });
+  }
+  async getUserById(id: string): Promise<IUser | null> {
+    return this.database.findOne({ id });
+  }
 
-const getUserByEmail = (email: string): Promise<IUserModel | undefined> => {
-  const user = User.findOne({ email });
-  return user;
-};
-
-const getUserByAlias = (alias: string): Promise<IUserModel | undefined> => {
-  const user = User.findOne({ alias });
-  return user;
-};
-
-const createUser = async (user: IUser, session: mongo.ClientSession): Promise<IUserModel> => {
-  const userCreated = await User.create([user], { session });
-  return userCreated[0];
-};
-
-export const userRepository =  {
-  getUserById,
-  getUserByEmail,
-  getUserByAlias,
-  createUser
-};
+  async createUser(user: IUserParams, session: mongo.ClientSession) {
+    await this.database.create([{ ...user }], { session });
+  }
+  
+  async deleteUser(id: string, session: mongo.ClientSession) {
+    await this.database.deleteMany({ id }).session(session);
+  }
+}

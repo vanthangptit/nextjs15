@@ -1,23 +1,26 @@
-import { userRepository } from '@/modules/user/user.repository';
-import { IUserModel } from '@/modules/user/user.interface';
 import { mongo } from 'mongoose';
 import { passwordHash } from '@/utils/helpers';
-import { ISignupRequest } from '@/modules/auth/signup/signup.interface';
+import { ISignupRequest } from '@/modules/auth/signup/signup.entities';
+import { UserService } from '@/modules/user/user.service';
 
-const signUp = async (user: ISignupRequest, session: mongo.ClientSession): Promise<IUserModel> => {
-  const { firstName, lastName, email, password } = user;
-  return await userRepository.createUser(
-    {
-      alias: email?.toString?.()?.split?.('@')[0],
-      firstName,
-      lastName,
-      email,
-      password: password ? passwordHash(password) : undefined
-    },
-    session
-  );
-};
+export class SignupService {
+  private readonly userService: UserService;
 
-export const signUpService = {
-  signUp
-};
+  constructor() {
+    this.userService = new UserService();
+  }
+
+  async signUp(user: ISignupRequest, session: mongo.ClientSession): Promise<void> {
+    const { firstName, lastName, email, password } = user;
+    await this.userService.createUser(
+      {
+        alias: email?.toString?.()?.split?.('@')[0],
+        firstName,
+        lastName,
+        email,
+        password: password ? passwordHash(password) : undefined
+      },
+      session
+    );
+  }
+}

@@ -1,5 +1,5 @@
 import { Document, Types } from 'mongoose';
-import { IUserModel } from '@/modules/user/user.interface';
+import { IUser } from '@/modules/user/user.entities';
 
 export interface IPostModel extends Document {
   title: string
@@ -18,7 +18,7 @@ export interface IPostModel extends Document {
   saves: Types.ObjectId[]
   likes: Types.ObjectId[]
   disLikes: Types.ObjectId[]
-  creator: IUserModel,
+  creator: IUser,
   createdAt: number
   updatedAt: number
 }

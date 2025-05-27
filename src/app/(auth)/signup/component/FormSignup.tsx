@@ -5,7 +5,7 @@ import { Formik } from 'formik';
 import FormSettings from '@/components/molecules/Form/FormSettings';
 import { useToast } from '@/hooks/useToast';
 import { FormikHelpers } from 'formik/dist/types';
-import { STATUS_CODE } from '@/utils/constants';
+import { APP_ROUTES, STATUS_CODE } from '@/utils/constants';
 import { redirect, RedirectType } from 'next/navigation';
 import { IFSignUp } from '@/utils/types';
 import { SignUpSchema } from '@/app/api/v1/auth/sign-up/schema';
@@ -40,7 +40,7 @@ const FormSignUp = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      redirect('/signin', RedirectType.push);
+      redirect(APP_ROUTES.SIGN_IN, RedirectType.push);
     }
   }, [isSuccess]);
 

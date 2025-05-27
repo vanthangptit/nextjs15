@@ -1,7 +1,7 @@
 import { model, models, Schema } from 'mongoose';
-import { ITokenModel } from './refreshToken.interface';
+import { IRefreshToken } from '@/modules/auth/refreshToken/refresh-token.entities';
 
-const TokenSchema = new Schema<ITokenModel>({
+const TokenSchema = new Schema<IRefreshToken>({
   refreshToken: {
     type: [String],
     trim: true
@@ -27,4 +27,4 @@ const TokenSchema = new Schema<ITokenModel>({
 });
 
 // Compile the post model
-export const Token = models.Token || model<ITokenModel>('Token', TokenSchema);
+export const Token = models.Token || model<IRefreshToken>('Token', TokenSchema);
