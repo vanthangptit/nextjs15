@@ -1,4 +1,4 @@
-import { APP_ROUTES } from '@/constants/api-urls';
+import { APP_ROUTES } from '@/constants/app-urls';
 
 export const authRoutes = [APP_ROUTES.SIGN_IN, APP_ROUTES.SIGN_UP];
 
