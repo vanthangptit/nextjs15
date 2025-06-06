@@ -61,7 +61,6 @@ export const FormSignIn = () => {
                 touched,
                 onChange: handleChange,
                 $height: 42,
-                required: true,
                 isVertical: true
               },
               {
@@ -73,7 +72,6 @@ export const FormSignIn = () => {
                 touched,
                 onChange: handleChange,
                 $height: 42,
-                required: true,
                 isVertical: true
               }
             ]}

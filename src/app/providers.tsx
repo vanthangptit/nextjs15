@@ -1,11 +1,15 @@
 'use client';
 
+import { ReactNode } from 'react';
 import { ThemeProvider } from 'next-themes';
+import { AuthProvider } from '@/context/AuthContext';
 
-const Providers = ({ children }: { children: any }) => {
+const Providers = ({ children, isAuthenticated }: { children: ReactNode, isAuthenticated: boolean }) => {
   return (
     <ThemeProvider attribute="class">
-      {children}
+      <AuthProvider isAuthenticated={isAuthenticated}>
+        {children}
+      </AuthProvider>
     </ThemeProvider>
   );
 };

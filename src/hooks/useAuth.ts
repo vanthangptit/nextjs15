@@ -1,10 +1,14 @@
 import { IFSignIn, IFSignUp, SessionKeys } from '@/utils/types';
-import { ACCESS_TOKEN_NAME, API_URLs, STATUS_CODE } from '@/utils/constants';
+import { ACCESS_TOKEN_NAME, API_URLs, APP_ROUTES, STATUS_CODE } from '@/utils/constants';
 import index from '@/libs/requester';
 import { getSessionStorage, removeSessionStorage, setSessionStorage } from '@/utils/helpers';
 import { redirect, RedirectType } from 'next/navigation';
+import { useContext } from 'react';
+import { AuthContext } from '@/context/AuthContext';
 
 export const useAuth = () => {
+  const { setAuthenticated } = useContext(AuthContext);
+
   const setAuth = (key: SessionKeys, value: any) => {
     setSessionStorage(key, value);
   };
@@ -30,8 +34,9 @@ export const useAuth = () => {
     const res = await index.delete(API_URLs.AUTH.SIGN_OUT_URL, {}, true, token);
     if (res.status === STATUS_CODE.SUCCESS) {
       clearAllAuth();
+      setAuthenticated(false);
     } else {
-      redirect('/signin', RedirectType.push);
+      redirect(APP_ROUTES.SIGN_IN, RedirectType.push);
     }
   };
 
