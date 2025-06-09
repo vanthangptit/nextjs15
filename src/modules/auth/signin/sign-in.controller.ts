@@ -1,8 +1,8 @@
 import { startSession } from 'mongoose';
 import { ISignInRequest } from './sign-in.entities';
-import { logger } from '@/modules/logging';
 import { SignInService } from './sign-in.service';
 import { STATUS_CODE } from '@/utils/constants';
+import { appError, appSuccessfully } from '@/utils/helpers';
 
 export class SignInController {
   private signInService: SignInService;
@@ -19,7 +19,7 @@ export class SignInController {
       const { status, message, data } =
         await this.signInService.validateRequestSignIn(user);
       if (status !== STATUS_CODE.SUCCESS) {
-        return logger.appError(message, status);
+        return appError(message, status);
       }
 
       const {
@@ -29,19 +29,19 @@ export class SignInController {
       } =
         await this.signInService.getTokenSignIn(data.userFound.id, session);
       if (statusToken !== STATUS_CODE.SUCCESS) {
-        return logger.appError(messageToken, statusToken);
+        return appError(messageToken, statusToken);
       }
 
       await session.commitTransaction();
       await session.endSession();
 
-      return logger.appSuccessfully('Sign in successfully!', {
+      return appSuccessfully('Sign in successfully!', {
         ...dataToken
       });
     } catch (e: any) {
       await session.abortTransaction();
       await session.endSession();
-      return logger.appError(e.message);
+      return appError(e.message);
     }
   }
 }

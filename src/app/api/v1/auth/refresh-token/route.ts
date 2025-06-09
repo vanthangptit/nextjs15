@@ -1,8 +1,7 @@
 import { cookies } from 'next/headers';
 import { AUTH_SESS_ID_NAME, STATUS_CODE } from '@/utils/constants';
 import { ResponseData } from '@/utils/types';
-import { setCookie } from '@/utils/helpers';
-import { logger } from '@/modules/logging';
+import { appResponse, setCookie } from '@/utils/helpers';
 import { GetTokenController } from '@/modules/auth/refreshToken/refresh-token.controller';
 
 const getTokenController = new GetTokenController();
@@ -16,7 +15,7 @@ export async function getRefreshToken() {
 
   cookieStore.delete(AUTH_SESS_ID_NAME);
   if (!refreshToken) {
-    return logger.appResponse({
+    return appResponse({
       status: 401,
       message: 'Access Denied. No token provided or invalid refresh token'
     });
@@ -30,11 +29,11 @@ export async function getRefreshToken() {
     await getTokenController.getTokenCtrl(refreshToken);
 
   if (status !== STATUS_CODE.SUCCESS) {
-    return logger.appResponse({ message, status });
+    return appResponse({ message, status });
   }
 
   const cookie = setCookie(data.refreshToken);
-  return logger.appResponse({
+  return appResponse({
     data: data.accessToken,
     status,
     message

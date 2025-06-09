@@ -6,7 +6,13 @@ import { AUTH_SESS_ID_NAME, DELAY_TIMEOUT_API } from '@/utils/constants';
 import { ObjectSchema } from 'yup';
 import { NextRequest } from 'next/server';
 import { serialize } from 'cookie';
-import { IFPayloadToken, IFResponseValidate, SessionKeys } from '@/utils/types';
+import {
+  IFPayloadToken,
+  IFResponseValidate,
+  ResponseData,
+  SessionKeys
+} from '@/utils/types';
+import { logger } from '@/libs/logger';
 
 export const passwordHash = (password: string) => {
   const saltRounds = parseInt(config.LENGTH_HASH_SALT || '');
@@ -45,8 +51,7 @@ export const verifyToken = async (
   try {
     return jwt.verify(token, tokenSecretKey) as IFPayloadToken;
   } catch (e) {
-    // eslint-disable-next-line no-console
-    console.log('Error::Verify token failed - ' + e);
+    logger.error('Error::Verify token failed - ' + e);
     return undefined;
   }
 };
@@ -117,4 +122,56 @@ export const removeSessionStorage = (sessionKey: SessionKeys) => {
 
 export const clearSessionStorage = () => {
   return sessionStorage.clear();
+};
+
+export const appError = (message: string, status?: number): ResponseData => {
+  return {
+    status: status ? status : 500,
+    message
+  };
+};
+
+export const appSuccessfully = (message: string, data?: any): ResponseData => {
+  return {
+    status: 200,
+    message,
+    data
+  };
+};
+
+export const appResponse = (data: ResponseData, header?: HeadersInit) => {
+  let status = data?.status ? data.status : 500;
+  let message: string = data.message;
+  const isEnvProduction = process.env.APP_ENV === 'production';
+
+  switch (status) {
+    case 500: {
+      message = 'Internal Server Error';
+      break;
+    }
+    case 401:
+    case 403:
+    case 404: {
+      status = isEnvProduction ? 400 : status;
+      message = isEnvProduction ? '400 Not bad.' : message;
+      break;
+    }
+  }
+
+  const retData: ResponseData = {
+    message,
+    status
+  };
+
+  if (data) {
+    retData['data'] = data.data;
+  }
+
+  return new Response(JSON.stringify(retData), {
+    status,
+    headers: {
+      'Content-Type': 'application/json',
+      ...header
+    }
+  });
 };
