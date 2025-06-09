@@ -46,5 +46,5 @@ class DatabaseConnector {
   }
 }
 
-const index = DatabaseConnector.getInstance();
-export default index;
+const databaseConnector = DatabaseConnector.getInstance();
+export default databaseConnector;

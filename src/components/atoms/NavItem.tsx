@@ -18,6 +18,7 @@ const NavItem = ({
   useEffect(() => {
     setTextColor(isFixed ? 'dark:text-black' : 'dark:text-white');
   }, [isFixed]);
+
   return (
     <Link
       href={href}

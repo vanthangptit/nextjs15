@@ -16,13 +16,13 @@ export default async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
   const isProtectedRoute = pathRoutes.protectedRoutes.includes(path);
   // 3. Decrypt the session from the cookie
-  const refreshToken = (await cookies()).get(AUTH_SESS_ID_NAME)?.value;
+  const sessionId = (await cookies()).get(AUTH_SESS_ID_NAME)?.value;
   // 4. Redirect to /signin if the user is not authenticated
-  if (isProtectedRoute && !refreshToken) {
+  if (isProtectedRoute && !sessionId) {
     return NextResponse.redirect(new URL(APP_ROUTES.SIGN_IN, request.nextUrl));
   }
   // 5. Redirect to / if the user is authenticated and access the sign in/sign up route
-  if (refreshToken && authRoutes.includes(path)) {
+  if (sessionId && authRoutes.includes(path)) {
     return NextResponse.redirect(new URL(APP_ROUTES.HOME, request.nextUrl));
   }
 

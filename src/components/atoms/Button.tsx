@@ -2,7 +2,7 @@ import React from 'react';
 
 export type SizeButton = 'sm' | 'md' | 'lg';
 
-export type TypeButton = 'outline' | 'contained';
+export type TypeButton = 'outlined' | 'contained';
 
 export type TypeHTMLButton = 'button' | 'submit' | 'reset';
 
@@ -13,6 +13,7 @@ export interface IButton {
   type?: TypeButton
   typeHTML?: TypeHTMLButton
   disabled?: boolean
+  onClick?: (_e: React.MouseEvent<HTMLButtonElement>) => void
 }
 
 const Button = ({
@@ -21,10 +22,11 @@ const Button = ({
   size, // default is 'md'
   type = 'contained',
   typeHTML = 'button',
-  disabled
+  disabled,
+  onClick
 }: IButton) => {
   let buttonSize: string = 'pt-[8px] pr-[25px] pb-[8px] pl-[25px] text-base';
-  let buttonType:string = 'text-white dark:text-black border-white dark:border-black bg-black dark:bg-white';
+  let buttonType: string = 'text-white dark:text-black border-white dark:border-black bg-black dark:bg-white';
   const pointerEvents: string = isLoading ? 'pointer-events-none' : 'pointer-events-auto';
 
   switch (size) {
@@ -41,7 +43,7 @@ const Button = ({
     }
   }
 
-  if (type === 'outline') {
+  if (type === 'outlined') {
     buttonType = 'text-black dark:text-white border-black dark:border-white bg-transparent';
   }
 
@@ -49,6 +51,7 @@ const Button = ({
     <button
       type={typeHTML}
       disabled={!!disabled}
+      onClick={onClick}
       className={`
         border
         rounded-[70px]

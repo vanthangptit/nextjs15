@@ -1,11 +1,12 @@
 import '../styles/globals.css';
 
 import React from 'react';
+import { cookies } from 'next/headers';
 import { Metadata, Viewport } from 'next';
 import Providers from '@/app/providers';
 import Layout from '@/components/Layout';
 import Toast from '@/components/organisms/toast';
-import { sharedMetadata } from '@/utils/constants';
+import { AUTH_SESS_ID_NAME, sharedMetadata } from '@/utils/constants';
 
 //Note: Generate default metadata by this way
 export const metadata: Metadata = {
@@ -20,11 +21,13 @@ export const viewport: Viewport = {
   colorScheme: 'dark light'
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const sessionId = (await cookies()).get(AUTH_SESS_ID_NAME)?.value;
+
   return (
     <html
       lang='en'
@@ -32,7 +35,7 @@ export default function RootLayout({
       className={'scroll-smooth}'}
     >
       <body>
-        <Providers>
+        <Providers isAuthenticated={!!sessionId}>
           <Layout>
             {children}
           </Layout>
