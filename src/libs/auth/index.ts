@@ -1,5 +1,4 @@
-import { getTokenFromHeader, verifyToken } from '@/utils/helpers';
-import { logger } from '@/modules/logging';
+import { appResponse, getTokenFromHeader, verifyToken } from '@/utils/helpers';
 import { HandlerType, IFPayloadToken } from '@/utils/types';
 import { config } from '@/configs';
 import { User } from '@/modules/user/user.model';
@@ -53,7 +52,7 @@ export function withAuth(handler: HandlerType): HandlerType {
     const token = getTokenFromHeader(req);
 
     if (!token) {
-      return logger.appResponse({
+      return appResponse({
         message: 'Access Denied. No token provided.',
         status: 401
       });
@@ -61,7 +60,7 @@ export function withAuth(handler: HandlerType): HandlerType {
 
     const decodedUser: IFPayloadToken | undefined = await verifyToken(token,  config.ACCESS_TOKEN_SECRET_KEY || '');
     if (!decodedUser) {
-      return logger.appResponse({
+      return appResponse({
         message: 'Access Denied. The token is invalid.',
         status: 401
       });
@@ -69,7 +68,7 @@ export function withAuth(handler: HandlerType): HandlerType {
 
     const user = await User.findById(decodedUser.id);
     if (!user) {
-      return logger.appResponse({
+      return appResponse({
         message: 'User is exists',
         status: 400
       });

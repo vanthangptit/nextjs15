@@ -1,6 +1,10 @@
 import { ISignInRequest } from './sign-in.entities';
-import { logger } from '@/modules/logging';
-import { comparePassword, generateTokens } from '@/utils/helpers';
+import {
+  appError,
+  appSuccessfully,
+  comparePassword,
+  generateTokens
+} from '@/utils/helpers';
 import { mongo } from 'mongoose';
 import { cookies, headers } from 'next/headers';
 import { AUTH_SESS_ID_NAME } from '@/constants/auth';
@@ -18,21 +22,21 @@ export class SignInService {
 
   async validateRequestSignIn(user: ISignInRequest) {
     try {
-      const userFound = await this.userService.getUserByEmail(user.email);
+      const userFound = await this.userService._getUserByEmail(user.email);
       if (!userFound) {
-        return logger.appError('Email not found', 400);
+        return appError('Email not found', 400);
       }
       const isPasswordMatched =
         await comparePassword(user.password, userFound?.password ?? '');
       if (!isPasswordMatched) {
-        return logger.appError('Email or password invalid', 400);
+        return appError('Email or password invalid', 400);
       }
 
-      return logger.appSuccessfully('Data is valid!', {
+      return appSuccessfully('Data is valid!', {
         userFound
       });
     } catch (error: any) {
-      return logger.appError(error?.message);
+      return appError(error?.message);
     }
   }
 
@@ -46,7 +50,7 @@ export class SignInService {
       } = generateTokens(userId);
 
       const userTokenFound =
-        await this.refreshTokenService._getTokenByUserId(userId);
+        await this.refreshTokenService._getToken({ user: userId });
 
       // User was login so user have session ID
       if (userTokenFound) {
@@ -63,7 +67,7 @@ export class SignInService {
               2) RT is stolen
               3) If 1 & 2, reuse detection is needed to clear all RTs when user logs in
           */
-          const foundToken = await this.refreshTokenService._getToken(refreshToken);
+          const foundToken = await this.refreshTokenService._getToken({ refreshToken });
           // Detected refresh token reuse!
           if (!foundToken) {
             newRefreshTokenArray = []; // clear out ALL previous refresh tokens
@@ -81,12 +85,12 @@ export class SignInService {
         }, session);
       }
 
-      return logger.appSuccessfully('Get token successfully!', {
+      return appSuccessfully('Get token successfully!', {
         newRefreshToken,
         accessToken
       });
     } catch (error:any) {
-      return logger.appError(error?.message);
+      return appError(error?.message);
     }
   }
 }

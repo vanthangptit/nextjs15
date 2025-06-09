@@ -1,8 +1,8 @@
 import { startSession } from 'mongoose';
-import { logger } from '@/modules/logging';
 import { ISignupRequest } from './signup.entities';
 import { SignupService } from '@/modules/auth/signup/signup.service';
 import { UserService } from '@/modules/user/user.service';
+import { appError, appSuccessfully } from '@/utils/helpers';
 
 export class SignupController {
   private readonly signupService: SignupService;
@@ -18,13 +18,13 @@ export class SignupController {
     session.startTransaction();
 
     if (user.passwordConfirm !== user.password) {
-      return logger.appError('Password not matched', 400);
+      return appError('Password not matched', 400);
     }
 
     try {
-      const userFound = await this.userService.checkUserExists(user.email);
+      const userFound = await this.userService._checkUserExists(user.email);
       if (userFound) {
-        return logger.appError('Email already exists', 400);
+        return appError('Email already exists', 400);
       }
 
       await this.signupService.signUp(user, session);
@@ -37,11 +37,11 @@ export class SignupController {
       await session.commitTransaction();
       await session.endSession();
 
-      return logger.appSuccessfully('User created successfully');
+      return appSuccessfully('User created successfully');
     } catch (e: any) {
       await session.abortTransaction();
       await session.endSession();
-      return logger.appError(e?.message);
+      return appError(e?.message);
     }
   }
 }

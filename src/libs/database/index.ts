@@ -1,5 +1,6 @@
 import mongoose, { Mongoose } from 'mongoose';
 import { config } from '@/configs';
+import { logger } from '@/libs/logger';
 
 class DatabaseConnector {
   // eslint-disable-next-line no-use-before-define
@@ -28,8 +29,7 @@ class DatabaseConnector {
 
     try {
       this.connection = await mongoose.connect(this.mongoURI);
-      // eslint-disable-next-line no-console
-      console.log('MongoDB connected!');
+      logger.log('MongoDB connected!');
       return this.connection;
     } catch (error: any) {
       throw new Error(String(error));
@@ -40,7 +40,7 @@ class DatabaseConnector {
     try {
       await mongoose.disconnect();
     } catch (error) {
-      console.error('Error disconnecting from MongoDB:', error);
+      logger.error('Error disconnecting from MongoDB:', error);
       throw new Error(String(error));
     }
   }
