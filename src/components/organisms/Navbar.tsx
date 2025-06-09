@@ -7,10 +7,10 @@ import logoImage from '@/images/logo.png';
 import NavItem from '@/components/atoms/NavItem';
 import Toggler from '@/components/atoms/Toggler';
 import { APP_ROUTES } from '@/utils/constants';
-import Button from '@/components/atoms/Button';
 import { useAuth } from '@/hooks/useAuth';
 import { AuthContext } from '@/context/AuthContext';
 import { redirect, RedirectType, usePathname } from 'next/navigation';
+import LinkButton from '@/components/atoms/LinkButton';
 
 const MENU_LIST = [
   { text: 'Create Post', href: APP_ROUTES.CREATE_POST }
@@ -37,15 +37,15 @@ const Navbar = ({ isFixed }: { isFixed: boolean }) => {
 
   useEffect(() => {
     if (
-      pathname !== APP_ROUTES.SIGN_IN ||
-      pathname !== APP_ROUTES.SIGN_UP ||
-      pathname !== APP_ROUTES.FORGOT_PASSWORD
+      pathname === APP_ROUTES.SIGN_IN ||
+      pathname === APP_ROUTES.SIGN_UP ||
+      pathname === APP_ROUTES.FORGOT_PASSWORD
     ) {
       setShownSignInButton(false);
     } else {
       setShownSignInButton(true);
     }
-  }, [pathname]);
+  }, [pathname, isAuthenticated]);
 
   return (
     <nav className={'flex w-full gap-[20px] flex-nowrap items-center'} role={'navigation'}>
@@ -71,26 +71,26 @@ const Navbar = ({ isFixed }: { isFixed: boolean }) => {
         ))}
       </ul>
       <div className={'flex items-center'}>
-        <div className={'mr-[10px]'}>
+        <div className={'mr-[25px]'}>
           {isAuthenticated ? (
-            <Button
+            <LinkButton
               text={'Sign Out'}
-              typeHTML={'button'}
-              type={'outlined'}
-              size={'sm'}
-              onClick={async (_e: React.MouseEvent<HTMLButtonElement>) => {
+              title={'Sign Out'}
+              role={'button'}
+              onClick={async (_e: React.MouseEvent<HTMLAnchorElement>) => {
                 await signOutApi();
               }}
+              isFixedOnNavbar={isFixed}
             />
           ) : shownSignInButton && (
-            <Button
+            <LinkButton
               text={'Sign In'}
-              typeHTML={'button'}
-              type={'outlined'}
-              size={'sm'}
-              onClick={async (_e: React.MouseEvent<HTMLButtonElement>) => {
+              title={'Sign In'}
+              role={'button'}
+              onClick={async (_e: React.MouseEvent<HTMLAnchorElement>) => {
                 redirect(APP_ROUTES.SIGN_IN, RedirectType.push);
               }}
+              isFixedOnNavbar={isFixed}
             />
           )}
         </div>

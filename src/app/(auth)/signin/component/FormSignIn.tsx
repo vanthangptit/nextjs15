@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { FormikHelpers } from 'formik/dist/types';
 import FormSettings from '@/components/molecules/Form/FormSettings';
 import { Formik } from 'formik';
@@ -10,10 +10,12 @@ import { useToast } from '@/hooks/useToast';
 import { SignInSchema } from '@/app/api/v1/auth/sign-in/schema';
 import { IFSignIn } from '@/utils/types';
 import { useAuth } from '@/hooks/useAuth';
+import { AuthContext } from '@/context/AuthContext';
 
 export const FormSignIn = () => {
   const { toastError } = useToast();
   const { signInApi, setAuth } = useAuth();
+  const { setAuthenticated } = useContext(AuthContext);
   const [isSuccess, setSuccess] = useState<boolean>(false);
 
   const handleSubmit = async (values: IFSignIn, { setSubmitting }: FormikHelpers<IFSignIn>) => {
@@ -22,6 +24,7 @@ export const FormSignIn = () => {
       if (res?.status === STATUS_CODE.SUCCESS) {
         setAuth(ACCESS_TOKEN_NAME, res.data.accessToken);
         setSuccess(true);
+        setAuthenticated(true);
       } else {
         toastError(res.message);
         setSuccess(false);
