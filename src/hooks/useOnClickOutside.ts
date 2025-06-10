@@ -38,7 +38,8 @@ export function useOnClickOutsideMulti<T extends HTMLElement>(
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      const checkedNodes = nodes.map((node) => node.current?.contains(e.target as Node) ?? false);
+      const checkedNodes =
+        nodes.map((node) => node.current?.contains(e.target as Node) ?? false);
       if (!checkedNodes || checkedNodes.length > 0) {
         return;
       }

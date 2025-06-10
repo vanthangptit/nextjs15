@@ -61,7 +61,10 @@ const FormSettings = ({ formSettings, submitButton }: IFormSettingProps) => {
     return returnData?.sort((a, b) => a - b);
   }, [getFormSettings]);
 
-  const renderColumnField = useCallback((fs: IFormSettings, viewColumn: ViewOderColumn) => {
+  const renderColumnField = useCallback((
+    fs: IFormSettings,
+    viewColumn: ViewOderColumn
+  ) => {
     const flexColumn: string = viewColumn === 2 ? 'sm:basis-[50%] sm:max-w-[50%]' : '';
     return (
       <div

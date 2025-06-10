@@ -27,7 +27,10 @@ const Header = () => {
       if (window.scrollY > 85) {
         if (!IS_FIXED) {
           IS_FIXED = true;
-          setPositionLayer(`fixed animate-nav-scroll p-[${padding}px] bg-white dark:bg-[#f1f1f1] shadow-lg`);
+          setPositionLayer(`
+            fixed animate-nav-scroll p-[${padding}px] 
+            bg-white dark:bg-[#f1f1f1] shadow-lg`
+          );
           setZIndexMenu('z-[9999]');
         }
       }
@@ -54,10 +57,16 @@ const Header = () => {
   return (
     <header
       role={'header'}
-      className={`pt-[${padding}px] pb-[${padding}px] h-[60px] md:h-[70px] lg:h-[85px] border-b border-b-solid border-b-gray-400`}
+      className={`
+        pt-[${padding}px] pb-[${padding}px] h-[60px] md:h-[70px] lg:h-[85px] 
+        border-b border-b-solid border-b-gray-400`
+      }
     >
       <div
-        className={`${positionLayer} ${zIndexMenu} top-[0px] left-[0px] w-full flex item-center md:h-[70px] h-[60px] lg:h-[85px]`}>
+        className={
+          `${positionLayer} ${zIndexMenu} top-[0px] left-[0px] w-full flex 
+          item-center md:h-[70px] h-[60px] lg:h-[85px]`
+        }>
         <div className={'max-w-screen-lg m-auto w-full pl-[15px] pr-[15px]'}>
           <Navbar isFixed={IS_FIXED} />
         </div>

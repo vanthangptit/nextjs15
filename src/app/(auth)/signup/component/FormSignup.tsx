@@ -25,7 +25,10 @@ const FormSignUp = () => {
   const [isSuccess, setSuccess] = useState<boolean>(false);
   const [email, setEmail] = useState<string>();
 
-  const handleSubmit = async (values: IFSignUp, { setSubmitting }: FormikHelpers<IFSignUp>) => {
+  const handleSubmit = async (
+    values: IFSignUp,
+    { setSubmitting }: FormikHelpers<IFSignUp>
+  ) => {
     try {
       const res = await signUpApi(values);
       if (res.status === STATUS_CODE.SUCCESS) {
@@ -52,7 +55,15 @@ const FormSignUp = () => {
       validationSchema={SignUpSchema}
       onSubmit={handleSubmit}
     >
-      {({ errors, touched, handleChange, isValid, isSubmitting, dirty, values }) => {
+      {({
+        errors,
+        touched,
+        handleChange,
+        isValid,
+        isSubmitting,
+        dirty,
+        values
+      }) => {
         return (
           <FormSettings
             formSettings={[

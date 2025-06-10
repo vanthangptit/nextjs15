@@ -4,7 +4,13 @@ import { ReactNode } from 'react';
 import { ThemeProvider } from 'next-themes';
 import { AuthProvider } from '@/context/AuthContext';
 
-const Providers = ({ children, isAuthenticated }: { children: ReactNode, isAuthenticated: boolean }) => {
+const Providers = ({
+  children,
+  isAuthenticated
+}: {
+  children: ReactNode,
+  isAuthenticated: boolean
+}) => {
   return (
     <ThemeProvider attribute="class">
       <AuthProvider isAuthenticated={isAuthenticated}>

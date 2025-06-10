@@ -24,7 +24,10 @@ const initialValue = {
 const AuthContext = createContext<IAuthContext>(initialValue);
 
 const AuthProvider = ({ children, isAuthenticated }: AuthProviderProps) => {
-  const [authenticated, setAuthenticated] = useState<boolean | undefined>(false);
+  const [
+    authenticated,
+    setAuthenticated
+  ] = useState<boolean | undefined>(false);
 
   useLayoutEffect(() => {
     if (typeof isAuthenticated === 'boolean') {
@@ -33,7 +36,10 @@ const AuthProvider = ({ children, isAuthenticated }: AuthProviderProps) => {
   }, [isAuthenticated]);
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated: authenticated, setAuthenticated }}>
+    <AuthContext.Provider value={{
+      isAuthenticated: authenticated,
+      setAuthenticated
+    }}>
       {children}
     </AuthContext.Provider>
   );

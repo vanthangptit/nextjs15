@@ -16,7 +16,10 @@ export abstract class BaseRepository<T> {
 
   abstract save(_item: AnyKeys<T>, _session: mongo.ClientSession): Promise<any>;
 
-  abstract update(_update: UpdateQuery<T>, _session: mongo.ClientSession): Promise<any>;
+  abstract update(
+    _update: UpdateQuery<T>,
+    _session: mongo.ClientSession
+  ): Promise<any>;
 
   abstract delete(_id: string, _session: mongo.ClientSession): Promise<any>;
 }

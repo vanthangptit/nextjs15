@@ -42,20 +42,20 @@ const eslintConfig = [
       'no-unused-vars': [
         'error',
         {
-          vars: 'all',
-          varsIgnorePattern: '[iI]gnored',
-          args: 'all',
-          argsIgnorePattern: '^_',
-          caughtErrors: 'all',
-          ignoreRestSiblings: false
+          'vars': 'all',
+          'varsIgnorePattern': '[iI]gnored',
+          'args': 'all',
+          'argsIgnorePattern': '^_',
+          'caughtErrors': 'all',
+          'ignoreRestSiblings': false
         }
       ],
       '@typescript-eslint/no-unused-vars': [
         'error',
         {
-          argsIgnorePattern: '^_',
-          varsIgnorePattern: '^[A-Z]',
-          caughtErrorsIgnorePattern: '^_'
+          'argsIgnorePattern': '^_',
+          'varsIgnorePattern': '^[A-Z]',
+          'caughtErrorsIgnorePattern': '^_'
         }
       ],
       'no-empty-function': 'off',
@@ -69,7 +69,7 @@ const eslintConfig = [
       'eqeqeq': 'error',
 
       // ** Stylistic issues
-      'brace-style': ['error', '1tbs', { allowSingleLine: true }],
+      'brace-style': ['error', '1tbs', { 'allowSingleLine': true }],
       'block-spacing': ['error', 'always'],
       'comma-dangle': 'error',
       'comma-spacing': 'error',
@@ -78,9 +78,9 @@ const eslintConfig = [
         'error',
         2,
         {
-          SwitchCase: 1,
-          VariableDeclarator: 1,
-          ObjectExpression: 1
+          'SwitchCase': 1,
+          'VariableDeclarator': 1,
+          'ObjectExpression': 1
         }],
       'quotes': ['error', 'single'],
       'curly': 'error',
@@ -104,6 +104,12 @@ const eslintConfig = [
       ],
       'space-before-blocks': 'error',
       'keyword-spacing': 'error',
+      'max-len': ['error', {
+        'code': 80,
+        'ignoreComments': true,
+        'ignoreStrings': true,
+        'ignoreUrls': true
+      }],
 
       // ** ES6
       'arrow-spacing': 'error',

@@ -67,14 +67,18 @@ export class SignInService {
               2) RT is stolen
               3) If 1 & 2, reuse detection is needed to clear all RTs when user logs in
           */
-          const foundToken = await this.refreshTokenService._getToken({ refreshToken });
+          const foundToken =
+            await this.refreshTokenService._getToken({ refreshToken });
           // Detected refresh token reuse!
           if (!foundToken) {
             newRefreshTokenArray = []; // clear out ALL previous refresh tokens
           }
           cookieStore.delete(AUTH_SESS_ID_NAME);
         }
-        userTokenFound.refreshToken = [...newRefreshTokenArray, newRefreshToken];
+        userTokenFound.refreshToken = [
+          ...newRefreshTokenArray,
+          newRefreshToken
+        ];
         await userTokenFound.save();
       } else {
         await this.refreshTokenService._createToken({

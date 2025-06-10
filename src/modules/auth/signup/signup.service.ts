@@ -10,7 +10,10 @@ export class SignupService {
     this.userService = new UserService();
   }
 
-  async signUp(user: ISignupRequest, session: mongo.ClientSession): Promise<void> {
+  async signUp(
+    user: ISignupRequest,
+    session: mongo.ClientSession
+  ): Promise<void> {
     const { firstName, lastName, email, password } = user;
     await this.userService._createUser(
       {
