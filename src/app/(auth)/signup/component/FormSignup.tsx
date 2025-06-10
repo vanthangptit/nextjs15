@@ -23,12 +23,14 @@ const FormSignUp = () => {
   const { toastError } = useToast();
   const { signUpApi } = useAuth();
   const [isSuccess, setSuccess] = useState<boolean>(false);
+  const [email, setEmail] = useState<string>();
 
   const handleSubmit = async (values: IFSignUp, { setSubmitting }: FormikHelpers<IFSignUp>) => {
     try {
       const res = await signUpApi(values);
       if (res.status === STATUS_CODE.SUCCESS) {
         setSuccess(true);
+        setEmail(values.email);
       } else {
         toastError(res.message);
       }
@@ -40,7 +42,7 @@ const FormSignUp = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      redirect(APP_ROUTES.SIGN_IN, RedirectType.push);
+      redirect(`${APP_ROUTES.SIGN_IN}?email=${email}`, RedirectType.push);
     }
   }, [isSuccess]);
 
