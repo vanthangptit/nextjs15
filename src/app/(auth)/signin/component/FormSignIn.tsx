@@ -5,7 +5,7 @@ import { FormikHelpers } from 'formik/dist/types';
 import FormSettings from '@/components/molecules/Form/FormSettings';
 import { Formik } from 'formik';
 import { ACCESS_TOKEN_NAME, APP_ROUTES, STATUS_CODE } from '@/utils/constants';
-import { redirect, RedirectType } from 'next/navigation';
+import { redirect, RedirectType, useSearchParams } from 'next/navigation';
 import { useToast } from '@/hooks/useToast';
 import { SignInSchema } from '@/app/api/v1/auth/sign-in/schema';
 import { IFSignIn } from '@/utils/types';
@@ -13,10 +13,12 @@ import { useAuth } from '@/hooks/useAuth';
 import { AuthContext } from '@/context/AuthContext';
 
 export const FormSignIn = () => {
+  const searchParams = useSearchParams();
   const { toastError } = useToast();
   const { signInApi, setAuth } = useAuth();
   const { setAuthenticated } = useContext(AuthContext);
   const [isSuccess, setSuccess] = useState<boolean>(false);
+  const email: string = searchParams.get('email') ?? '';
 
   const handleSubmit = async (values: IFSignIn, { setSubmitting }: FormikHelpers<IFSignIn>) => {
     try {
@@ -45,7 +47,7 @@ export const FormSignIn = () => {
   return (
     <Formik
       initialValues={{
-        email: '',
+        email,
         password: ''
       }}
       validationSchema={SignInSchema}
@@ -64,7 +66,8 @@ export const FormSignIn = () => {
                 touched,
                 onChange: handleChange,
                 $height: 42,
-                isVertical: true
+                isVertical: true,
+                autoFocus: !email
               },
               {
                 type: 'password',
@@ -75,7 +78,8 @@ export const FormSignIn = () => {
                 touched,
                 onChange: handleChange,
                 $height: 42,
-                isVertical: true
+                isVertical: true,
+                autoFocus: !!email
               }
             ]}
             submitButton={{
