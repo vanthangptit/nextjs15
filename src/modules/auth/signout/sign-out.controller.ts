@@ -23,8 +23,10 @@ export class SignOutController {
       if (!refreshToken) {
         return appError('User not found', 404);
       }
-      const userTokenFound =
-        await this.signOutService._getToken({ user: userAuth.id, refreshToken });
+      const userTokenFound = await this.signOutService._getToken({
+        user: userAuth.id,
+        refreshToken
+      });
       if (!userTokenFound) {
         return appError('User not found', 404);
       }

@@ -26,7 +26,9 @@ export class RefreshTokenRepository extends BaseRepository<IRefreshToken> {
   }
 
   async read(params: RootFilterQuery<IRefreshToken>) {
-    return this.database.findOne({ ...params } as RootFilterQuery<IRefreshToken>);
+    return this.database.findOne(
+      { ...params } as RootFilterQuery<IRefreshToken>
+    );
   }
 
   async readMany(params: RootFilterQuery<IRefreshToken>) {
@@ -37,7 +39,10 @@ export class RefreshTokenRepository extends BaseRepository<IRefreshToken> {
     return this.database.create([{ ...params }], { session });
   }
 
-  async update(update: UpdateQuery<IRefreshToken>, session: mongo.ClientSession) {
+  async update(
+    update: UpdateQuery<IRefreshToken>,
+    session: mongo.ClientSession
+  ) {
     return this.database.findOneAndUpdate(
       {
         $or: [{ _id: update.id }]

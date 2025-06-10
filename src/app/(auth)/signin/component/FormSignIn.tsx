@@ -18,7 +18,10 @@ export const FormSignIn = () => {
   const { setAuthenticated } = useContext(AuthContext);
   const [isSuccess, setSuccess] = useState<boolean>(false);
 
-  const handleSubmit = async (values: IFSignIn, { setSubmitting }: FormikHelpers<IFSignIn>) => {
+  const handleSubmit = async (
+    values: IFSignIn,
+    { setSubmitting }: FormikHelpers<IFSignIn>
+  ) => {
     try {
       const res = await signInApi(values);
       if (res?.status === STATUS_CODE.SUCCESS) {
@@ -51,7 +54,15 @@ export const FormSignIn = () => {
       validationSchema={SignInSchema}
       onSubmit={handleSubmit}
     >
-      {({ errors, touched, handleChange, isValid, isSubmitting, dirty, values }) => {
+      {({
+        errors,
+        touched,
+        handleChange,
+        isValid,
+        isSubmitting,
+        dirty,
+        values
+      }) => {
         return (
           <FormSettings
             formSettings={[

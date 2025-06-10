@@ -32,8 +32,14 @@ export class RefreshTokenService {
     }
   }
 
-  async #handleTokenValid(userToken: IRefreshToken, refreshToken: string, decoded: IFPayloadToken) {
-    const newRefreshTokenArray = userToken.refreshToken.filter(rt => rt !== refreshToken);
+  async #handleTokenValid(
+    userToken: IRefreshToken,
+    refreshToken: string,
+    decoded: IFPayloadToken
+  ) {
+    const newRefreshTokenArray = userToken.refreshToken.filter(
+      rt => rt !== refreshToken
+    );
 
     // If expired token or invalid token
     if (!decoded || decoded.id.toString() !== userToken.user.toString()) {
@@ -60,15 +66,23 @@ export class RefreshTokenService {
     );
   }
 
-  async _deleteRefreshToken(userId: string, session: mongo.ClientSession): Promise<void> {
+  async _deleteRefreshToken(
+    userId: string,
+    session: mongo.ClientSession
+  ): Promise<void> {
     await this.refreshTokenRepository.delete(userId, session);
   }
 
-  async _getToken(params: RootFilterQuery<IRefreshToken>): Promise<IRefreshToken | null> {
+  async _getToken(
+    params: RootFilterQuery<IRefreshToken>
+  ): Promise<IRefreshToken | null> {
     return this.refreshTokenRepository.read({ ...params });
   }
 
-  async _createToken(params: AnyKeys<IRefreshToken>, session: mongo.ClientSession) {
+  async _createToken(
+    params: AnyKeys<IRefreshToken>,
+    session: mongo.ClientSession
+  ) {
     return this.refreshTokenRepository.save(params, session);
   }
 
@@ -87,7 +101,11 @@ export class RefreshTokenService {
         return await this.#handleTokenInvalid(decoded);
       }
 
-      return await this.#handleTokenValid(userTokenFound, refreshToken, decoded);
+      return await this.#handleTokenValid(
+        userTokenFound,
+        refreshToken,
+        decoded
+      );
     } catch (e: any) {
       return appError(e?.message);
     }

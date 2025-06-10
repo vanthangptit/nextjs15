@@ -18,9 +18,7 @@ const Toggler = () => {
   return (
     <button
       onClick={() => theme === 'dark' ? setTheme('light') : setTheme('dark')}
-      className={`
-        relative w-40px h-23px bg-black dark:bg-white rounded-5xl border-0 m-auto cursor-pointer
-      `}
+      className={'relative w-40px h-23px bg-black dark:bg-white rounded-5xl border-0 m-auto cursor-pointer'}
     >
       <span
         className={`

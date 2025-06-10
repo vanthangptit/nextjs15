@@ -21,7 +21,10 @@ export const passwordHash = (password: string) => {
   return bcrypt.hashSync(password, salt);
 };
 
-export const comparePassword = async (passwordReq: string, password: string) => {
+export const comparePassword = async (
+  passwordReq: string,
+  password: string
+) => {
   return bcrypt.compareSync(passwordReq, password);
 };
 
@@ -70,7 +73,9 @@ export const cloneDeepData = (data: any): any => {
 
 export const sleeper = () => {
   return function(x: any) {
-    return new Promise(resolve => setTimeout(() => resolve(x), DELAY_TIMEOUT_API));
+    return new Promise(
+      resolve => setTimeout(() => resolve(x), DELAY_TIMEOUT_API)
+    );
   };
 };
 
