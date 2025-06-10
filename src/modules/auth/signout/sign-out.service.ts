@@ -1,3 +1,3 @@
-import { RefreshTokenService } from '@/modules/auth/refreshToken/refresh-token.service';
+import { RefreshTokenService } from '@/modules/auth/refresh-token/refresh-token.service';
 
 export class SignOutService extends RefreshTokenService {}

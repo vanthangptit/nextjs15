@@ -1,6 +1,6 @@
 import { ResponseData } from '@/utils/types';
 import { STATUS_CODE } from '@/utils/constants';
-import { RefreshTokenService } from '@/modules/auth/refreshToken/refresh-token.service';
+import { RefreshTokenService } from '@/modules/auth/refresh-token/refresh-token.service';
 import { appError, appSuccessfully } from '@/utils/helpers';
 
 export class GetTokenController {

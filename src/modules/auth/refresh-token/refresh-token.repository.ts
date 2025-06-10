@@ -1,7 +1,7 @@
 import { AnyKeys, Model, mongo, RootFilterQuery, UpdateQuery } from 'mongoose';
 import {
   IRefreshToken
-} from '@/modules/auth/refreshToken/refresh-token.entities';
+} from '@/modules/auth/refresh-token/refresh-token.entities';
 import { BaseRepository } from '@/libs/repository';
 
 export class RefreshTokenRepository extends BaseRepository<IRefreshToken> {

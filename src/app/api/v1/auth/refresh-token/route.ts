@@ -2,7 +2,7 @@ import { cookies } from 'next/headers';
 import { AUTH_SESS_ID_NAME, STATUS_CODE } from '@/utils/constants';
 import { ResponseData } from '@/utils/types';
 import { appResponse, setCookie } from '@/utils/helpers';
-import { GetTokenController } from '@/modules/auth/refreshToken/refresh-token.controller';
+import { GetTokenController } from '@/modules/auth/refresh-token/refresh-token.controller';
 
 const getTokenController = new GetTokenController();
 

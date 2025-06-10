@@ -1,12 +1,12 @@
 import { AnyKeys, mongo, RootFilterQuery } from 'mongoose';
-import { RefreshTokenRepository } from '@/modules/auth/refreshToken/refresh-token.repository';
-import { Token } from '@/modules/auth/refreshToken/refresh-token.model';
+import { RefreshTokenRepository } from '@/modules/auth/refresh-token/refresh-token.repository';
+import { Token } from '@/modules/auth/refresh-token/refresh-token.model';
 import { IFPayloadToken } from '@/utils/types';
 import { appError, appSuccessfully, generateTokens, verifyToken } from '@/utils/helpers';
 import { config } from '@/configs';
 import {
   IRefreshToken
-} from '@/modules/auth/refreshToken/refresh-token.entities';
+} from '@/modules/auth/refresh-token/refresh-token.entities';
 
 export class RefreshTokenService {
   private readonly refreshTokenRepository: RefreshTokenRepository;
@@ -53,7 +53,7 @@ export class RefreshTokenService {
       refreshToken: newRefreshToken
     } = generateTokens(userToken.user.toString());
 
-    // Saving refreshToken with current user
+    // Saving refresh-token with current user
     userToken.refreshToken = [...newRefreshTokenArray, newRefreshToken];
     await userToken.save();
 

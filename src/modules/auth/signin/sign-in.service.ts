@@ -8,7 +8,7 @@ import {
 import { mongo } from 'mongoose';
 import { cookies, headers } from 'next/headers';
 import { AUTH_SESS_ID_NAME } from '@/constants/auth';
-import { RefreshTokenService } from '@/modules/auth/refreshToken/refresh-token.service';
+import { RefreshTokenService } from '@/modules/auth/refresh-token/refresh-token.service';
 import { UserService } from '@/modules/user/user.service';
 
 export class SignInService {
