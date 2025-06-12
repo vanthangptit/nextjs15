@@ -5,12 +5,23 @@ import { UserService } from '@/modules/user/user.service';
 import { appError, appSuccessfully } from '@/utils/helpers';
 
 export class SignupController {
+  // eslint-disable-next-line no-use-before-define
+  private static instance: SignupController;
+
   private readonly signupService: SignupService;
   private readonly userService: UserService;
 
   constructor() {
     this.signupService = new SignupService();
     this.userService = new UserService();
+  }
+
+  static getInstance() {
+    if (!SignupController.instance) {
+      SignupController.instance = new SignupController();
+    }
+
+    return SignupController.instance;
   }
 
   async signUp(user: ISignupRequest) {
@@ -45,3 +56,6 @@ export class SignupController {
     }
   }
 }
+
+const signupController = SignupController.getInstance();
+export default signupController;

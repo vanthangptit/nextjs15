@@ -1,9 +1,7 @@
-import { SignupController } from '@/modules/auth/signup/signup.controller';
+import signupController from '@/modules/auth/signup/signup.controller';
 import { ResponseData } from '@/utils/types';
 import { appResponse, validation } from '@/utils/helpers';
 import { SignUpSchema } from '@/app/api/v1/auth/sign-up/schema';
-
-const signupController = new SignupController();
 
 export async function POST(request: Request) {
   const dataRequest = await request.json();

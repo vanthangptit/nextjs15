@@ -1,5 +1,5 @@
 import React from 'react';
-import FormSignUp from '@/app/(auth)/signup/component/FormSignup';
+import FormSignUp from '@/app/(auth)/signup/components/FormSignup';
 import TitleForm from '@/components/molecules/TitleForm';
 import Link from 'next/link';
 import { APP_ROUTES } from '@/utils/constants';
