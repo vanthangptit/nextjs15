@@ -15,7 +15,7 @@ export class RefreshTokenService {
     this.refreshTokenRepository = new RefreshTokenRepository(Token);
   }
 
-  async #handleTokenInvalid(decoded: IFPayloadToken) {
+  private async handleTokenInvalid(decoded: IFPayloadToken) {
     try {
       // Delete refresh tokens of hacked user
       const foundToken =
@@ -32,7 +32,7 @@ export class RefreshTokenService {
     }
   }
 
-  async #handleTokenValid(
+  private async handleTokenValid(
     userToken: IRefreshToken,
     refreshToken: string,
     decoded: IFPayloadToken
@@ -98,10 +98,10 @@ export class RefreshTokenService {
         await this.refreshTokenRepository.read({ refreshToken });
 
       if (!userTokenFound) {
-        return await this.#handleTokenInvalid(decoded);
+        return await this.handleTokenInvalid(decoded);
       }
 
-      return await this.#handleTokenValid(
+      return await this.handleTokenValid(
         userTokenFound,
         refreshToken,
         decoded

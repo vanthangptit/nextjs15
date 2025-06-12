@@ -9,3 +9,5 @@ export * from './IFSetAuth';
 export * from './IFSignin';
 export * from './IFSignUp';
 export * from './IFStyles';
+export * from './IFormForgotPassword';
+export * from './IFResetPassword';

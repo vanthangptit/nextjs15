@@ -7,16 +7,18 @@ export type TypeButton = 'outlined' | 'contained';
 export type TypeHTMLButton = 'button' | 'submit' | 'reset';
 
 export interface IButton {
-  text: string
-  isLoading?: boolean
-  size?: SizeButton
-  type?: TypeButton
-  typeHTML?: TypeHTMLButton
-  disabled?: boolean
-  onClick?: (_e: React.MouseEvent<HTMLButtonElement>) => void
+  children?: React.ReactNode;
+  text?: string;
+  isLoading?: boolean;
+  size?: SizeButton;
+  type?: TypeButton;
+  typeHTML?: TypeHTMLButton;
+  disabled?: boolean;
+  onClick?: (_e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const Button = ({
+  children,
   text,
   isLoading,
   size, // default is 'md'
@@ -68,7 +70,7 @@ const Button = ({
         disabled:pointer-events-none
      `}
     >
-      {text}
+      {text ?? children}
     </button>
   );
 };

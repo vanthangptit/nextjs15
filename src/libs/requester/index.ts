@@ -71,7 +71,7 @@ const get = (url: string, params = {}, config: AxiosRequestConfig) => {
   for (const property in newParams) {
     newParams[property] = encodeURIComponent(newParams[property]);
   }
-  return axios.get(url, { params, ...config });
+  return axios.get(url, { params: newParams, ...config });
 };
 const post = (url: string, data = {}, config: AxiosRequestConfig) =>
   axios.post(url, data, { ...config });

@@ -1,11 +1,9 @@
 import { NextRequest } from 'next/server';
-import { SignInController } from '@/modules/auth/signin/sign-in.controller';
+import signInController from '@/modules/auth/signin/sign-in.controller';
 import { ResponseData } from '@/utils/types';
 import { appResponse, setCookie, validation } from '@/utils/helpers';
 import { SignInSchema } from '@/app/api/v1/auth/sign-in/schema';
 import { STATUS_CODE } from '@/utils/constants';
-
-const signInController = new SignInController();
 
 async function signIn(req: NextRequest) {
   const dataRequest = await req.json();

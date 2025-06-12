@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import TitleForm from '@/components/molecules/TitleForm';
-import { FormSignIn } from '@/app/(auth)/signin/component/FormSignIn';
+import { FormSignIn } from '@/app/(auth)/signin/components/FormSignIn';
 import { APP_ROUTES } from '@/utils/constants';
 import { Metadata } from 'next';
 import { sharedMetadata } from '@/constants/shared-metadata';

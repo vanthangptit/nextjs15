@@ -2,14 +2,23 @@ import { startSession } from 'mongoose';
 import { IFContextSignOut } from '@/utils/types';
 import { cookies } from 'next/headers';
 import { AUTH_SESS_ID_NAME } from '@/constants/auth';
-import { SignOutService } from '@/modules/auth/signout/sign-out.service';
 import { appError, appSuccessfully } from '@/utils/helpers';
+import { RefreshTokenService } from '@/modules/auth/refresh-token/refresh-token.service';
 
 export class SignOutController {
-  private signOutService: SignOutService;
+  // eslint-disable-next-line no-use-before-define
+  private static instance: SignOutController;
+  private readonly refreshTokenService: RefreshTokenService;
 
   constructor() {
-    this.signOutService = new SignOutService();
+    this.refreshTokenService = new RefreshTokenService();
+  }
+
+  public static getInstance(): SignOutController {
+    if (!SignOutController.instance) {
+      SignOutController.instance = new SignOutController();
+    }
+    return SignOutController.instance;
   }
 
   async signOut(context: IFContextSignOut) {
@@ -23,14 +32,14 @@ export class SignOutController {
       if (!refreshToken) {
         return appError('User not found', 404);
       }
-      const userTokenFound = await this.signOutService._getToken({
+      const userTokenFound = await this.refreshTokenService._getToken({
         user: userAuth.id,
         refreshToken
       });
       if (!userTokenFound) {
         return appError('User not found', 404);
       }
-      await this.signOutService._deleteRefreshToken(userAuth.id, session);
+      await this.refreshTokenService._deleteRefreshToken(userAuth.id, session);
       await session.commitTransaction();
       await session.endSession();
 
@@ -43,3 +52,7 @@ export class SignOutController {
     }
   }
 }
+
+
+const signOutController = SignOutController.getInstance();
+export default signOutController;
