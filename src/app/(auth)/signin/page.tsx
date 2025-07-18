@@ -24,14 +24,16 @@ export const metadata: Metadata = {
 const SignIn = () => {
   return (
     <Container>
-      <div
-        className={'mt-[40px] md:mt-[70px] max-w-[450px] mr-auto ml-auto border border-solid border-gray-300 p-[20px] rounded-[5px]'}
-      >
-        <TitleForm title={'Sign in'} />
-        <FormSignIn />
-        <div className={'flex justify-between align-center gap-[20px] mb-2 mt-3'}>
-          <Link href={APP_ROUTES.FORGOT_PASSWORD} className={'text-sm'}>Forgot password?</Link>
-          <Link href={APP_ROUTES.SIGN_UP} className={'text-sm'}>Don&rsquo;t have an account? Sign Up</Link>
+      <div className={'pt-[40px] md:pt-[70px]'}>
+        <div
+          className={'max-w-[450px] mr-auto ml-auto border border-solid border-gray-300 p-[20px] rounded-[5px]'}
+        >
+          <TitleForm title={'Sign in'}/>
+          <FormSignIn/>
+          <div className={'flex justify-between align-center gap-[20px] mb-2 mt-3'}>
+            <Link href={APP_ROUTES.FORGOT_PASSWORD} className={'text-sm'}>Forgot password?</Link>
+            <Link href={APP_ROUTES.SIGN_UP} className={'text-sm'}>Don&rsquo;t have an account? Sign Up</Link>
+          </div>
         </div>
       </div>
     </Container>

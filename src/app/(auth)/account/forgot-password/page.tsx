@@ -22,11 +22,13 @@ export const metadata: Metadata = {
 const ForgotPassword = () => {
   return (
     <Container>
-      <div
-        className={ 'mt-[40px] md:mt-[70px] max-w-[450px] mr-auto ml-auto border border-solid border-gray-300 p-[20px] rounded-[5px]' }
-      >
-        <TitleForm title={ 'Reset your password' }/>
-        <FormForgotPassword/>
+      <div className={'pt-[40px] md:pt-[70px]'}>
+        <div
+          className={'max-w-[450px] mr-auto ml-auto border border-solid border-gray-300 p-[20px] rounded-[5px]'}
+        >
+          <TitleForm title={'Reset your password'}/>
+          <FormForgotPassword/>
+        </div>
       </div>
     </Container>
   );
