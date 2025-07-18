@@ -58,8 +58,6 @@ export class MailSender {
             if (error) {
               // eslint-disable-next-line no-console
               console.error('Mail sending failed, check your service credentials.');
-              // eslint-disable-next-line no-console
-              console.error('Mail sending failed:', error.message);
               resolve(false);
             }
             resolve(true);
