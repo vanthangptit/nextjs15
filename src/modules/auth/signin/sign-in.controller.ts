@@ -5,10 +5,19 @@ import { STATUS_CODE } from '@/utils/constants';
 import { appError, appSuccessfully } from '@/utils/helpers';
 
 export class SignInController {
+  // eslint-disable-next-line no-use-before-define
+  private static instance: SignInController;
   private signInService: SignInService;
 
   constructor() {
     this.signInService = new SignInService();
+  }
+
+  public static getInstance(): SignInController {
+    if (!SignInController.instance) {
+      SignInController.instance = new SignInController();
+    }
+    return SignInController.instance;
   }
 
   async signIn(user: ISignInRequest) {
@@ -45,3 +54,6 @@ export class SignInController {
     }
   }
 }
+
+const signInController = SignInController.getInstance();
+export default signInController;

@@ -13,6 +13,7 @@ import {
   SessionKeys
 } from '@/utils/types';
 import { logger } from '@/libs/logger';
+import moment from 'moment';
 
 export const passwordHash = (password: string) => {
   const saltRounds = parseInt(config.LENGTH_HASH_SALT || '');
@@ -179,4 +180,12 @@ export const appResponse = (data: ResponseData, header?: HeadersInit) => {
       ...header
     }
   });
+};
+
+export const areDatesWithinMinutes = (
+  d1: moment.Moment,
+  d2: moment.Moment,
+  minutes: number
+) => {
+  return Math.abs(d1.diff(d2, 'minutes')) < minutes;
 };

@@ -1,12 +1,12 @@
 import { AnyKeys, mongo, RootFilterQuery } from 'mongoose';
-import { RefreshTokenRepository } from '@/modules/auth/refreshToken/refresh-token.repository';
-import { Token } from '@/modules/auth/refreshToken/refresh-token.model';
+import { RefreshTokenRepository } from '@/modules/auth/refresh-token/refresh-token.repository';
+import { Token } from '@/modules/auth/refresh-token/refresh-token.model';
 import { IFPayloadToken } from '@/utils/types';
 import { appError, appSuccessfully, generateTokens, verifyToken } from '@/utils/helpers';
 import { config } from '@/configs';
 import {
   IRefreshToken
-} from '@/modules/auth/refreshToken/refresh-token.entities';
+} from '@/modules/auth/refresh-token/refresh-token.entities';
 
 export class RefreshTokenService {
   private readonly refreshTokenRepository: RefreshTokenRepository;
@@ -15,7 +15,7 @@ export class RefreshTokenService {
     this.refreshTokenRepository = new RefreshTokenRepository(Token);
   }
 
-  async #handleTokenInvalid(decoded: IFPayloadToken) {
+  private async handleTokenInvalid(decoded: IFPayloadToken) {
     try {
       // Delete refresh tokens of hacked user
       const foundToken =
@@ -32,7 +32,7 @@ export class RefreshTokenService {
     }
   }
 
-  async #handleTokenValid(
+  private async handleTokenValid(
     userToken: IRefreshToken,
     refreshToken: string,
     decoded: IFPayloadToken
@@ -53,7 +53,7 @@ export class RefreshTokenService {
       refreshToken: newRefreshToken
     } = generateTokens(userToken.user.toString());
 
-    // Saving refreshToken with current user
+    // Saving refresh-token with current user
     userToken.refreshToken = [...newRefreshTokenArray, newRefreshToken];
     await userToken.save();
 
@@ -98,10 +98,10 @@ export class RefreshTokenService {
         await this.refreshTokenRepository.read({ refreshToken });
 
       if (!userTokenFound) {
-        return await this.#handleTokenInvalid(decoded);
+        return await this.handleTokenInvalid(decoded);
       }
 
-      return await this.#handleTokenValid(
+      return await this.handleTokenValid(
         userTokenFound,
         refreshToken,
         decoded

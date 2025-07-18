@@ -5,17 +5,15 @@ const devConfig = {
     from: 'no-reply@nguyenthangdev.com',
     subject: {
       login: 'Welcome to NTD, --Username--! Confirm Your Email',
-      resetPassword: 'Forgot password: One-time verification code'
+      resetPassword: 'Forgot password: '
     },
     name: 'NTD',
     color: '#bc2e1d',
     clickTrackingValue: '',
     url: 'http://localhost:3000',
     urlLogin: 'http://localhost:3000/signin',
-    mailVerificationUrl: 'http://localhost:9200/auth/verify',
-    mailChangeUrl: 'http://localhost:9200/auth/change-email',
-    resetPasswordUrl: 'http://localhost:9200/auth/reset-password',
-    termsOfServiceUrl: 'https://nguyenthangdev.com/terms'
+    urlContact: 'http://localhost:9200/contact',
+    resetPasswordUrl: 'http://localhost:3000/account/forgot-password'
   }
 };
 
@@ -32,6 +30,7 @@ const stagingConfig = {
     clickTrackingValue: '',
     url: 'https://nguyenthangdev.com',
     urlLogin: 'https://nguyenthangdev.com/signin',
+    urlContact: 'https://nguyenthangdev.com/contact',
     mailVerificationUrl: 'https://account.nguyenthangdev.com/auth/verify',
     mailChangeUrl: 'https://account.nguyenthangdev.com/auth/change-email',
     resetPasswordUrl: 'https://account.nguyenthangdev.com/auth/reset-password',
@@ -52,6 +51,7 @@ const prodConfig = {
     clickTrackingValue: '',
     url: 'https://nguyenthangdev.com',
     urlLogin: 'https://nguyenthangdev.com/signin',
+    urlContact: 'https://nguyenthangdev.com/contact',
     mailVerificationUrl: 'https://account.nguyenthangdev.com/auth/verify',
     mailChangeUrl: 'https://account.nguyenthangdev.com/auth/change-email',
     resetPasswordUrl: 'https://account.nguyenthangdev.com/auth/reset-password',

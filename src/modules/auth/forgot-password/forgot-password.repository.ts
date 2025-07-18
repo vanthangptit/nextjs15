@@ -1,46 +1,44 @@
 import { AnyKeys, Model, mongo, RootFilterQuery, UpdateQuery } from 'mongoose';
-import {
-  IRefreshToken
-} from '@/modules/auth/refreshToken/refresh-token.entities';
 import { BaseRepository } from '@/libs/repository';
+import { IForgotPassword } from '@/modules/auth/forgot-password/forgot-password.entities';
 
-export class RefreshTokenRepository extends BaseRepository<IRefreshToken> {
-  constructor(database: Model<IRefreshToken>) {
+export class ForgotPasswordRepository extends BaseRepository<IForgotPassword> {
+  constructor(database: Model<IForgotPassword>) {
     super(database);
 
-    if (this.read !== RefreshTokenRepository.prototype.read) {
+    if (this.read !== ForgotPasswordRepository.prototype.read) {
       throw new Error('read method override is not allowed.');
     }
-    if (this.readMany !== RefreshTokenRepository.prototype.readMany) {
+    if (this.readMany !== ForgotPasswordRepository.prototype.readMany) {
       throw new Error('readMore method override is not allowed.');
     }
-    if (this.save !== RefreshTokenRepository.prototype.save) {
+    if (this.save !== ForgotPasswordRepository.prototype.save) {
       throw new Error('save method override is not allowed.');
     }
-    if (this.update !== RefreshTokenRepository.prototype.update) {
+    if (this.update !== ForgotPasswordRepository.prototype.update) {
       throw new Error('update method override is not allowed.');
     }
-    if (this.delete !== RefreshTokenRepository.prototype.delete) {
+    if (this.delete !== ForgotPasswordRepository.prototype.delete) {
       throw new Error('delete method override is not allowed.');
     }
   }
 
-  async read(params: RootFilterQuery<IRefreshToken>) {
+  async read(params: RootFilterQuery<IForgotPassword>) {
     return this.database.findOne(
-      { ...params } as RootFilterQuery<IRefreshToken>
+      { ...params } as RootFilterQuery<IForgotPassword>
     );
   }
 
-  async readMany(params: RootFilterQuery<IRefreshToken>) {
+  async readMany(params: RootFilterQuery<IForgotPassword>) {
     return this.database.find({ filter: { ...params } });
   }
 
-  async save(params: AnyKeys<IRefreshToken>, session: mongo.ClientSession) {
+  async save(params: AnyKeys<IForgotPassword>, session: mongo.ClientSession) {
     return this.database.create([{ ...params }], { session });
   }
 
   async update(
-    update: UpdateQuery<IRefreshToken>,
+    update: UpdateQuery<IForgotPassword>,
     session: mongo.ClientSession
   ) {
     return this.database.findOneAndUpdate(

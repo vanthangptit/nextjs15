@@ -1,13 +1,22 @@
 import { ResponseData } from '@/utils/types';
 import { STATUS_CODE } from '@/utils/constants';
-import { RefreshTokenService } from '@/modules/auth/refreshToken/refresh-token.service';
+import { RefreshTokenService } from '@/modules/auth/refresh-token/refresh-token.service';
 import { appError, appSuccessfully } from '@/utils/helpers';
 
-export class GetTokenController {
+class GetTokenController {
+  // eslint-disable-next-line no-use-before-define
+  private static instance: GetTokenController;
   private refreshTokenService: RefreshTokenService;
 
   constructor() {
     this.refreshTokenService = new RefreshTokenService();
+  }
+
+  public static getInstance(): GetTokenController {
+    if (!GetTokenController.instance) {
+      GetTokenController.instance = new GetTokenController();
+    }
+    return GetTokenController.instance;
   }
 
   async getTokenCtrl(refreshToken: string) {
@@ -24,3 +33,6 @@ export class GetTokenController {
     );
   }
 }
+
+const getTokenController = GetTokenController.getInstance();
+export default getTokenController;
