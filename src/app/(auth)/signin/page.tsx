@@ -6,6 +6,7 @@ import { APP_ROUTES } from '@/utils/constants';
 import { Metadata } from 'next';
 import { sharedMetadata } from '@/constants/shared-metadata';
 import Container from '@/components/organisms/grid/Container';
+import { config } from '@/configs';
 
 export const metadata: Metadata = {
   ...sharedMetadata,
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
   twitter: {
     ...sharedMetadata.twitter,
     title: 'Sign in to DN | DN Account',
-    site: 'http://localhost:3000/signin'
+    site: `${config.baseURL}/signin`
   }
 };
 

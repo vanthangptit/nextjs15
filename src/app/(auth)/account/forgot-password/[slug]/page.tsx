@@ -4,6 +4,7 @@ import TitleForm from '@/components/molecules/TitleForm';
 import FormResetPassword from '@/app/(auth)/account/forgot-password/[slug]/components/FormResetPassword';
 import { Metadata } from 'next';
 import { sharedMetadata } from '@/utils/constants';
+import { config } from '@/configs';
 
 export const metadata: Metadata = {
   ...sharedMetadata,
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
   twitter: {
     ...sharedMetadata.twitter,
     title: 'Forgot Password | Set your password',
-    site: 'http://localhost:3000/forgot-password'
+    site: `${config.baseURL}/account/forgot-password`
   }
 };
 

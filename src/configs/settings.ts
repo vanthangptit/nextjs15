@@ -1,5 +1,6 @@
 
 const devConfig = {
+  baseURL: 'http://localhost:3000',
   accessDomain: ['http://localhost:3000'],
   email: {
     from: 'no-reply@nguyenthangdev.com',
@@ -18,6 +19,7 @@ const devConfig = {
 };
 
 const stagingConfig = {
+  baseURL: 'https://nguyenthangdev.com',
   accessDomain: ['https://nguyenthangdev.com'],
   email: {
     from: 'no-reply@nguyenthangdev.com',
@@ -39,6 +41,7 @@ const stagingConfig = {
 };
 
 const prodConfig = {
+  baseURL: 'https://nguyenthangdev.com',
   accessDomain: ['https://nguyenthangdev.com'],
   email: {
     from: 'no-reply@nguyenthangdev.com',

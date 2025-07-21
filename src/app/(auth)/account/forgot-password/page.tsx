@@ -4,6 +4,7 @@ import { Metadata } from 'next';
 import { sharedMetadata } from '@/constants/shared-metadata';
 import Container from '@/components/organisms/grid/Container';
 import { FormForgotPassword } from '@/app/(auth)/account/forgot-password/components/FormForgotPassword';
+import { config } from '@/configs';
 
 export const metadata: Metadata = {
   ...sharedMetadata,
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
   twitter: {
     ...sharedMetadata.twitter,
     title: 'Forgot Password | Can not sign in',
-    site: 'http://localhost:3000/forgot-password'
+    site: `${config.baseURL}/account/forgot-password`
   }
 };
 
