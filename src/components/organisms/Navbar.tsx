@@ -8,7 +8,7 @@ import NavItem from '@/components/atoms/NavItem';
 import Toggler from '@/components/atoms/Toggler';
 import { APP_ROUTES } from '@/utils/constants';
 import { useAuth } from '@/hooks/useAuth';
-import { AuthContext } from '@/context/AuthContext';
+import { AuthContext } from '@/contexts/AuthContext';
 import { redirect, RedirectType, usePathname } from 'next/navigation';
 import LinkButton from '@/components/atoms/LinkButton';
 

@@ -7,7 +7,7 @@ interface ILayoutProps {
 }
 
 //Note: Can't the change. It for the layout with path: src/app/layout.js
-const Layout: React.FC<ILayoutProps> = async ({ children }) => {
+const MainLayout: React.FC<ILayoutProps> = async ({ children }) => {
   return (
     <div className="bg-gray-100 min-h-screen bg-white dark:bg-black">
       <Header />
@@ -22,4 +22,4 @@ const Layout: React.FC<ILayoutProps> = async ({ children }) => {
   );
 };
 
-export default Layout;
+export default MainLayout;

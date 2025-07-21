@@ -10,7 +10,7 @@ import { useToast } from '@/hooks/useToast';
 import { SignInSchema } from '@/app/api/v1/auth/sign-in/schema';
 import { IFSignIn } from '@/utils/types';
 import { useAuth } from '@/hooks/useAuth';
-import { AuthContext } from '@/context/AuthContext';
+import { AuthContext } from '@/contexts/AuthContext';
 
 export const FormSignIn = () => {
   const searchParams = useSearchParams();

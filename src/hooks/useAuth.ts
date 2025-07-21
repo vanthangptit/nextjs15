@@ -4,7 +4,7 @@ import requester from '@/libs/requester';
 import { getSessionStorage, removeSessionStorage, setSessionStorage } from '@/utils/helpers';
 import { redirect, RedirectType } from 'next/navigation';
 import { useContext } from 'react';
-import { AuthContext } from '@/context/AuthContext';
+import { AuthContext } from '@/contexts/AuthContext';
 
 export const useAuth = () => {
   const { setAuthenticated } = useContext(AuthContext);
