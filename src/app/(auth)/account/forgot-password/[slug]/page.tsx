@@ -5,6 +5,7 @@ import FormResetPassword from '@/app/(auth)/account/forgot-password/[slug]/compo
 import { Metadata } from 'next';
 import { sharedMetadata } from '@/utils/constants';
 import { config } from '@/configs';
+import DefaultLayout from '@/components/templates/layouts/DefaultLayout';
 
 export const metadata: Metadata = {
   ...sharedMetadata,
@@ -28,16 +29,18 @@ const Page = async ({
   const { slug } = await params;
 
   return (
-    <Container>
-      <div className={'pt-[40px] md:pt-[70px]'}>
-        <div
-          className={'max-w-[450px] mr-auto ml-auto border border-solid border-gray-300 p-[20px] rounded-[5px]'}
-        >
-          <TitleForm title={'Reset your password'}/>
-          <FormResetPassword slug={slug}/>
+    <DefaultLayout>
+      <Container>
+        <div className={'pt-[40px] md:pt-[70px]'}>
+          <div
+            className={'max-w-[450px] mr-auto ml-auto border border-solid border-gray-300 p-[20px] rounded-[5px]'}
+          >
+            <TitleForm title={'Reset your password'}/>
+            <FormResetPassword slug={slug}/>
+          </div>
         </div>
-      </div>
-    </Container>
+      </Container>
+    </DefaultLayout>
   );
 };
 

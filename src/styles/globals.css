@@ -51,10 +51,10 @@
   --animate-nav-scroll: headerScroll 0.4s ease-out;
   @keyframes headerScroll {
     from {
-      transform: translateY(-150%)
+      transform: translateY(-150%);
     }
     to {
-      transform: translateY(0)
+      transform: translateY(0);
     }
   }
 }
@@ -63,10 +63,10 @@
 
 @layer utilities {
   .rounded-4xl {
-    border-radius: 2rem
+    border-radius: 2rem;
   }
   .rounded-5xl {
-    border-radius: 2.5rem
+    border-radius: 2.5rem;
   }
   .w-40px {
     width: 40px;
@@ -79,6 +79,15 @@
   }
   .h-23px {
     height: 23px;
+  }
+  .text-fill-white {
+    -webkit-text-fill-color: white;
+  }
+  .text-fill-transparent {
+    -webkit-text-fill-color: transparent;
+  }
+  .text-fill-black {
+    -webkit-text-fill-color: black;
   }
 }
 

@@ -1,2 +1,6 @@
-// eslint-disable-next-line import/no-anonymous-default-export
-export default {};
+export enum SectionId {
+  IgnoredHome = 'home',
+  IgnoredAbout = 'about',
+  IgnoredExperience = 'experience',
+  IgnoredContact = 'contact'
+}

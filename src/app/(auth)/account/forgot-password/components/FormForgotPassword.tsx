@@ -35,8 +35,8 @@ export const FormForgotPassword = () => {
             DN account, and we’ll send you a password reset link.
           </strong>
           <Formik
-            initialValues={ { email: '' } }
-            validationSchema={ ForgotPasswordSchema }
+            initialValues={{ email: '' }}
+            validationSchema={ForgotPasswordSchema}
             onSubmit={handleSubmit}
           >
             {({

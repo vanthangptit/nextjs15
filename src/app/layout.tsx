@@ -4,7 +4,6 @@ import React from 'react';
 import { cookies } from 'next/headers';
 import { Metadata, Viewport } from 'next';
 import Providers from '@/app/providers';
-import MainLayout from '@/components/templates/MainLayout';
 import Toast from '@/components/organisms/toast';
 import { AUTH_SESS_ID_NAME, sharedMetadata } from '@/utils/constants';
 
@@ -21,6 +20,8 @@ export const viewport: Viewport = {
   colorScheme: 'dark light'
 };
 
+//@todo: add font family: Outfit
+
 export default async function RootLayout({
   children
 }: Readonly<{
@@ -36,9 +37,7 @@ export default async function RootLayout({
     >
       <body>
         <Providers isAuthenticated={!!sessionId}>
-          <MainLayout>
-            {children}
-          </MainLayout>
+          {children}
           <Toast />
         </Providers>
       </body>

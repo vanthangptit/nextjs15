@@ -17,5 +17,8 @@ export const API_URLs = {
     SIGN_IN_URL: `${API_ROOT_URL}/auth/sign-in`,
     SIGN_OUT_URL: `${API_ROOT_URL}/auth/sign-out`,
     REFRESH_TOKEN_URL: `${API_ROOT_URL}/auth/refresh-token`
+  },
+  PORTFOLIO: {
+    CONTACT: `${API_ROOT_URL}/contact/portfolio`,
   }
 };

@@ -1,28 +1,27 @@
 import React from 'react';
 import { Metadata } from 'next';
 import { sharedMetadata } from '@/utils/constants';
-import Container from '@/components/organisms/grid/Container';
+import { config } from '@/configs';
+import Content from '@/app/portfolio/components/Content';
 
 export const metadata: Metadata = {
   ...sharedMetadata,
-  title: 'Create a post | DN Blog',
+  title: 'Portfolio | Nguyen Van Thang',
   openGraph: {
     ...sharedMetadata.openGraph,
-    title: 'Create a post | DN Blog'
+    title: 'Portfolio | Nguyen Van Thang'
   },
   twitter: {
     ...sharedMetadata.twitter,
-    title: 'Create a post | DN Blog',
-    site: 'http://localhost:3000/create-post'
+    title: 'Portfolio | Nguyen Van Thang',
+    site: `${config.baseURL}/portfolio`
   }
 };
 
-const CreatePost = () => {
+const Portfolio = () => {
   return (
-    <Container>
-      <h1>Create post</h1>
-    </Container>
+    <Content />
   );
 };
 
-export default CreatePost;
+export default Portfolio;
