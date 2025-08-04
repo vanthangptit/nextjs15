@@ -1,0 +1,29 @@
+{
+  "apps": [
+    {
+      "name": "nextjs-app",
+      "script": "./server.js",
+      "output": "./logs/app.log",
+      "error": "./logs/app.err",
+      "log_date_format": "DD-MM-YYYY",
+      "merge_logs": true,
+      "min_uptime": 32000,
+      "watch": ["."],
+      "watch_options": {
+        "usePolling": true,
+        "interval": 1000,
+        "ignoreInitial": true,
+        "ignored": ["node_modules", ".next", "logs"]
+      },
+      "env_development": {
+        "NODE_ENV": "development"
+      },
+      "env_staging": {
+        "NODE_ENV": "uat"
+      },
+      "env_production": {
+        "NODE_ENV": "production"
+      }
+    }
+  ]
+}
