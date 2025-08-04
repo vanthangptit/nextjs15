@@ -4,7 +4,8 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: false,
     dirs: ['src']
-  }
+  },
+  output: 'standalone'
 };
 
-export default nextConfig;
+module.exports = nextConfig;
