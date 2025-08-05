@@ -14,7 +14,8 @@ async function contactPortfolio(req: NextRequest) {
     return appResponse({ message: errors.message, status: 400 });
   }
 
-  const response = await contactPortfolioController.contactPortfolioForm(dataRequest);
+  const response =
+    await contactPortfolioController.contactPortfolioForm(dataRequest);
 
   return appResponse(response);
 }
