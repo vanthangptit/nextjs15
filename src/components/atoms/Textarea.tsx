@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FocusEvent } from 'react';
+import React from 'react';
 import { IInput } from '@/components/atoms/Input';
 
 type OmitTypeInput = 'type' | '$height' | '$with';
@@ -6,9 +6,6 @@ type OmitTypeInput = 'type' | '$height' | '$with';
 interface ITextarea extends Omit<IInput, OmitTypeInput> {
   cols?: number;
   rows?: number;
-  // onBlur?: (_e: FocusEvent<HTMLTextAreaElement>) => void
-  // onChange?: (_e: ChangeEvent<HTMLTextAreaElement>) => void
-  // onInput?: (_e: ChangeEvent<HTMLTextAreaElement>) => void
 }
 
 const Textarea = ({

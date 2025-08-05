@@ -2,7 +2,7 @@
 
 import React, { Fragment, useMemo } from 'react';
 import SlideCollapse, { ISlideCollapseProps } from '@/components/molecules/Collapse';
-import { VscBriefcase, VscLocation  } from 'react-icons/vsc';
+import { VscBriefcase } from 'react-icons/vsc';
 import { BiTimeFive } from 'react-icons/bi';
 
 interface IHeaderTemplateProps {

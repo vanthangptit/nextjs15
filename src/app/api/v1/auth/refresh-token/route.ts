@@ -4,7 +4,7 @@ import { ResponseData } from '@/utils/types';
 import { appResponse, setCookie } from '@/utils/helpers';
 import getTokenController from '@/modules/auth/refresh-token/refresh-token.controller';
 
-export async function getRefreshToken() {
+async function getRefreshToken() {
   const cookieStore = await cookies();
   const refreshToken =
     cookieStore.has(AUTH_SESS_ID_NAME)

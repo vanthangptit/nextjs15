@@ -66,6 +66,7 @@ export class MailSender {
           })
         );
       } catch (error: any) {
+        // eslint-disable-next-line no-console
         console.error('Error sending email:', error);
         return { success: false, error: error.message };
       }
