@@ -7,4 +7,5 @@ export interface IContactPortfolioRequest {
   message: string;
 }
 
-export interface IContactPortfolioModel extends Document, IContactPortfolioRequest {}
+export interface IContactPortfolioModel
+  extends Document, IContactPortfolioRequest {}

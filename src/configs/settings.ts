@@ -4,11 +4,17 @@ const devConfig = {
   accessDomain: ['http://localhost:3000'],
   email: {
     from: 'no-reply@nguyenthangdev.com',
+    to: 'thang.dev.ptit@gmail.com',
     subject: {
-      login: 'Welcome to NTD, --Username--! Confirm Your Email',
-      resetPassword: 'Forgot password: '
+      login: 'Welcome to DN, --Username--! Confirm Your Email',
+      resetPassword: 'Forgot password: ',
+      contactPortfolio: 'Contact Portfolio'
     },
-    name: 'NTD',
+    message: {
+      contactPortfolio: '<p>Subject: <b>--SUBJECT--</b></p><p>Customer: <b>--CUSTOMER_NAME--</b></p><p>Email: <b>--EMAIL--</b></p><p>Message: <b>--MESSAGE--</b></p>'
+    },
+    name: 'DN',
+    logo: 'http://localhost:3000/logo/logo.png',
     color: '#bc2e1d',
     clickTrackingValue: '',
     url: 'http://localhost:3000',
@@ -23,11 +29,17 @@ const stagingConfig = {
   accessDomain: ['https://nguyenthangdev.com'],
   email: {
     from: 'no-reply@nguyenthangdev.com',
+    to: 'thang.dev.ptit@gmail.com',
     subject: {
-      login: 'Welcome to NTD, --Username--! Confirm Your Email',
-      resetPassword: 'Welcome to NTD, --Username--! Confirm Your Email'
+      login: 'Welcome to DN, --Username--! Confirm Your Email',
+      resetPassword: 'Welcome to DN, --Username--! Confirm Your Email',
+      contactPortfolio: 'Contact Portfolio'
     },
-    name: 'NTD',
+    message: {
+      contactPortfolio: '<p>Subject: <b>--SUBJECT--</b></p><p>Customer: <b>--CUSTOMER_NAME--</b></p><p>Email: <b>--EMAIL--</b></p><p>Message: <b>--MESSAGE--</b></p>'
+    },
+    name: 'DN',
+    logo: 'https://nguyenthangdev.com/logo/logo.png',
     color: '#bc2e1d',
     clickTrackingValue: '',
     url: 'https://nguyenthangdev.com',
@@ -45,11 +57,17 @@ const prodConfig = {
   accessDomain: ['https://nguyenthangdev.com'],
   email: {
     from: 'no-reply@nguyenthangdev.com',
+    to: 'thang.dev.ptit@gmail.com',
     subject: {
-      login: 'Welcome to NTD, --Username--! Confirm Your Email',
-      resetPassword: 'Welcome to NTD, --Username--! Confirm Your Email'
+      login: 'Welcome to DN, --Username--! Confirm Your Email',
+      resetPassword: 'Welcome to DN, --Username--! Confirm Your Email',
+      contactPortfolio: 'Contact Portfolio'
     },
-    name: 'NTD',
+    message: {
+      contactPortfolio: '<p>Subject: <b>--SUBJECT--</b></p><p>Customer: <b>--CUSTOMER_NAME--</b></p><p>Email: <b>--EMAIL--</b></p><p>Message: <b>--MESSAGE--</b></p>'
+    },
+    name: 'DN',
+    logo: 'https://nguyenthangdev.com/logo/logo.png',
     color: '#bc2e1d',
     clickTrackingValue: '',
     url: 'https://nguyenthangdev.com',

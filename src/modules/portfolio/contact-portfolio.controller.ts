@@ -24,7 +24,10 @@ export class ContactPortfolioController {
     session.startTransaction();
 
     try {
-      await this.contactPortfolioService.createContactPortfolio(formData, session);
+      await this.contactPortfolioService.createContactPortfolio(
+        formData,
+        session
+      );
 
       await session.commitTransaction();
       await session.endSession();

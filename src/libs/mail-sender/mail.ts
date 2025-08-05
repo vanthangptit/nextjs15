@@ -2,6 +2,8 @@ import PQueue from 'p-queue';
 import nodemailer from 'nodemailer';
 import { resetPassword } from './email-templates';
 import { config } from '@/configs';
+import { IContactPortfolioRequest } from '@/modules/portfolio/contact-portfolio.entities';
+import { portfolioContact } from '@/libs/mail-sender/email-templates/portfolio-contact.html';
 
 interface IMailOptions {
   to: string;
@@ -92,6 +94,36 @@ export class MailSender {
       from: config.email.from,
       to: emailTo,
       subject,
+      html: mail
+    };
+    return await this.sendMail(mailOptions);
+  };
+
+  public async sendContactFormPortfolio({
+    subject,
+    message,
+    email,
+    customerName
+  }: IContactPortfolioRequest) {
+    const subjectEmail = config.email.subject.contactPortfolio;
+    const messageEmail: string = config.email.message.contactPortfolio
+      .replace(new RegExp('--SUBJECT--', 'g'), subject)
+      .replace(new RegExp('--CUSTOMER_NAME--', 'g'), customerName)
+      .replace(new RegExp('--EMAIL--', 'g'), email || '')
+      .replace(new RegExp('--MESSAGE--', 'g'), message || '');
+
+    const mail = portfolioContact
+      .replace(new RegExp('--ProjectMessage--', 'g'), messageEmail)
+      .replace(new RegExp('--ProjectLogo--', 'g'), config.email.logo)
+      .replace(new RegExp('--ProjectName--', 'g'), config.email.name)
+      .replace(new RegExp('--ProjectColor--', 'g'), config.email.color)
+      .replace(new RegExp('--ProjectLink--', 'g'), config.email.url)
+      .replace(new RegExp('--ClickTracking--', 'g'), config.email.clickTrackingValue);
+
+    const mailOptions = {
+      from: config.email.from,
+      to: config.email.to,
+      subject: subjectEmail,
       html: mail
     };
     return await this.sendMail(mailOptions);

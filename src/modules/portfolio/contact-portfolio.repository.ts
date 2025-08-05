@@ -2,7 +2,8 @@ import { AnyKeys, Model, mongo, RootFilterQuery, UpdateQuery } from 'mongoose';
 import { IContactPortfolioModel } from './contact-portfolio.entities';
 import { BaseRepository } from '@/libs/repository';
 
-export class ContactPortfolioRepository extends BaseRepository<IContactPortfolioModel> {
+export class ContactPortfolioRepository
+  extends BaseRepository<IContactPortfolioModel> {
   constructor(database: Model<IContactPortfolioModel>) {
     super(database);
 
@@ -24,18 +25,26 @@ export class ContactPortfolioRepository extends BaseRepository<IContactPortfolio
   }
 
   async read(params: RootFilterQuery<IContactPortfolioModel>) {
-    return this.database.findOne({ ...params } as RootFilterQuery<IContactPortfolioModel>);
+    return this.database.findOne(
+      { ...params } as RootFilterQuery<IContactPortfolioModel>
+    );
   }
 
   async readMany(params: RootFilterQuery<IContactPortfolioModel>) {
     return this.database.find({ filter: { ...params } });
   }
 
-  async save(params: AnyKeys<IContactPortfolioModel>, session: mongo.ClientSession) {
+  async save(
+    params: AnyKeys<IContactPortfolioModel>,
+    session: mongo.ClientSession
+  ) {
     return this.database.create([{ ...params }], { session });
   }
 
-  async update(update: UpdateQuery<IContactPortfolioModel>, session: mongo.ClientSession) {
+  async update(
+    update: UpdateQuery<IContactPortfolioModel>,
+    session: mongo.ClientSession
+  ) {
     return this.database.findOneAndUpdate(
       {
         $or: [{ _id: update.id }]
