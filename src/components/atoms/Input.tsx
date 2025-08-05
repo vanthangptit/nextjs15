@@ -1,12 +1,17 @@
 import React, { FocusEvent, ChangeEvent } from 'react';
 
-export type NameField =
+type NameField =
   //#endregion
   'firstName' |
   'lastName' |
   'email' |
   'password' |
-  'passwordConfirm';
+  'passwordConfirm' |
+
+  //portfolio
+  'customerName' |
+  'message' |
+  'subject';
   //#region Sign Up Form
 
 // 'title' |
@@ -21,9 +26,9 @@ export type NameField =
 // 'alias' |
 // 'websiteUrl';
 
-export type TypeField = 'email' | 'password' | 'text';
+type TypeField = 'email' | 'password' | 'text';
 
-export interface IInput {
+interface IInput {
   name: NameField
   type: TypeField
   value?: string
@@ -34,9 +39,9 @@ export interface IInput {
   disabled?: boolean
   required?: boolean
   readonly?: boolean
-  onBlur?: (_e: FocusEvent<HTMLInputElement>) => void
-  onChange?: (_e: ChangeEvent<HTMLInputElement>) => void
-  onInput?: (_e: ChangeEvent<HTMLInputElement>) => void
+  onBlur?: (_e: FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  onChange?: (_e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+  onInput?: (_e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
 }
 
 const Input = ({
@@ -58,7 +63,7 @@ const Input = ({
   return (
     <input
       className={`
-        font-light text-md rounded-[8px] pt-[8px] pb-[8px] pr-[16px] 
+        font-light text-md rounded-[8px] pt-[8px] pb-[8px] pr-[16px] border-[#cbcbcb] dark:border-[#414141]
         ${type === 'password' ? 'pr-[50px]' : 'pr-[16px]'}
         pl-[16px] text-black dark:text-white bg-transparent ${height} ${width}
       `}
@@ -78,4 +83,5 @@ const Input = ({
   );
 };
 
+export type { TypeField, NameField, IInput };
 export default Input;

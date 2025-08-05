@@ -1,7 +1,8 @@
 import { Metadata } from 'next';
+import { config } from '@/configs';
 
 export const sharedMetadata: Metadata = {
-  metadataBase: new URL('http://localhost:3000'),
+  metadataBase: new URL(config.baseURL),
   title: 'Home | My Stories & Memoirs',
   description: 'My Stories & Memoirs',
   applicationName: 'dn-app',
@@ -84,7 +85,7 @@ export const sharedMetadata: Metadata = {
     card: 'summary',
     title: 'DN – My Stories & Memoirs',
     description: 'DN – My Stories & Memoirs',
-    site: 'http://localhost:3000',
+    site: config.baseURL,
     images: '/logo/logo.png'
   }
 };

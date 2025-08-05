@@ -1,13 +1,20 @@
 
 const devConfig = {
+  baseURL: 'http://localhost:3000',
   accessDomain: ['http://localhost:3000'],
   email: {
     from: 'no-reply@nguyenthangdev.com',
+    to: 'thang.dev.ptit@gmail.com',
     subject: {
-      login: 'Welcome to NTD, --Username--! Confirm Your Email',
-      resetPassword: 'Forgot password: '
+      login: 'Welcome to DN, --Username--! Confirm Your Email',
+      resetPassword: 'Forgot password: ',
+      contactPortfolio: 'Contact Portfolio'
     },
-    name: 'NTD',
+    message: {
+      contactPortfolio: '<p>Subject: <b>--SUBJECT--</b></p><p>Customer: <b>--CUSTOMER_NAME--</b></p><p>Email: <b>--EMAIL--</b></p><p>Message: <b>--MESSAGE--</b></p>'
+    },
+    name: 'DN',
+    logo: 'http://localhost:3000/logo/logo.png',
     color: '#bc2e1d',
     clickTrackingValue: '',
     url: 'http://localhost:3000',
@@ -18,14 +25,21 @@ const devConfig = {
 };
 
 const stagingConfig = {
+  baseURL: 'https://nguyenthangdev.com',
   accessDomain: ['https://nguyenthangdev.com'],
   email: {
     from: 'no-reply@nguyenthangdev.com',
+    to: 'thang.dev.ptit@gmail.com',
     subject: {
-      login: 'Welcome to NTD, --Username--! Confirm Your Email',
-      resetPassword: 'Welcome to NTD, --Username--! Confirm Your Email'
+      login: 'Welcome to DN, --Username--! Confirm Your Email',
+      resetPassword: 'Welcome to DN, --Username--! Confirm Your Email',
+      contactPortfolio: 'Contact Portfolio'
     },
-    name: 'NTD',
+    message: {
+      contactPortfolio: '<p>Subject: <b>--SUBJECT--</b></p><p>Customer: <b>--CUSTOMER_NAME--</b></p><p>Email: <b>--EMAIL--</b></p><p>Message: <b>--MESSAGE--</b></p>'
+    },
+    name: 'DN',
+    logo: 'https://nguyenthangdev.com/logo/logo.png',
     color: '#bc2e1d',
     clickTrackingValue: '',
     url: 'https://nguyenthangdev.com',
@@ -39,14 +53,21 @@ const stagingConfig = {
 };
 
 const prodConfig = {
+  baseURL: 'https://nguyenthangdev.com',
   accessDomain: ['https://nguyenthangdev.com'],
   email: {
     from: 'no-reply@nguyenthangdev.com',
+    to: 'thang.dev.ptit@gmail.com',
     subject: {
-      login: 'Welcome to NTD, --Username--! Confirm Your Email',
-      resetPassword: 'Welcome to NTD, --Username--! Confirm Your Email'
+      login: 'Welcome to DN, --Username--! Confirm Your Email',
+      resetPassword: 'Welcome to DN, --Username--! Confirm Your Email',
+      contactPortfolio: 'Contact Portfolio'
     },
-    name: 'NTD',
+    message: {
+      contactPortfolio: '<p>Subject: <b>--SUBJECT--</b></p><p>Customer: <b>--CUSTOMER_NAME--</b></p><p>Email: <b>--EMAIL--</b></p><p>Message: <b>--MESSAGE--</b></p>'
+    },
+    name: 'DN',
+    logo: 'https://nguyenthangdev.com/logo/logo.png',
     color: '#bc2e1d',
     clickTrackingValue: '',
     url: 'https://nguyenthangdev.com',
@@ -72,5 +93,6 @@ export const config = {
   LENGTH_HASH_SALT: process.env.LENGTH_HASH_SALT,
   PORT: process.env.PORT,
   ACCESS_TOKEN_SECRET_KEY: process.env.ACCESS_TOKEN_SECRET_KEY,
-  REFRESH_TOKEN_PRIVATE_KEY: process.env.REFRESH_TOKEN_PRIVATE_KEY
+  REFRESH_TOKEN_PRIVATE_KEY: process.env.REFRESH_TOKEN_PRIVATE_KEY,
+  AWS_S3_URL: process.env.NEXT_PUBLIC_AWS_S3_URL
 };

@@ -6,15 +6,24 @@ import LabelField from '@/components/atoms/LabelField';
 import Input, { IInput } from '@/components/atoms/Input';
 import { BsEye, BsEyeSlash } from 'react-icons/bs';
 import MessageError from '@/components/atoms/MessageError';
-import { IFSignIn, IFSignUp } from '@/utils/types';
+import {
+  IFSignIn,
+  IFSignUp,
+  IFContactPortfolio
+} from '@/utils/types';
+import Textarea from '@/components/atoms/Textarea';
 
-interface IFormFieldAll extends IFSignUp, IFSignIn {}
+interface IFormFieldAll extends IFSignUp, IFSignIn, IFContactPortfolio {}
+
+export type FormType = 'INPUT' | 'TEXTAREA';
 
 export interface IFormControl extends IInput {
+  formType?: FormType,
   label?: string
   errors?: FormikErrors<IFormFieldAll>
   touched?: FormikTouched<IFormFieldAll>
-  isVertical?: boolean // If true label and input are 2 rows, else the label and input are the same row
+  // If true label and input are 2 rows, else the label and input are the same row
+  isVertical?: boolean
 }
 
 const FormControl = (props: IFormControl) => {
@@ -34,12 +43,16 @@ const FormControl = (props: IFormControl) => {
           />
         )}
         <span className={'relative'}>
-          <Input
-            {...props}
-            type={
-              props?.type === 'password' ? isHiddenPassword ? props.type : 'text' : props.type
-            }
-          />
+          {props?.formType === 'TEXTAREA' ? (
+            <Textarea {...props} />
+          ) : (
+            <Input
+              {...props}
+              type={
+                props?.type === 'password' ? isHiddenPassword ? props.type : 'text' : props.type
+              }
+            />
+          )}
           {props?.type === 'password' && (
             <span
               className={'absolute top-[50%] right-[20px] translate-y-[-50%] cursor-pointer'}

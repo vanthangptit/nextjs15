@@ -27,17 +27,17 @@ const Button = ({
   disabled,
   onClick
 }: IButton) => {
-  let buttonSize: string = 'pt-[8px] pr-[25px] pb-[8px] pl-[25px] text-base';
+  let buttonSize: string = 'py-[5px] px-[18px] md:py-[8px] md:px-[25px] text-base';
   let buttonType: string = 'text-white dark:text-black border-white dark:border-black bg-black dark:bg-white';
   const pointerEvents: string = isLoading ? 'pointer-events-none' : 'pointer-events-auto';
 
   switch (size) {
     case 'lg': {
-      buttonSize = 'pt-[8px] pr-[25px] pb-[8px] pl-[25px] text-lg';
+      buttonSize = 'py-[8px] px-[25px] md:py-[12px] md:px-[32px] text-lg';
       break;
     }
     case 'sm': {
-      buttonSize = 'pt-[5px] pr-[18px] pb-[5px] pl-[18px] text-sm';
+      buttonSize = 'py-[3px] px-[14px] md:py-[5px] md:px-[18px] text-sm';
       break;
     }
     default: {

@@ -2,6 +2,7 @@ import React from 'react';
 import { Metadata } from 'next';
 import { sharedMetadata } from '@/utils/constants';
 import Container from '@/components/organisms/grid/Container';
+import { config } from '@/configs';
 
 export const metadata: Metadata = {
   ...sharedMetadata,
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
   twitter: {
     ...sharedMetadata.twitter,
     title: 'Create a post | DN Blog',
-    site: 'http://localhost:3000/create-post'
+    site: `${config.baseURL}/create-post`
   }
 };
 

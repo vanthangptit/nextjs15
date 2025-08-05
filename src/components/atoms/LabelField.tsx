@@ -17,9 +17,9 @@ const LabelField = ({
       className={`relative block text-[16px] mb-[12px text-${align ?? 'left'} font-light text-sm`}
       htmlFor={htmlFor}
     >
-      <span>{text}</span>
+      <span className={'dark:opacity-70'}>{text}</span>
       {required && (
-        <span className={'text-[#dd0505] text-xs pl-[2px] translate-y-[-2px] translate-x-[2px]'}>*</span>
+        <span className={'text-[#dd0505] dark:text-[#b30202] text-xs pl-[2px] translate-y-[-2px] translate-x-[2px]'}>*</span>
       )}
     </label>
   );

@@ -11,3 +11,4 @@ export * from './IFSignUp';
 export * from './IFStyles';
 export * from './IFormForgotPassword';
 export * from './IFResetPassword';
+export * from './IFContactPortfolio';
