@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
+    "build:restart": "pm2 start ecosystem.config.js && pm2 save",
     "start": "next start",
     "lint": "next lint"
   },
