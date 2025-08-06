@@ -1,4 +1,4 @@
-export const API_ROOT_URL = process.env.NEXT_PUBLIC_APP_API_ROOT;
+import { config } from '@/configs';
 
 export const APP_ROUTES = {
   HOME: '/',
@@ -11,14 +11,14 @@ export const APP_ROUTES = {
 
 export const API_URLs = {
   AUTH: {
-    SIGN_UP_URL: `${API_ROOT_URL}/auth/sign-up`,
-    FORGOT_PASSWORD: `${API_ROOT_URL}/auth/forgot-password`,
-    RESET_PASSWORD: `${API_ROOT_URL}/auth/reset-password`,
-    SIGN_IN_URL: `${API_ROOT_URL}/auth/sign-in`,
-    SIGN_OUT_URL: `${API_ROOT_URL}/auth/sign-out`,
-    REFRESH_TOKEN_URL: `${API_ROOT_URL}/auth/refresh-token`
+    SIGN_UP_URL: `${config.PUBLIC_API_ROOT_URL}/auth/sign-up`,
+    FORGOT_PASSWORD: `${config.PUBLIC_API_ROOT_URL}/auth/forgot-password`,
+    RESET_PASSWORD: `${config.PUBLIC_API_ROOT_URL}/auth/reset-password`,
+    SIGN_IN_URL: `${config.PUBLIC_API_ROOT_URL}/auth/sign-in`,
+    SIGN_OUT_URL: `${config.PUBLIC_API_ROOT_URL}/auth/sign-out`,
+    REFRESH_TOKEN_URL: `${config.PUBLIC_API_ROOT_URL}/auth/refresh-token`
   },
   PORTFOLIO: {
-    CONTACT: `${API_ROOT_URL}/contact/portfolio`
+    CONTACT: `${config.PUBLIC_API_ROOT_URL}/contact/portfolio`
   }
 };

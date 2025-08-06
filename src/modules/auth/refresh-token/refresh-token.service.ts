@@ -88,7 +88,7 @@ export class RefreshTokenService {
 
   async _handleGetToken(refreshToken: string) {
     const decoded: IFPayloadToken | undefined
-      = await verifyToken(refreshToken, config.REFRESH_TOKEN_PRIVATE_KEY ?? '');
+      = await verifyToken(refreshToken, config.PRIVATE_REFRESH_TOKEN_PRIVATE_KEY ?? '');
     if (!decoded) {
       return appError('403 Forbidden', 403);
     }

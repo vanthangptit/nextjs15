@@ -58,7 +58,7 @@ export function withAuth(handler: HandlerType): HandlerType {
       });
     }
 
-    const decodedUser: IFPayloadToken | undefined = await verifyToken(token,  config.ACCESS_TOKEN_SECRET_KEY || '');
+    const decodedUser: IFPayloadToken | undefined = await verifyToken(token,  config.PRIVATE_ACCESS_TOKEN_SECRET_KEY || '');
     if (!decodedUser) {
       return appResponse({
         message: 'Access Denied. The token is invalid.',

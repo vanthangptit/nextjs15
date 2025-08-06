@@ -16,7 +16,7 @@ import { logger } from '@/libs/logger';
 import moment from 'moment';
 
 export const passwordHash = (password: string) => {
-  const saltRounds = parseInt(config.LENGTH_HASH_SALT || '');
+  const saltRounds = parseInt(config.PRIVATE_LENGTH_HASH_SALT || '');
   const salt = bcrypt.genSaltSync(saltRounds);
 
   return bcrypt.hashSync(password, salt);
@@ -33,12 +33,12 @@ export const generateTokens = (id: string) => {
   const payload: IFPayloadToken = { id };
   const accessToken = jwt.sign(
     payload,
-    config.ACCESS_TOKEN_SECRET_KEY || '',
+    config.PRIVATE_ACCESS_TOKEN_SECRET_KEY || '',
     { expiresIn: '1m' }
   );
   const refreshToken = jwt.sign(
     payload,
-    config.REFRESH_TOKEN_PRIVATE_KEY || '',
+    config.PRIVATE_REFRESH_TOKEN_PRIVATE_KEY || '',
     { expiresIn: '7d' }
   );
 
@@ -148,7 +148,7 @@ export const appSuccessfully = (message: string, data?: any): ResponseData => {
 export const appResponse = (data: ResponseData, header?: HeadersInit) => {
   let status = data?.status ? data.status : 500;
   let message: string = data.message;
-  const isEnvProduction = process.env.APP_ENV === 'production';
+  const isEnvProduction = process.env.NODE_ENV === 'production';
 
   switch (status) {
     case 500: {

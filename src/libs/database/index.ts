@@ -9,7 +9,7 @@ class DatabaseConnector {
   private readonly mongoURI: string;
 
   private constructor() {
-    this.mongoURI = `mongodb+srv://${config.DB_USER}:${config.DB_PASSWORD}@cluster0.aicje.mongodb.net`;
+    this.mongoURI = `mongodb+srv://${config.PRIVATE_DB_USER}:${config.PRIVATE_DB_PASSWORD}@cluster0.aicje.mongodb.net`;
   }
 
   public static getInstance(): DatabaseConnector {

@@ -101,7 +101,7 @@ const InfiniteSlider = () => {
             <figure className={'flex gap-2 flex-col items-center'}>
               <img
                 className={(item.isCircle ? 'rounded-[100%] w-[30px] ': '') + 'h-[30px] object-contain filter grayscale-100'}
-                src={`${config.AWS_S3_URL}/${item.image}`}
+                src={`${config.PUBLIC_AWS_S3_URL}/${item.image}`}
                 alt={item.alt}
               />
               <figcaption className={'opacity-50 font-thin'}>{item.label}</figcaption>

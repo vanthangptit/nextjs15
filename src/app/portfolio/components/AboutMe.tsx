@@ -43,7 +43,7 @@ const AboutMe = () => {
         <Button typeHTML={'button'} type={'outlined'}>
           <a
             className={'normal-case flex gap-3 items-center opacity-70 text-[15px] font-thin w-[142px]'}
-            href={config.AWS_S3_URL + 'pdf/cv_fullstack-developer_nguyen-van-thang.pdf'}
+            href={config.PUBLIC_AWS_S3_URL + 'pdf/cv_fullstack-developer_nguyen-van-thang.pdf'}
             target="_blank"
             download
             title="Download resume"
@@ -73,22 +73,22 @@ const AboutMe = () => {
                 description: 'Expert in ReactJS, TypeScript, and Next.js, building fast, SEO-friendly web applications with clean HTML and CSS.',
                 icons: [
                   {
-                    src: `${config.AWS_S3_URL}/html5.png`
+                    src: `${config.PUBLIC_AWS_S3_URL}/html5.png`
                   },
                   {
-                    src: `${config.AWS_S3_URL}/tailwind-css.png`
+                    src: `${config.PUBLIC_AWS_S3_URL}/tailwind-css.png`
                   },
                   {
-                    src: `${config.AWS_S3_URL}/javascript.png`
+                    src: `${config.PUBLIC_AWS_S3_URL}/javascript.png`
                   },
                   {
-                    src: `${config.AWS_S3_URL}/typescript.png`
+                    src: `${config.PUBLIC_AWS_S3_URL}/typescript.png`
                   },
                   {
-                    src: `${config.AWS_S3_URL}/reacrjs.png`
+                    src: `${config.PUBLIC_AWS_S3_URL}/reacrjs.png`
                   },
                   {
-                    src: `${config.AWS_S3_URL}/bg-nextjs.jpg`,
+                    src: `${config.PUBLIC_AWS_S3_URL}/bg-nextjs.jpg`,
                     styles: 'w-[30px] rounded-[3px]'
                   }
                 ]
@@ -101,13 +101,13 @@ const AboutMe = () => {
                 description: 'Basic backend development using Node.js, Express.js and MongoDB to create RESTful APIs with CRUD functionality.',
                 icons: [
                   {
-                    src: config.AWS_S3_URL + '/nodejs.svg'
+                    src: config.PUBLIC_AWS_S3_URL + '/nodejs.svg'
                   },
                   {
-                    src: config.AWS_S3_URL + '/expressjs.png'
+                    src: config.PUBLIC_AWS_S3_URL + '/expressjs.png'
                   },
                   {
-                    src: config.AWS_S3_URL + '/mongodb.svg'
+                    src: config.PUBLIC_AWS_S3_URL + '/mongodb.svg'
                   }
                 ]
               }}/>
