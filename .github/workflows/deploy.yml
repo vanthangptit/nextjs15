@@ -59,6 +59,7 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
+            echo "Deploying to ${{ secrets.APP_DIR }}"
             unzip -o /tmp/app.zip -d ${{ secrets.APP_DIR }}
             cd ${{ secrets.APP_DIR }}
             npm install --omit=dev
