@@ -43,6 +43,15 @@ jobs:
           name: nextjs15-app
           path: .
 
+      - name: Clean old artifact on EC2
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+            host: ${{ secrets.EC2_HOST }}
+            username: ${{ secrets.EC2_USER }}
+            key: ${{ secrets.EC2_SSH_KEY }}
+            script: |
+              rm -f /tmp/app.zip
+
       - name: Upload artifact to EC2
         uses: appleboy/scp-action@v0.1.7
         with:
