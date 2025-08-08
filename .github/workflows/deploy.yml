@@ -62,4 +62,4 @@ jobs:
             unzip -o /tmp/app.zip/app.zip -d /home/ec2-user/projects/dnApp
             cd /home/ec2-user/projects/dnApp
             npm install --omit=dev
-            pm2 restart ecosystem.config.js || pm2 start ecosystem.config.js
+            pm2 reload ecosystem.config.js --only dnApp || pm2 start ecosystem.config.js
