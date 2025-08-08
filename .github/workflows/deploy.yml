@@ -24,14 +24,15 @@ jobs:
         run: npm run build
 
       - name: Compress artifact (exclude node_modules, .git, .github)
-        # Nén project sau khi build
-        run: zip -r app.zip . -x "node_modules/*" ".git/*" ".github/*"
+        run: |
+          rm -f app.zip
+          zip -r app.zip . -x "node_modules/*" ".git/*" ".github/*"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-            name: nextjs15-app
-            path: app.zip
+          name: nextjs15-app
+          path: app.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -49,8 +50,8 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
-          source: "app.zip"
-          target: "/tmp/app.zip"
+          source: app.zip
+          target: /tmp/app.zip
 
       - name: Deploy on EC2
         uses: appleboy/ssh-action@v1.0.0
@@ -59,7 +60,19 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
+            echo "Check file /tmp/app.zip"
+            ls -l /tmp/app.zip
+
+            echo "Unzip app.zip to deploy dir"
             unzip -o /tmp/app.zip -d /home/ec2-user/projects/dnApp
+
+            echo "List deploy dir contents"
+            ls -l /home/ec2-user/projects/dnApp
+
             cd /home/ec2-user/projects/dnApp
+
+            echo "Install production dependencies"
             npm install --omit=dev
+
+            echo "Restart PM2 process"
             pm2 restart ecosystem.config.js || pm2 start ecosystem.config.js
