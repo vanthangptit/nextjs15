@@ -1,0 +1,324 @@
+@import 'tailwindcss';
+
+@theme {
+  --text-xs: 12px;
+  --text-xs--line-height: 16px;
+  --text-sm: 14px;
+  --text-sm--line-height: 20px;
+  --text-base: 16px;
+  --text-base--line-height: 24px;
+  --text-md: 18px;
+  --text-md--line-height: 28px;
+  --text-lg: 20px;
+  --text-lg--line-height: 28px;
+  --text-xl: 24px;
+  --text-xl--line-height: 32px;
+  --text-2xl: 30px;
+  --text-2xl--line-height: 36px;
+  --text-3xl: 36px;
+  --text-3xl--line-height: 40px;
+  --text-4xl: 48px;
+  --text-4xl--line-height: 1;
+  --text-5xl: 60px;
+  --text-6xl--line-height: 1;
+  --text-size-8: 8px;
+  --text-size-9: 9px;
+  --text-size-10: 10px;
+  --text-size-11: 11px;
+  --text-size-12: 12px;
+  --text-size-13: 13px;
+  --text-size-14: 14px;
+  --text-size-15: 15px;
+  --text-size-16: 16px;
+  --text-size-18: 18px;
+  --text-size-20: 20px;
+  --text-size-22: 22px;
+  --text-size-24: 24px;
+  --text-size-26: 26px;
+  --text-size-28: 28px;
+  --text-size-30: 30px;
+  --text-size-32: 32px;
+  --text-size-34: 34px;
+  --text-size-36: 36px;
+  --text-size-38: 38px;
+  --text-size-40: 40px;
+  --text-size-42: 42px;
+  --text-size-46: 46px;
+  --text-size-50: 50px;
+  --text-size-54: 54px;
+  --text-size-68: 68px;
+
+  --animate-nav-scroll: headerScroll 0.4s ease-out;
+  @keyframes headerScroll {
+    from {
+      transform: translateY(-150%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer utilities {
+  .rounded-4xl {
+    border-radius: 2rem;
+  }
+  .rounded-5xl {
+    border-radius: 2.5rem;
+  }
+  .w-40px {
+    width: 40px;
+  }
+  .w-17px {
+    width: 17px;
+  }
+  .h-17px {
+    height: 17px;
+  }
+  .h-23px {
+    height: 23px;
+  }
+  .text-fill-white {
+    -webkit-text-fill-color: white;
+  }
+  .text-fill-transparent {
+    -webkit-text-fill-color: transparent;
+  }
+  .text-fill-black {
+    -webkit-text-fill-color: black;
+  }
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    @apply box-border;
+  }
+  ::-moz-selection {
+    @apply bg-[#228822] text-[#ffffff];
+  }
+  ::selection {
+    @apply bg-[#228822] text-[#ffffff];
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+    @apply leading-tight;
+  }
+  html,
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    @apply scroll-smooth text-sm lg:text-base box-border;
+  }
+  html::-webkit-scrollbar {
+    @apply w-[6px];
+  }
+  html::-webkit-scrollbar-thumb {
+    @apply bg-[#444444] rounded-[5px];
+  }
+  html.dark::-webkit-scrollbar-thumb {
+    @apply bg-white rounded-[5px];
+  }
+  html::-webkit-scrollbar-thumb:hover {
+    @apply bg-[#444444];
+  }
+  html.dark::-webkit-scrollbar-thumb:hover {
+    @apply bg-white;
+  }
+  body {
+    @apply font-normal leading-normal text-left;
+  }
+  body,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  ol,
+  ul {
+    @apply p-0 m-0;
+  }
+  article,
+  aside,
+  details,
+  figcaption,
+  figure,
+  footer,
+  header,
+  hgroup,
+  main,
+  menu,
+  nav,
+  section {
+    @apply block;
+  }
+  blockquote,
+  q {
+    quotes: none;
+  }
+  blockquote::before,
+  blockquote::after,
+  q::before,
+  q::after {
+    @apply content-none;
+  }
+  textarea {
+    @apply rounded-[4px];
+  }
+  button,
+  input {
+    @apply border border-solid border-[#c0c0c0] rounded-[4px] disabled:opacity-[0.3] disabled:pointer-events-none;
+  }
+  button::-moz-focus-inner,
+  input::-moz-focus-inner {
+    @apply border-0 p-0;
+  }
+  button:focus,
+  input:focus {
+    @apply outline-0;
+  }
+  input,
+  button,
+  select,
+  optgroup,
+  textarea {
+    font-family: inherit;
+    line-height: inherit;
+    @apply m-0;
+  }
+  b,
+  strong {
+    @apply font-bold;
+  }
+  img {
+    @apply max-w-[100%];
+  }
+  a {
+    @apply no-underline;
+  }
+  a:focus {
+    @apply outline-none;
+  }
+  a:hover {
+    @apply text-[#228822];
+  }
+
+  /*Note: Styles for react modal*/
+  .ReactModal__Body--open,
+  .ReactModal__Html--open {
+    overflow: hidden;
+  }
+  .ReactModal__Content:focus-visible {
+    border: none;
+    outline: none;
+  }
+
+  /*Note: Styles for editor Quill.js*/
+  .ql-align-right {
+    text-align: right;
+  }
+  .ql-align-justify {
+    text-align: justify;
+  }
+  .ql-align-center {
+    text-align: center;
+  }
+  .ql-snow .ql-picker.ql-size {
+    width: 60px;
+  }
+  .ql-picker-options {
+    max-height: 300px;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  .ql-picker-options::-webkit-scrollbar {
+    width: 6px
+  }
+  .ql-picker-options::-webkit-scrollbar-thumb:hover {
+    background: #555555
+  }
+  .ql-size-8 {
+    font-size: 8px;
+  }
+  .ql-size-9 {
+    font-size: 9px;
+  }
+  .ql-size-10 {
+    font-size: 10px;
+  }
+  .ql-size-11 {
+    font-size: 11px;
+  }
+  .ql-size-12 {
+    font-size: 12px;
+  }
+  .ql-size-13 {
+    font-size: 13px;
+  }
+  .ql-size-14 {
+    font-size: 14px;
+  }
+  .ql-size-15 {
+    font-size: 15px;
+  }
+  .ql-size-16 {
+    font-size: 16px;
+  }
+  .ql-size-18 {
+    font-size: 18px;
+  }
+  .ql-size-20 {
+    font-size: 20px;
+  }
+  .ql-size-22 {
+    font-size: 22px;
+  }
+  .ql-size-24 {
+    font-size: 24px;
+  }
+  .ql-size-26 {
+    font-size: 26px;
+  }
+  .ql-size-28 {
+    font-size: 28px;
+  }
+  .ql-size-30 {
+    font-size: 30px;
+  }
+  .ql-size-32 {
+    font-size: 32px;
+  }
+  .ql-size-34 {
+    font-size: 34px;
+  }
+  .ql-size-36 {
+    font-size: 36px;
+  }
+  .ql-size-38 {
+    font-size: 38px;
+  }
+  .ql-size-40 {
+    font-size: 40px;
+  }
+  .ql-size-42 {
+    font-size: 42px;
+  }
+  .ql-size-46 {
+    font-size: 46px;
+  }
+  .ql-size-50 {
+    font-size: 50px;
+  }
+  .ql-size-54 {
+    font-size: 54px;
+  }
+  .ql-size-68 {
+    font-size: 68px;
+  }
+}
