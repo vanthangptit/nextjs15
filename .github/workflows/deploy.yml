@@ -25,9 +25,7 @@ jobs:
 
       - name: Compress artifact (exclude node_modules, .git, .github)
         # Nén project sau khi build
-        run: |
-          rm -f app.zip
-          zip -r app.zip . -x "node_modules/*" ".git/*" ".github/*"
+        run: zip -r app.zip . -x "node_modules/*" ".git/*" ".github/*"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -61,7 +59,7 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            unzip -o /tmp/app.zip/app.zip -d /home/ec2-user/projects/dnApp
+            unzip -o /tmp/app.zip -d ${{ secrets.APP_DIR }}
             cd /home/ec2-user/projects/dnApp
             npm install --omit=dev
             pm2 reload ecosystem.config.js --only dnApp || pm2 start ecosystem.config.js
