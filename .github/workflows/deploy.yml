@@ -56,7 +56,7 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           source: "app.zip"
-          target: ${{ secrets.APP_DIR }}
+          target: "${{ secrets.APP_DIR }}/app.zip"
 
       - name: Deploy & start app on EC2
         uses: appleboy/ssh-action@v1.0.0
