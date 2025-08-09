@@ -31,7 +31,7 @@ jobs:
         run: npm prune --omit=dev
 
       - name: Compress artifact (exclude .git & .github)
-        run: zip -r app.zip . -x ".git/*" ".github/*"
+        run: zip -r app.zip . -x ".git/*" ".github/*" "node_modules/*"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -68,5 +68,6 @@ jobs:
             cd ${{ secrets.APP_DIR }}
             pm2 delete $PM2_APP_NAME || true
             unzip -o app.zip
+            npm install --omit=dev
             pm2 start ecosystem.config.js --name $PM2_APP_NAME
             rm -rf app.zip
