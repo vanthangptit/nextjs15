@@ -56,7 +56,7 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           source: "app.zip"
-          target: "${{ secrets.APP_DIR }}/app.zip"
+          target: "${{ secrets.APP_DIR }}/"
 
       - name: Deploy & start app on EC2
         uses: appleboy/ssh-action@v1.0.0
@@ -69,3 +69,4 @@ jobs:
             pm2 delete $PM2_APP_NAME || true
             unzip -o app.zip
             pm2 start ecosystem.config.js --name $PM2_APP_NAME
+            rm -rf app.zip
