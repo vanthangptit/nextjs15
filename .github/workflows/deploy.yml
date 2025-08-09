@@ -49,24 +49,8 @@ jobs:
           name: nextjs15-app
           path: .
 
-      - name: Clean old artifact folder on EC2
-        uses: appleboy/ssh-action@v1.0.0
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.EC2_SSH_KEY }}
-          script: |
-            rm -rf /tmp/deploy
-            mkdir -p /tmp/deploy
-
       - name: Upload artifact to EC2
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.EC2_SSH_KEY }}
-          source: "app.zip"
-          target: "/tmp/deploy/"
+        run: scp -i ${{ secrets.EC2_SSH_KEY }} app.zip ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:${{ secrets.APP_DIR }}
 
       - name: Deploy & start app on EC2
         uses: appleboy/ssh-action@v1.0.0
@@ -75,7 +59,7 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            unzip -o /tmp/deploy/app.zip -d ${{ secrets.APP_DIR }}
             cd ${{ secrets.APP_DIR }}
-            pm2 delete dnApp || true
-            pm2 start ecosystem.config.js
+            pm2 delete $PM2_APP_NAME || true
+            unzip -o app.zip
+            pm2 start ecosystem.config.js --name $PM2_APP_NAME

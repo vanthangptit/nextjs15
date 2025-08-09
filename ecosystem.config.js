@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: 'dnApp',
+      name: process.env.PM2_APP_NAME || 'dnApp',
       script: 'node_modules/next/dist/bin/next',
       watch: ['./src'],
       output: './logs/app.log',
