@@ -12,3 +12,4 @@ export * from './IFStyles';
 export * from './IFormForgotPassword';
 export * from './IFResetPassword';
 export * from './IFContactPortfolio';
+export * from './IFProtocol';

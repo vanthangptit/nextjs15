@@ -1,0 +1,1 @@
+export type IFProtocol = 'https' | 'http' | undefined;

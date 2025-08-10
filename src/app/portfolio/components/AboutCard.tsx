@@ -1,5 +1,4 @@
 import React from 'react';
-import Image from 'next/image';
 import LightWhite from '@/components/atoms/light-white/LightWhite';
 
 const AboutCard = ({
@@ -28,7 +27,7 @@ const AboutCard = ({
 
         <div className={'flex gap-[7px]'}>
           {data.icons.map((icon, index) => (
-            <Image
+            <img
               className={'flex object-contain object-center ' + (icon.styles || '')}
               key={index}
               src={icon.src}
