@@ -68,6 +68,7 @@ jobs:
             cd ${{ secrets.APP_DIR }}
             pm2 delete $PM2_APP_NAME || true
             unzip -o app.zip
+            rm -rf node_modules
             npm install --omit=dev
             pm2 start ecosystem.config.js --name $PM2_APP_NAME
             rm -rf app.zip
