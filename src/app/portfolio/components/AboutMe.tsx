@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import Image from 'next/image';
 import SectionTitle from '@/app/portfolio/components/SectionTitle';
 import Button from '@/components/atoms/Button';
 import { config } from '@/configs';
@@ -12,7 +11,7 @@ const AboutMe = () => {
   return (
     <Fragment>
       <article className={'flex gap-4 md:gap-8 justify-end flex-col md:flex-row items-center md:items-start'}>
-        <Image
+        <img
           className={'shadow-[0_0_50px_15px_rgba(255,255,255,0.2)] bg-gray-100 w-40 h-40 rounded-[100%]'}
           src="/portfolio/avatar/logo.png"
           alt="User avatar"
@@ -20,7 +19,7 @@ const AboutMe = () => {
           height={150}
         />
         <div className={'hidden md:block'}>
-          <Image
+          <img
             src="/portfolio/custom-arrow.svg"
             alt="bg_header.png"
             className={'object-contain object-center pt-[12px]'}
@@ -43,7 +42,7 @@ const AboutMe = () => {
         <Button typeHTML={'button'} type={'outlined'}>
           <a
             className={'normal-case flex gap-3 items-center opacity-70 text-[15px] font-thin w-[142px]'}
-            href={config.PUBLIC_AWS_S3_URL + 'pdf/cv_fullstack-developer_nguyen-van-thang.pdf'}
+            href={config.PUBLIC_AWS_S3_URL + '/pdf/cv_fullstack-developer_nguyen-van-thang.pdf'}
             target="_blank"
             download
             title="Download resume"
