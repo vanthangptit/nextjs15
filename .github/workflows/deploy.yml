@@ -68,16 +68,10 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
+            export PM2_ZIP_NAME=${{ secrets.PM2_ZIP_NAME }}
+            export PM2_APP_NAME=${{ secrets.PM2_APP_NAME }}
             cd ${{ secrets.APP_DIR }}
-
-            echo "Stopping old app if exists..."
             pm2 delete $PM2_APP_NAME || true
-      
-            echo "Unzipping new code..."
             unzip -o $PM2_ZIP_NAME
-
-            echo "Starting app..."
             pm2 start ecosystem.config.js
-
-            echo "Cleaning up..."
             rm -f $PM2_ZIP_NAME
