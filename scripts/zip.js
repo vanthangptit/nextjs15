@@ -29,6 +29,7 @@ async function zipNextjs() {
 
     archive.glob('**/*', {
       cwd: path.join(__dirname, '..'),
+      dot: true,
       ignore: [
         '.git/**',
         '.github/**',
