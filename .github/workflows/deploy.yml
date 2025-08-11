@@ -27,6 +27,10 @@ jobs:
       - name: Build project
         run: npm run build
 
+      # Debugs PM2_ZIP_NAME
+      - name: Debug env vars
+        run: echo "PM2_ZIP_NAME=$PM2_ZIP_NAME"
+
       - name: Remove devDependencies
         run: npm prune --omit=dev
 
