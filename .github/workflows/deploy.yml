@@ -24,6 +24,11 @@ jobs:
         run: |
           echo "${{ secrets.ENV_PRODUCTION }}" > .env
 
+      - name: Check .env file content
+        run: |
+          ls -la
+          cat .env
+
       - name: Build project
         run: npm run build
 
