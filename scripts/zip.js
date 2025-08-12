@@ -10,11 +10,9 @@ const __dirname = path.dirname(__filename);
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 async function zipNextjs() {
-  // eslint-disable-next-line no-console
-  console.log(`ZIP named: ${process.env.PM2_ZIP_NAME}`);
   const outputPath = path.join(__dirname, '../' + process.env.PM2_ZIP_NAME);
   const output = fs.createWriteStream(outputPath);
-  const archive = archiver('zip', { zlib: { level: 5 } });
+  const archive = archiver('zip', { zlib: { level: 9 } });
 
   return new Promise((resolve, reject) => {
     output.on('close', () => {
@@ -27,24 +25,11 @@ async function zipNextjs() {
 
     archive.pipe(output);
 
-    archive.glob('**/*', {
-      cwd: path.join(__dirname, '..'),
-      dot: true,
-      ignore: [
-        '.git/**',
-        '.github/**',
-        'node_modules/.cache/**',
-        'scripts/**',
-        'public/deploy/**',
-        'nextjs.zip',
-        'logs/**',
-        'tmp/**',
-        '*.log',
-        'tests/**',
-        'docs/**',
-        '*.md'
-      ]
-    });
+    archive.directory(path.join(__dirname, '../.next/standalone'), '.', undefined);
+    archive.directory(path.join(__dirname, '../.next/static'), '.next/static', undefined);
+    archive.directory(path.join(__dirname, '../public'), 'public', undefined);
+    archive.file(path.join(__dirname, '../.env'), { name: '.env' });
+    archive.file(path.join(__dirname, '../ecosystem.config.js'), { name: 'ecosystem.config.js' });
 
     archive.finalize();
   });
