@@ -1,3 +1,5 @@
+#!/bin/bash
+
 name: Build & Deploy Next.js 15 to AWS EC2
 
 on:
@@ -72,7 +74,8 @@ jobs:
             export PM2_APP_NAME=${{ secrets.PM2_APP_NAME }}
             cd ${{ secrets.APP_DIR }}
             pm2 delete $PM2_APP_NAME || true
-            rm -rf !($PM2_ZIP_NAME)
+            shopt -s extglob
+            rm -rf !("$PM2_ZIP_NAME")
             unzip -o $PM2_ZIP_NAME
             pm2 start ecosystem.config.js
             rm -f $PM2_ZIP_NAME
