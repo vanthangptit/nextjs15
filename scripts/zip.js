@@ -9,6 +9,12 @@ const __dirname = path.dirname(__filename);
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
+const serverJsPath = path.join(__dirname, '../.next/standalone/server.js');
+if (!fs.existsSync(serverJsPath)) {
+  console.error('❌ Missing .next/standalone/server.js — Did you set output: "standalone" in next.config.js?');
+  process.exit(1);
+}
+
 async function zipNextjs() {
   const outputPath = path.join(__dirname, '../' + process.env.PM2_ZIP_NAME);
   const output = fs.createWriteStream(outputPath);
@@ -25,7 +31,7 @@ async function zipNextjs() {
 
     archive.pipe(output);
 
-    archive.directory(path.join(__dirname, '../.next/standalone'), '.', undefined);
+    archive.directory(path.join(__dirname, '../.next/standalone'), '.next/standalone', undefined);
     archive.directory(path.join(__dirname, '../.next/static'), '.next/static', undefined);
     archive.directory(path.join(__dirname, '../public'), 'public', undefined);
     archive.file(path.join(__dirname, '../.env'), { name: '.env' });
