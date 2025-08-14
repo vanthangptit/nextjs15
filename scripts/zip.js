@@ -31,6 +31,7 @@ async function zipNextjs() {
       ignore: [
         '.git/**',
         '.github/**',
+        '.next/cache/**',
         'node_modules/.cache/**',
         'scripts/**',
         'public/deploy/**',
