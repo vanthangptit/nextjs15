@@ -75,7 +75,7 @@ jobs:
             cd ${{ secrets.APP_DIR }}
             pm2 delete $PM2_APP_NAME || true
             shopt -s extglob
-            rm -rf !("$PM2_ZIP_NAME")
+            rm -rf !("$PM2_ZIP_NAME") || true
             unzip -o $PM2_ZIP_NAME
             pm2 start ecosystem.config.js
             rm -f $PM2_ZIP_NAME
