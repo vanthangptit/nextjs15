@@ -32,6 +32,9 @@ jobs:
       - name: Remove devDependencies
         run: npm prune --omit=dev
 
+      - name: Remove Next.js build cache
+        run: rm -rf .next/cache
+
       - name: Create ZIP package
         run: npm run zip
         timeout-minutes: 15
