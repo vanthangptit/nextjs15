@@ -27,7 +27,7 @@ const AboutMe = () => {
             height={60}
           />
         </div>
-        <strong className={'text-[#CDE4FE] opacity-90 font-thin text-[17px] leading-[1.3]'}>
+        <strong className={'text-[#3a3a3a] dark:text-[#CDE4FE] opacity-90 font-thin text-[17px] leading-[1.3]'}>
           6 years of <br/>experiences
         </strong>
       </article>
@@ -41,7 +41,7 @@ const AboutMe = () => {
       <article className={'text-center flex flex-wrap gap-[20px] items-center justify-center'}>
         <Button typeHTML={'button'} type={'outlined'}>
           <a
-            className={'normal-case flex gap-3 items-center opacity-70 text-[15px] font-thin w-[142px]'}
+            className={'normal-case flex gap-3 items-center opacity-100 dark:opacity-70 text-[15px] font-thin w-[142px]'}
             href={config.PUBLIC_AWS_S3_URL + '/pdf/cv_fullstack-developer_nguyen-van-thang.pdf'}
             target="_blank"
             download
@@ -53,7 +53,7 @@ const AboutMe = () => {
         </Button>
         <Button typeHTML={'button'} type={'contained'}>
           <a
-            className={'normal-case flex gap-3 items-center opacity-70 w-[142px] justify-center'}
+            className={'normal-case flex gap-3 items-center opacity-90 dark:opacity-70 w-[142px] justify-center'}
             href={'https://github.com/vanthangptit/nextjs15'}
             target="_blank"
             title="Source code"

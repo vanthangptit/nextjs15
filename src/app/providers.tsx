@@ -12,7 +12,7 @@ const Providers = ({
   isAuthenticated: boolean
 }) => {
   return (
-    <ThemeProvider attribute="class">
+    <ThemeProvider attribute="class" defaultTheme="dark">
       <AuthProvider isAuthenticated={isAuthenticated}>
         {children}
       </AuthProvider>

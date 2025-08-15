@@ -100,11 +100,11 @@ const InfiniteSlider = () => {
           <div key={item.label} className="px-7 py-4 rounded shadow">
             <figure className={'flex gap-2 flex-col items-center'}>
               <img
-                className={(item.isCircle ? 'rounded-[100%] w-[30px] ': '') + 'h-[30px] object-contain filter grayscale-100'}
+                className={(item.isCircle ? 'rounded-[100%] w-[30px] ': '') + 'h-[30px] object-contain dark:filter dark:grayscale-100'}
                 src={`${config.PUBLIC_AWS_S3_URL}/${item.image}`}
                 alt={item.alt}
               />
-              <figcaption className={'opacity-50 font-thin'}>{item.label}</figcaption>
+              <figcaption className={'opacity-100 dark:opacity-50 font-thin'}>{item.label}</figcaption>
             </figure>
           </div>
         ))}

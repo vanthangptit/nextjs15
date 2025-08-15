@@ -15,6 +15,7 @@ import WorkExperience from '@/app/portfolio/components/Experience';
 import FormContact from '@/app/portfolio/components/FormContact';
 import BackgroundImage from '@/app/portfolio/components/BackgroundImage';
 import Footer from '@/app/portfolio/components/Footer';
+import ButtonSetting from '@/app/portfolio/components/ButtonSetting';
 
 type SectionKey = 'about' | 'experience' | 'contact';
 
@@ -135,6 +136,10 @@ const Content = () => {
 
       <DividerBottom/>
       <div className={'pb-[50px]'}/>
+
+      <div className={'fixed right-[30px] top-1/2 -translate-y-1/2'}>
+        <ButtonSetting />
+      </div>
     </main>
   );
 };

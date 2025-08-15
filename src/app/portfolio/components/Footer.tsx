@@ -9,12 +9,12 @@ import DividerBottom from '@/components/atoms/dividers/DividerBottom';
 
 const Footer = () => {
   return (
-    <footer role={'footer'}>
+    <footer role={'footer'} className={'relative z-[1]'}>
       <div>
         <div className={'text-center'}>
           <a href={`#${SectionId.IgnoredHome}`} className={'inline-flex relative group'}>
             <Image
-              className={'rounded-[50%] border-[3px] border-[#ccc]'}
+              className={'rounded-[50%] border-[3px] dark:border-[#ccc] border-[#b5b5b5]'}
               src="/portfolio/avatar/logo.png"
               alt="User avatar"
               width={100}
@@ -34,12 +34,13 @@ const Footer = () => {
             </span>
           </a>
           <div className={'my-[15px] text-center text-fill-transparent bg-clip-text ' +
-            'bg-[linear-gradient(0deg,rgb(167,164,164)0%,rgb(242,242,242)100%)] mb-7 leading-[1.3]'
+            'bg-[linear-gradient(0deg,rgb(0,0,0)0%,rgb(242,242,242)100%)] mb-7 ' +
+            'dark:bg-[linear-gradient(0deg,rgb(167,164,164)0%,rgb(242,242,242)100%)] mb-7 leading-[1.3]'
           }>
             <h3 className={'text-size-22 sm:text-size-24 lg:text-size-28 mb-1'}>
                Thang Nguyen
             </h3>
-            <p className={''}>Front-end & Back-end developer</p>
+            <p>Front-end & Back-end developer</p>
           </div>
           <div className={'my-3 text-left'}>
             <Row>

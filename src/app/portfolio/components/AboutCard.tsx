@@ -15,15 +15,15 @@ const AboutCard = ({
 }) => {
   return (
     <div className={
-      'rounded-[15px] border-[1px] border-solid border-[#202227] bg-[rgba(0,0,0,0)] ' +
-      'bg-[linear-gradient(rgb(19,21,25)0%,rgba(19,21,25,0.3)100%)] bg-repeat bg-auto bg-clip-border ' +
+      'rounded-[15px] border-[1px] border-solid border-[#202227] bg-[rgba(255,255,255,255)] dark:bg-[rgba(0,0,0,0)] ' +
+      'dark:bg-[linear-gradient(rgb(19,21,25)0%,rgba(19,21,25,0.3)100%)] bg-repeat bg-auto bg-clip-border ' +
       'relative overflow-hidden'
     }>
       <div className={'p-[20px] sm:p-[35px] relative z-[1]'}>
-        <h3 className={'text-[#E7E7E7] text-[20px] sm:text-[24px] leading-[1.3] mb-4'}>
+        <h3 className={'text-[#4f4f4f] dark:text-[#E7E7E7] text-[20px] sm:text-[24px] leading-[1.3] mb-4'}>
           {data.title}
         </h3>
-        <p className={'opacity-70 text-[15px] leading-[1.3] mb-8 font-thin'}>{data.description}</p>
+        <p className={'opacity-90 dark:opacity-70 text-[15px] leading-[1.3] mb-8 font-thin'}>{data.description}</p>
 
         <div className={'flex gap-[7px]'}>
           {data.icons.map((icon, index) => (

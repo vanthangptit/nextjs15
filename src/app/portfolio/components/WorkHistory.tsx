@@ -130,7 +130,7 @@ const WorkHistory = () => {
           <h3 className={'text-size-22 mb-[2px]'}>
             {props.jobTitle}
           </h3>
-          <div className={'flex flex-nowrap opacity-80 gap-[40px] justify-between'}>
+          <div className={'flex flex-nowrap opacity-90 dark:opacity-80 gap-[40px] justify-between'}>
             <div className={'flex flex-nowrap items-center text-size-12 gap-[4px]'}>
               <span className={'pt-[1px]'}>
                 <VscBriefcase className={'text-size-14'}/>
