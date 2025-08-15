@@ -7,7 +7,7 @@ import SectionBox from '@/app/portfolio/components/SectionBox';
 const Introduction = () => {
   return (
     <SectionBox>
-      <p className={'text-[#E7E7E7] font-semibold'}>🖐️ Hello I am,</p>
+      <p className={'text-[#3a3a3a] dark:text-[#E7E7E7] font-semibold'}>🖐️ Hello I am,</p>
       <SectionTitle
         titleStyles={'text-left'}
         descriptionStyles={'text-left'}

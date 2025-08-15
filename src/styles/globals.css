@@ -49,12 +49,27 @@
   --text-size-68: 68px;
 
   --animate-nav-scroll: headerScroll 0.4s ease-out;
+  --animate-spin-slow: spin 5s linear infinite;
+  --animate-spin-fast: spin 0.5s linear infinite;
+  --animate-spin-reverse-slow: spinReverse 5s linear infinite;
+  --animate-spin-reverse-fast: spinReverse 0.5s linear infinite;
+
   @keyframes headerScroll {
     from {
       transform: translateY(-150%);
     }
     to {
       transform: translateY(0);
+    }
+  }
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes spinReverse {
+    to {
+      transform: rotate(-360deg);
     }
   }
 }
@@ -128,6 +143,12 @@
   }
   html.dark::-webkit-scrollbar-thumb:hover {
     @apply bg-white;
+  }
+  html.light {
+    background-color: #f1f1f1;
+  }
+  html.dark {
+    background-color: #000000;
   }
   body {
     @apply font-normal leading-normal text-left;
